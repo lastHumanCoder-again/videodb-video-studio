@@ -1,6 +1,8 @@
 # videodb-video-studio
 
-Six production-tested video pipelines, one install. Built on [HyperFrames](https://www.npmjs.com/package/hyperframes) (HTML + GSAP → rendered MP4), branded for VideoDB out of the box, re-brandable with one JSON file.
+**▶ [Live showcase — see every pipeline's output and how to use it](https://lasthumancoder-again.github.io/videodb-video-studio/)**
+
+Seven production-tested video pipelines, one install. Built on [HyperFrames](https://www.npmjs.com/package/hyperframes) (HTML + GSAP → rendered MP4), branded for VideoDB out of the box, re-brandable with one JSON file.
 
 | Pipeline | What you get | Canvas | Length |
 |---|---|---|---|
@@ -28,6 +30,8 @@ Every video below is a template's worked example rendered exactly as it ships (d
 | **demo-recording** · 2min product launch video | **youtube-longform** · 4min narrated video essay | **deck** · 10-slide PDF with hand-drawn art |
 
 All six are also on the [v1.0 release page](https://github.com/lastHumanCoder-again/videodb-video-studio/releases/tag/v1.0). To rebrand them, pass your own `brand.json` — every accent, glow, and highlight follows it.
+
+**Replicate demo:** [demo-replicate.mp4](https://github.com/lastHumanCoder-again/videodb-video-studio/releases/download/v1.0/demo-replicate.mp4) — a 14s monochrome editorial reference short, analyzed with `analyze_reference.py` (ffmpeg + VideoDB vision layer), compiled to [REPLICATION.md](docs/examples/read-the-game/REPLICATION.md), assets sourced rights-clean via TinyFish→Wikimedia Commons, and rebuilt as a VideoDB story ("not only the pixels — *moments*"). Same structure, same staging, new message.
 
 ## Install
 
