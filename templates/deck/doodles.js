@@ -308,6 +308,118 @@
       H.text(svg, cx, cy + r + 34, 'the soul engine', { fill: n, size: 22, anchor: 'middle' });
     },
 
+    // chess-lens: 8x8 hand-drawn board, piece glyphs, one piece ringed w/ arrow one square over
+    board(rc, svg, W, Hh, theme) {
+      const n = neutral(theme), k = ink(theme);
+      const B = Math.min(W, Hh) - 46;               // room for file/rank labels
+      const x0 = (W - B) / 2 + 8, y0 = 6, c = B / 8;
+      svg.appendChild(H.rect(rc, x0, y0, B, B, { stroke: k, strokeWidth: 2.6 }));
+      for (let i = 1; i < 8; i++) {
+        svg.appendChild(H.line(rc, x0 + i * c, y0, x0 + i * c, y0 + B, { stroke: n, strokeWidth: 1.2, roughness: 1.7 }));
+        svg.appendChild(H.line(rc, x0, y0 + i * c, x0 + B, y0 + i * c, { stroke: n, strokeWidth: 1.2, roughness: 1.7 }));
+      }
+      // file / rank labels
+      'abcdefgh'.split('').forEach((f, i) =>
+        H.text(svg, x0 + i * c + c / 2, y0 + B + 19, f, { fill: n, font: "'Space Mono',monospace", size: 12, weight: 400, anchor: 'middle' }));
+      for (let i = 0; i < 8; i++)
+        H.text(svg, x0 - 11, y0 + i * c + c / 2 + 4, String(8 - i), { fill: n, font: "'Space Mono',monospace", size: 12, weight: 400, anchor: 'end' });
+      // piece glyphs: a few circles + crosses
+      [[1, 1], [4, 2], [6, 5], [2, 6], [5, 7]].forEach(([cc, rr]) =>
+        svg.appendChild(H.ell(rc, x0 + cc * c + c / 2, y0 + rr * c + c / 2, c * 0.5, c * 0.5, { stroke: k, strokeWidth: 2 })));
+      [[6, 1], [1, 4], [3, 6]].forEach(([cc, rr]) => {
+        const px = x0 + cc * c + c / 2, py = y0 + rr * c + c / 2, r = c * 0.2;
+        svg.appendChild(H.line(rc, px - r, py - r, px + r, py + r, { stroke: k, strokeWidth: 2 }));
+        svg.appendChild(H.line(rc, px + r, py - r, px - r, py + r, { stroke: k, strokeWidth: 2 }));
+      });
+      // the misplaced piece: solid dot + hand-drawn ring + arrow one square over
+      const tx = x0 + 3 * c + c / 2, ty = y0 + 3 * c + c / 2;
+      svg.appendChild(H.ell(rc, tx, ty, c * 0.5, c * 0.5, { stroke: ORANGE, fill: ORANGE, fillStyle: 'solid', strokeWidth: 1.6 }));
+      svg.appendChild(H.ell(rc, tx, ty, c * 1.02, c * 1.02, { stroke: ORANGE, strokeWidth: 2.4, roughness: 2 }));
+      svg.appendChild(H.arrow(rc, tx + c * 0.6, ty - c * 0.66, tx + c, ty - c * 0.28, { stroke: ORANGE, strokeWidth: 2.2, curve: 0.3, head: 11 }));
+      H.text(svg, tx + c * 1.35, ty - c * 0.95, 'off by one', { fill: ORANGE, size: 20 });
+    },
+
+    // chess-lens: one rank of 8 squares — piece in square 3, dashed ghost in square 4
+    shifted(rc, svg, W, Hh, theme) {
+      const n = neutral(theme), k = ink(theme);
+      const c = Math.min(W / 8.6, Hh - 96);
+      const x0 = (W - c * 8) / 2, y0 = (Hh - c) / 2 + 8;
+      for (let i = 0; i < 8; i++)
+        svg.appendChild(H.rect(rc, x0 + i * c, y0, c, c,
+          { stroke: (i === 2 || i === 3) ? k : n, strokeWidth: (i === 2 || i === 3) ? 2.4 : 1.5 }));
+      'abcdefgh'.split('').forEach((f, i) =>
+        H.text(svg, x0 + i * c + c / 2, y0 + c + 20, f, { fill: n, font: "'Space Mono',monospace", size: 12, weight: 400, anchor: 'middle' }));
+      const p1x = x0 + 2 * c + c / 2, p2x = x0 + 3 * c + c / 2, py = y0 + c / 2;
+      // the real piece
+      svg.appendChild(H.ell(rc, p1x, py, c * 0.52, c * 0.52, { stroke: k, strokeWidth: 2.6 }));
+      svg.appendChild(H.ell(rc, p1x, py, c * 0.18, c * 0.18, { stroke: k, fill: k, fillStyle: 'solid', strokeWidth: 1 }));
+      // the ghost copy, one file over
+      svg.appendChild(H.ell(rc, p2x, py, c * 0.52, c * 0.52, { stroke: ORANGE, strokeWidth: 2.2, strokeLineDash: [7, 6] }));
+      // sketchy arrow between them
+      svg.appendChild(H.arrow(rc, p1x + c * 0.2, y0 - 16, p2x - c * 0.05, y0 - 8, { stroke: ORANGE, strokeWidth: 2.2, curve: -0.5, head: 11 }));
+      H.text(svg, (p1x + p2x) / 2, y0 - 38, 'one file over', { fill: ORANGE, size: 22, anchor: 'middle' });
+      H.text(svg, p1x + c * 0.1, y0 + c + 46, 'the board', { fill: n, size: 20, anchor: 'end' });
+      H.text(svg, p2x - c * 0.1, y0 + c + 46, 'the model', { fill: ORANGE, size: 20, anchor: 'start' });
+    },
+
+    // chess-lens: two robots head-to-head, each at multiple thinking budgets
+    contenders(rc, svg, W, Hh, theme) {
+      const n = neutral(theme), k = ink(theme);
+      const rw = 120, rh = 108, y = 34;
+      const x1 = W * 0.18 - rw / 2, x2 = W * 0.82 - rw / 2;
+      H.robot(rc, svg, x1, y, rw, rh, { theme });
+      H.robot(rc, svg, x2, y, rw, rh, { theme });
+      H.text(svg, x1 + rw / 2, y + rh + 32, 'GPT-5.4', { fill: k, font: "'Space Mono',monospace", size: 16, weight: 700, anchor: 'middle' });
+      H.text(svg, x2 + rw / 2, y + rh + 32, 'CLAUDE OPUS 4.7', { fill: k, font: "'Space Mono',monospace", size: 16, weight: 700, anchor: 'middle' });
+      H.text(svg, W / 2, y + rh / 2 + 12, 'vs', { fill: ORANGE, size: 46, anchor: 'middle' });
+      // bracket underneath: both swept across thinking budgets
+      const by = y + rh + 52;
+      svg.appendChild(H.path(rc, `M${x1},${by} L${x1},${by + 13} L${x2 + rw},${by + 13} L${x2 + rw},${by}`, { stroke: n, strokeWidth: 1.7 }));
+      H.text(svg, W / 2, by + 42, 'MIN → MAX THINKING', { fill: n, font: "'Space Mono',monospace", size: 14, weight: 700, anchor: 'middle', spacing: '.2em' });
+      H.text(svg, W / 2, by + 70, 'each swept across thinking budgets', { fill: n, size: 21, anchor: 'middle' });
+    },
+
+    // chess-lens: photo of a board -> arrow -> exact FEN box
+    photo2fen(rc, svg, W, Hh, theme) {
+      const n = neutral(theme), k = ink(theme);
+      const bx = 4, by = 24, bs = 150, cc = bs / 4;
+      svg.appendChild(H.rect(rc, bx, by, bs, bs, { stroke: k, strokeWidth: 2.4 }));
+      for (let i = 1; i < 4; i++) {
+        svg.appendChild(H.line(rc, bx + i * cc, by, bx + i * cc, by + bs, { stroke: n, strokeWidth: 1.2 }));
+        svg.appendChild(H.line(rc, bx, by + i * cc, bx + bs, by + i * cc, { stroke: n, strokeWidth: 1.2 }));
+      }
+      [[0, 1], [2, 2], [3, 0], [1, 3]].forEach(([ccx, rr]) =>
+        svg.appendChild(H.ell(rc, bx + ccx * cc + cc / 2, by + rr * cc + cc / 2, cc * 0.5, cc * 0.5, { stroke: k, strokeWidth: 2 })));
+      H.text(svg, bx + bs / 2, by + bs + 28, 'one photo', { fill: n, size: 21, anchor: 'middle' });
+      svg.appendChild(H.arrow(rc, bx + bs + 16, by + bs / 2, bx + bs + 92, by + bs / 2, { stroke: ORANGE, strokeWidth: 2.4, curve: 0.12 }));
+      H.labelBox(rc, svg, bx + bs + 106, by + bs / 2 - 26, 150, 52, 'EXACT FEN', { stroke: k, color: k, size: 16 });
+      H.text(svg, bx + bs + 181, by + bs / 2 + 56, 'every square, exactly', { fill: ORANGE, size: 21, anchor: 'middle' });
+    },
+
+    // chess-lens: two ways of seeing — row-by-row scan vs one holistic ring
+    seeing(rc, svg, W, Hh, theme) {
+      const n = neutral(theme), k = ink(theme);
+      const bs = Math.min(Hh - 96, W / 2 - 70), cell = bs / 4, gy = 40;
+      const gx1 = W * 0.25 - bs / 2, gx2 = W * 0.75 - bs / 2;
+      H.text(svg, gx1 + bs / 2, 16, 'GPT-5.4', { fill: k, font: "'Space Mono',monospace", size: 14, weight: 700, anchor: 'middle' });
+      H.text(svg, gx2 + bs / 2, 16, 'CLAUDE OPUS 4.7', { fill: k, font: "'Space Mono',monospace", size: 14, weight: 700, anchor: 'middle' });
+      [gx1, gx2].forEach((gx) => {
+        svg.appendChild(H.rect(rc, gx, gy, bs, bs, { stroke: k, strokeWidth: 2.2 }));
+        for (let i = 1; i < 4; i++) {
+          svg.appendChild(H.line(rc, gx + i * cell, gy, gx + i * cell, gy + bs, { stroke: n, strokeWidth: 1.1 }));
+          svg.appendChild(H.line(rc, gx, gy + i * cell, gx + bs, gy + i * cell, { stroke: n, strokeWidth: 1.1 }));
+        }
+      });
+      // left: procedural row-by-row scan arrows
+      for (let r = 0; r < 4; r++)
+        svg.appendChild(H.arrow(rc, gx1 + 8, gy + r * cell + cell / 2, gx1 + bs - 10, gy + r * cell + cell / 2,
+          { stroke: ORANGE, strokeWidth: 1.7, curve: 0, head: 9 }));
+      // right: one big holistic ring
+      svg.appendChild(H.ell(rc, gx2 + bs / 2, gy + bs / 2, bs * 1.2, bs * 1.08, { stroke: ORANGE, strokeWidth: 2.4, roughness: 1.9 }));
+      H.text(svg, gx1 + bs / 2, gy + bs + 32, 'row by row', { fill: n, size: 21, anchor: 'middle' });
+      H.text(svg, gx2 + bs / 2, gy + bs + 32, 'the whole position', { fill: n, size: 21, anchor: 'middle' });
+    },
+
   };
 
   // gear helper used by several slides

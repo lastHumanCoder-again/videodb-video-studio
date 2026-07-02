@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>VideoDB — The Soul Engine</title>
+<title>VideoDB Labs — Chess Lens</title>
 <link rel="stylesheet" href="deck.css">
 </head>
 <body>
@@ -10,145 +10,153 @@
 <!-- ============ 01 · TITLE ============ -->
 <section class="slide dark framed">
   <div class="grid"></div><div class="frame"></div>
-  <div class="eyebrow">VIDEODB <span class="sep">·</span> AGENTIC DIRECTOR <span class="sep">//</span> <span class="accent">THE VISION</span></div>
+  <div class="eyebrow">VIDEODB LABS <span class="sep">·</span> FIELD NOTE <span class="sep">//</span> <span class="accent">CHESS LENS</span></div>
   <div class="logo pill"><img src="assets/videodb-logo.png" alt="VideoDB"></div>
   <span class="spark" style="left:150px;top:200px;color:var(--orange);font-size:30px">✳</span>
   <span class="spark" style="right:150px;top:200px;color:#fff;font-size:30px">✳</span>
   <span class="spark" style="left:150px;bottom:150px;color:#fff;font-size:26px">✳</span>
   <span class="spark" style="right:150px;bottom:150px;color:var(--orange);font-size:30px">✳</span>
-  <div style="position:absolute;left:0;right:0;top:150px;display:flex;flex-direction:column;align-items:center;gap:10px">
-    <img class="herologo" src="assets/videodb-logo.png" alt="VideoDB">
-    <div class="headline hero" style="font-size:96px">GIVE IT A <span class="o">SOUL.</span></div>
+  <div style="position:absolute;left:0;right:0;top:118px;display:flex;flex-direction:column;align-items:center;gap:10px">
+    <div class="headline hero" style="font-size:82px">IT KNOWS CHESS.<br>IT CAN'T <span class="o">SAY WHERE.</span></div>
+    <div class="hand" style="font-size:26px">a field note on what vision-language models can — and can't — pin down</div>
   </div>
-  <div class="art" data-art="reticle" data-w="240" data-h="170" style="left:50%;transform:translateX(-50%);top:452px;width:240px;height:170px"></div>
-  <div class="quote"><span style="font-family:Caveat;font-size:21px">"Simple things should be simple, <b>complex things should be possible.</b>"</span> <span class="by">— Alan Kay</span></div>
+  <div class="art" data-art="board" data-w="300" data-h="264" style="left:50%;transform:translateX(-50%);top:372px;width:300px;height:264px"></div>
+  <div class="quote">"Chess is the struggle <b>against error.</b>" <span class="by">— Johannes Zukertort</span></div>
 </section>
 
-<!-- ============ 02 · PROBLEM ============ -->
+<!-- ============ 02 · THE QUESTION ============ -->
 <section class="slide light">
   <div class="grid"></div><div class="frame"></div>
-  <div class="eyebrow">01 <span class="sep">·</span> THE PROBLEM</div>
+  <div class="eyebrow">01 <span class="sep">·</span> THE QUESTION</div>
   <div class="logo pill"><img src="assets/videodb-logo.png" alt="VideoDB"></div>
   <div class="pad">
-    <div class="headline" style="font-size:60px">Every session<br>forgets <span class="o">who you are.</span></div>
-    <div class="hand" style="font-size:30px;margin-top:120px;max-width:440px">You re-explain your intro, subtitles,<br>logo &amp; music — every single time.</div>
+    <div class="headline" style="font-size:60px">Photo in.<br><span class="o">Exact FEN out?</span></div>
+    <div class="hand" style="font-size:30px;margin-top:110px;max-width:480px">Can a frontier VLM read a chessboard<br>photo into exact coordinates?</div>
+    <div class="crumbs" style="margin-top:26px;line-height:2.1">72 REAL POSITIONS<br>EXACT MATCH ONLY<br>ONE WRONG SQUARE <span style="color:var(--orange)">=</span> WHOLE BOARD WRONG</div>
   </div>
-  <div class="art" data-art="problem" data-w="520" data-h="320" style="right:70px;top:300px;width:520px;height:320px"></div>
-  <div class="quote">"Computers are useless. They can only <b>give you answers.</b>" <span class="by">— Pablo Picasso</span></div>
+  <div class="art" data-art="photo2fen" data-w="440" data-h="250" style="right:80px;top:290px;width:440px;height:250px"></div>
+  <div class="quote">"In God we trust. <b>All others must bring data.</b>" <span class="by">— W. Edwards Deming</span></div>
 </section>
 
-<!-- ============ 03 · INSIGHT ============ -->
+<!-- ============ 03 · THE CONTENDERS ============ -->
 <section class="slide dark">
   <div class="grid"></div><div class="frame"></div>
-  <div class="eyebrow">02 <span class="sep">·</span> THE INSIGHT</div>
+  <div class="eyebrow">02 <span class="sep">·</span> THE CONTENDERS</div>
   <div class="logo"><img src="assets/videodb-logo.png" alt="VideoDB"></div>
   <div class="pad">
-    <div class="headline" style="font-size:60px">Your taste is<br>already <span class="o">in the work.</span></div>
-    <div class="hand" style="font-size:30px;margin-top:120px;max-width:430px">Chat, search, prompts, settings —<br>capture the signal you keep giving.</div>
-    <div class="crumbs" style="margin-top:26px">CHAT <span style="color:var(--orange)">//</span> SEARCH <span style="color:var(--orange)">//</span> GENERATE <span style="color:var(--orange)">//</span> SETTINGS</div>
+    <div class="headline" style="font-size:58px">Two frontier eyes.<br>Same <span class="o">72 boards.</span></div>
+    <div class="hand" style="font-size:30px;margin-top:120px;max-width:460px">GPT-5.4 vs Claude Opus 4.7 —<br>same photos, same exact-match bar.</div>
   </div>
-  <div class="art" data-art="insight" data-w="480" data-h="320" style="right:90px;top:250px;width:480px;height:320px"></div>
-  <div class="quote">"Data is a precious thing — it lasts <b>longer than the systems.</b>" <span class="by">— Tim Berners-Lee</span></div>
+  <div class="art" data-art="contenders" data-w="500" data-h="320" style="right:70px;top:240px;width:500px;height:320px"></div>
+  <div class="quote">"Chess is <b>99 percent tactics.</b>" <span class="by">— Richard Teichmann</span></div>
 </section>
 
-<!-- ============ 04 · CAPTURE / SOUL.MD ============ -->
+<!-- ============ 04 · THE HEADLINE RESULT ============ -->
 <section class="slide light">
   <div class="grid"></div><div class="frame"></div>
-  <div class="eyebrow">03 <span class="sep">·</span> CAPTURE <span class="sep">//</span> <span class="accent">SOUL.MD</span></div>
+  <div class="eyebrow">03 <span class="sep">·</span> THE HEADLINE RESULT</div>
+  <div class="logo pill"><img src="assets/videodb-logo.png" alt="VideoDB"></div>
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding-top:14px">
+    <div class="bignum" style="font-size:196px;color:var(--orange)">100%</div>
+    <div class="crumbs" style="font-size:17px">GPT-5.4 <span style="color:var(--orange)">·</span> 72/72 BOARDS, EXACT</div>
+    <div class="hand" style="font-size:30px">Claude Opus 4.7's best run: <span class="num">84.72%</span></div>
+  </div>
+  <div class="quote">"The winner of the game is the player who makes the <b>next-to-last mistake.</b>" <span class="by">— Savielly Tartakower</span></div>
+</section>
+
+<!-- ============ 05 · THE TWIST ============ -->
+<section class="slide dark">
+  <div class="grid"></div><div class="frame"></div>
+  <div class="eyebrow">04 <span class="sep">·</span> THE TWIST</div>
+  <div class="logo"><img src="assets/videodb-logo.png" alt="VideoDB"></div>
+  <div class="pad">
+    <div class="headline" style="font-size:60px">More thinking<br>made it <span class="o">worse.</span></div>
+    <div class="hand" style="font-size:30px;margin-top:110px;max-width:460px">The model spent its tokens explaining —<br>and got cut off before it answered.</div>
+    <div class="crumbs" style="margin-top:26px">69–70 PARSE ERRORS <span style="color:var(--orange)">=</span> TRUNCATION, NOT BLINDNESS</div>
+  </div>
+  <div style="position:absolute;right:100px;top:230px;text-align:center">
+    <div class="bignum" style="font-size:130px;color:var(--orange)">2.78%</div>
+    <div class="crumbs" style="margin-top:16px">2/72 <span style="color:var(--orange)">·</span> MAX THINKING</div>
+  </div>
+  <div class="quote">"When you see a good move, <b>look for a better one.</b>" <span class="by">— Emanuel Lasker</span></div>
+</section>
+
+<!-- ============ 06 · THE FIX ============ -->
+<section class="slide light">
+  <div class="grid"></div><div class="frame"></div>
+  <div class="eyebrow">05 <span class="sep">·</span> THE FIX</div>
   <div class="logo pill"><img src="assets/videodb-logo.png" alt="VideoDB"></div>
   <div class="pad">
-    <div class="headline" style="font-size:58px">One taste, captured —<br><span class="o">and auto-named.</span></div>
-    <div class="hand" style="font-size:30px;margin-top:120px;max-width:470px">An editable <b>soul.md</b>: intro, subtitles,<br>logo, music, pacing. We name it for you.</div>
-    <div style="margin-top:26px;display:flex;gap:12px;align-items:center">
-      <span class="chip solid">Punchy Reels</span><span class="chip ghost">Calm Explainer</span>
+    <div class="headline" style="font-size:56px">It wasn't the brain.<br>It was the <span class="o">room<br>to answer.</span></div>
+    <div class="hand" style="font-size:30px;margin-top:90px;max-width:440px">Same model, same eyes — just four<br>times the space to write it down.</div>
+  </div>
+  <div style="position:absolute;right:80px;top:250px;display:flex;flex-direction:column;gap:30px;align-items:flex-start">
+    <span class="chip ghost">OUTPUT CEILING&nbsp;&nbsp;1024 → 4096</span>
+    <div class="bignum" style="font-size:56px;color:var(--paper-ink)">2.78% <span style="color:var(--orange)">→</span> 84.72%</div>
+    <div class="crumbs">CLAUDE OPUS <span style="color:var(--orange)">·</span> MAX THINKING</div>
+  </div>
+  <div class="quote">"Help your pieces so <b>they can help you.</b>" <span class="by">— Paul Morphy</span></div>
+</section>
+
+<!-- ============ 07 · WHY IT FAILS ============ -->
+<section class="slide light">
+  <div class="grid"></div><div class="frame"></div>
+  <div class="eyebrow">06 <span class="sep">·</span> WHY IT FAILS</div>
+  <div class="logo pill"><img src="assets/videodb-logo.png" alt="VideoDB"></div>
+  <div class="pad">
+    <div class="headline" style="font-size:54px">Directionally right.<br><span class="o">Exactly wrong.</span></div>
+    <div class="errs">
+      <div class="err"><span class="fen">p1b1pk2</span><span class="ar">→</span><span class="fen bad">p2b1pk1</span><span class="note">empty counts shifted</span></div>
+      <div class="err"><span class="fen">PP3P02</span><span class="ar">→</span><span class="fen bad">PP4P1</span><span class="note">pawn one file over</span></div>
+      <div class="err"><span class="fen">1BNP1N1P</span><span class="ar">→</span><span class="fen bad">1BNB1N1P</span><span class="note">wrong piece</span></div>
     </div>
   </div>
-  <div class="art" data-art="soulmd" data-w="360" data-h="320" style="right:120px;top:230px;width:360px;height:320px"></div>
-  <div class="quote">"Two hard things in CS: cache invalidation and <b>naming things.</b>" <span class="by">— Phil Karlton</span></div>
+  <div class="art" data-art="shifted" data-w="460" data-h="250" style="right:60px;top:280px;width:460px;height:250px"></div>
+  <div class="quote">"The blunders are all there on the board, <b>waiting to be made.</b>" <span class="by">— Savielly Tartakower</span></div>
 </section>
 
-<!-- ============ 05 · DRIVER ============ -->
+<!-- ============ 08 · TWO WAYS OF SEEING ============ -->
 <section class="slide dark">
   <div class="grid"></div><div class="frame"></div>
-  <div class="eyebrow">04 <span class="sep">·</span> THE DRIVER</div>
+  <div class="eyebrow">07 <span class="sep">·</span> TWO WAYS OF SEEING</div>
   <div class="logo"><img src="assets/videodb-logo.png" alt="VideoDB"></div>
   <div class="pad">
-    <div class="headline" style="font-size:60px"><span class="o">soul.md</span> drives<br>the agent.</div>
-    <div class="hand" style="font-size:30px;margin-top:120px;max-width:430px">Injected into every turn — search,<br>generation &amp; edits all bias to you.</div>
+    <div class="headline" style="font-size:60px">Understanding<br>≠ <span class="o">precision.</span></div>
+    <div class="hand" style="font-size:30px;margin-top:110px;max-width:440px">GPT reads it like a scanner. Claude<br>describes it like a player. Only one<br>of those hands you coordinates.</div>
   </div>
-  <div class="art" data-art="driver" data-w="560" data-h="220" style="right:70px;top:330px;width:560px;height:220px"></div>
-  <div class="quote">"Programs must be written for <b>people to read.</b>" <span class="by">— Abelson &amp; Sussman</span></div>
+  <div class="art" data-art="seeing" data-w="520" data-h="300" style="right:70px;top:250px;width:520px;height:300px"></div>
+  <div class="quote">"I see only one move ahead, but it is <b>always the correct one.</b>" <span class="by">— José Raúl Capablanca</span></div>
 </section>
 
-<!-- ============ 06 · PAYOFF ============ -->
+<!-- ============ 09 · THE LESSON ============ -->
 <section class="slide light">
   <div class="grid"></div><div class="frame"></div>
-  <div class="eyebrow">05 <span class="sep">·</span> THE PAYOFF</div>
+  <div class="eyebrow">08 <span class="sep">·</span> THE LESSON</div>
   <div class="logo pill"><img src="assets/videodb-logo.png" alt="VideoDB"></div>
   <div class="pad">
-    <div class="headline" style="font-size:60px">One prompt.<br><span class="o">Finished cut.</span></div>
-    <div class="hand" style="font-size:30px;margin-top:130px;max-width:430px">"Make a 30s reel about our Q3 launch"<br>— in your style, end to end.</div>
+    <div class="headline" style="font-size:52px">Don't trust the leaderboard.<br><span class="o">Run it on your own board.</span></div>
+    <div class="hand" style="font-size:30px;margin-top:110px;max-width:470px">Task-specific evals beat aggregate<br>benchmarks — every time it matters.</div>
+    <div class="crumbs" style="margin-top:26px">YOUR TASK <span style="color:var(--orange)">//</span> YOUR DATA <span style="color:var(--orange)">//</span> YOUR BAR</div>
   </div>
-  <div class="art" data-art="payoff" data-w="580" data-h="300" style="right:70px;top:290px;width:580px;height:300px"></div>
-  <div class="quote">"Simplicity is a great virtue but it requires <b>hard work.</b>" <span class="by">— Edsger Dijkstra</span></div>
+  <div class="art" data-art="board" data-w="310" data-h="330" style="right:100px;top:230px;width:310px;height:330px"></div>
+  <div class="quote">"If you cannot measure it, <b>you cannot improve it.</b>" <span class="by">— Lord Kelvin</span></div>
 </section>
 
-<!-- ============ 07 · AUTOMATION / RECORD → REPLAY ============ -->
-<section class="slide dark">
-  <div class="grid"></div><div class="frame"></div>
-  <div class="eyebrow">06 <span class="sep">·</span> AUTOMATION <span class="sep">//</span> <span class="accent">RECORD → REPLAY</span></div>
-  <div class="logo"><img src="assets/videodb-logo.png" alt="VideoDB"></div>
-  <div class="pad">
-    <div class="headline" style="font-size:60px">Do it once.<br>Make it a <span class="o">recipe.</span></div>
-    <div class="hand" style="font-size:30px;margin-top:120px;max-width:430px">Turn a one-off edit into a<br>parameterized, repeatable recipe.</div>
-    <div class="crumbs" style="margin-top:26px;color:var(--orange)">{topic} <span style="color:var(--gray)">·</span> {brand} <span style="color:var(--gray)">·</span> {collection}</div>
-  </div>
-  <div class="art" data-art="recipe" data-w="600" data-h="190" style="right:70px;top:340px;width:600px;height:190px"></div>
-  <div class="quote">"<b>Don't repeat yourself.</b>" <span class="by">— Hunt &amp; Thomas, The Pragmatic Programmer</span></div>
-</section>
-
-<!-- ============ 08 · AT SCALE ============ -->
-<section class="slide light">
-  <div class="grid"></div><div class="frame"></div>
-  <div class="eyebrow">07 <span class="sep">·</span> AUTOMATION <span class="sep">//</span> <span class="accent">AT SCALE</span></div>
-  <div class="logo pill"><img src="assets/videodb-logo.png" alt="VideoDB"></div>
-  <div class="pad">
-    <div class="headline" style="font-size:60px">One recipe.<br><span class="o">Many cuts.</span></div>
-    <div class="hand" style="font-size:30px;margin-top:130px;max-width:430px">Re-run across N inputs — one piece of<br>craft becomes a whole pipeline.</div>
-  </div>
-  <div class="art" data-art="scale" data-w="500" data-h="320" style="right:90px;top:250px;width:500px;height:320px"></div>
-  <div class="quote">"Civilization advances by the operations we can perform <b>without thinking.</b>" <span class="by">— A.N. Whitehead</span></div>
-</section>
-
-<!-- ============ 09 · THE SOUL.MD SYSTEM ============ -->
-<section class="slide light">
-  <div class="grid"></div><div class="frame"></div>
-  <div class="eyebrow">08 <span class="sep">·</span> THE SOUL.MD SYSTEM</div>
-  <div class="logo pill"><img src="assets/videodb-logo.png" alt="VideoDB"></div>
-  <div class="pad">
-    <div class="headline" style="font-size:60px">Clarify. Do.<br><span class="o">Verify. Repeat.</span></div>
-    <div class="hand" style="font-size:30px;margin-top:130px;max-width:430px">Ask what's missing, do the job, check it<br>against your taste — loop until it passes.</div>
-  </div>
-  <div class="art" data-art="loop" data-w="360" data-h="340" style="right:160px;top:250px;width:360px;height:340px"></div>
-  <div class="quote">"Testing shows the presence, <b>not the absence</b>, of bugs." <span class="by">— Edsger Dijkstra</span></div>
-</section>
-
-<!-- ============ 10 · THE BET ============ -->
+<!-- ============ 10 · CTA ============ -->
 <section class="slide dark framed">
   <div class="grid"></div><div class="frame"></div>
-  <div class="eyebrow">09 <span class="sep">·</span> THE BET</div>
+  <div class="eyebrow">09 <span class="sep">·</span> TRY IT</div>
   <span class="spark" style="left:160px;top:200px;color:var(--orange);font-size:28px">✳</span>
   <span class="spark" style="right:170px;top:200px;color:#fff;font-size:30px">✳</span>
   <span class="spark" style="left:150px;bottom:170px;color:#fff;font-size:26px">✳</span>
   <span class="spark" style="right:150px;bottom:150px;color:var(--orange);font-size:30px">✳</span>
-  <span class="spark heartmark" style="left:170px;bottom:260px;color:var(--orange);font-size:24px">♥</span>
-  <span class="spark heartmark" style="right:180px;top:330px;color:var(--orange);font-size:22px">♥</span>
-  <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px">
-    <img class="herologo" style="height:62px" src="assets/videodb-logo.png" alt="VideoDB">
-    <div class="headline hero" style="font-size:80px;text-transform:none;line-height:.96">Software<br>with <span class="o">taste.</span></div>
-    <div class="hand" style="font-size:30px;margin-top:8px">Capture the soul. Let the agent do the rest.</div>
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px">
+    <img class="herologo" style="height:56px" src="assets/videodb-logo.png" alt="VideoDB">
+    <div class="headline hero" style="font-size:72px;line-height:.98">CHESS LENS RUNS<br>ON <span class="o">VIDEODB.</span></div>
+    <div class="hand" style="font-size:28px">Every board, every answer, every miss — indexed and replayable.</div>
+    <div class="crumbs" style="text-transform:none;letter-spacing:.08em;font-size:14px;color:var(--orange)">labs.videodb.io/engineering/field-notes/claude-chessboard-spatial-reasoning</div>
   </div>
-  <div class="quote">"The details are not the details. <b>They make the design.</b>" <span class="by">— Charles Eames</span></div>
+  <div class="quote">"<b>To see is to know.</b>" <span class="by">— VideoDB Labs</span></div>
 </section>
 
 <script src="vendor/rough.js"></script>
