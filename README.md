@@ -13,6 +13,19 @@ Six production-tested video pipelines, one install. Built on [HyperFrames](https
 
 Every template is a **full worked example** — a real, finished video that renders as-is with **zero API keys**.
 
+## Demos
+
+Every video below is a template's worked example rendered exactly as it ships (draft quality, zero API keys). Click a thumbnail to watch.
+
+| | | |
+|:---:|:---:|:---:|
+| [![instagram-short](docs/demos/instagram-short.jpg)](https://github.com/lastHumanCoder-again/videodb-video-studio/releases/download/v1.0/demo-instagram-short.mp4) | [![split-ugc](docs/demos/split-ugc.jpg)](https://github.com/lastHumanCoder-again/videodb-video-studio/releases/download/v1.0/demo-split-ugc.mp4) | [![highlights](docs/demos/highlights.jpg)](https://github.com/lastHumanCoder-again/videodb-video-studio/releases/download/v1.0/demo-highlights.mp4) |
+| **instagram-short** · 40s reel with karaoke captions | **split-ugc** · talking head + animated cards | **highlights** · auto-clips analysis reel |
+| [![demo-recording](docs/demos/demo-recording.jpg)](https://github.com/lastHumanCoder-again/videodb-video-studio/releases/download/v1.0/demo-demo-recording.mp4) | [![youtube-longform](docs/demos/youtube-longform.jpg)](https://github.com/lastHumanCoder-again/videodb-video-studio/releases/download/v1.0/demo-youtube-longform.mp4) | [![deck](docs/demos/deck-slide1.png)](https://github.com/lastHumanCoder-again/videodb-video-studio/releases/download/v1.0/demo-deck.pdf) |
+| **demo-recording** · 2min product launch video | **youtube-longform** · 4min narrated video essay | **deck** · 10-slide PDF with hand-drawn art |
+
+All six are also on the [v1.0 release page](https://github.com/lastHumanCoder-again/videodb-video-studio/releases/tag/v1.0). To rebrand them, pass your own `brand.json` — every accent, glow, and highlight follows it.
+
 ## Install
 
 ### As a Claude Code skill (recommended)
