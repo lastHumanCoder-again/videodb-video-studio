@@ -1,0 +1,12 @@
+{
+  "slug": "deck-template",
+  "pipeline": "deck",
+  "next_steps": [
+    "Install: npm install && npx playwright install chrome (scripts use system Chrome channel)",
+    "Edit slides.html — each <section class=\"slide\"> is one slide; hand-drawn art via <div class=\"art\" data-art=\"<scene>\" data-w=.. data-h=..> (scenes defined in doodles.js)",
+    "Styling lives in deck.css (BRAND block already carries your brand tokens)",
+    "PDF: npm run render (render.js slides.html out/deck.pdf)",
+    "PNG per slide: npm run shots (shots.js slides.html out/shots slide)",
+    "New doodle scenes: add a case to doodles.js using the rough.js helpers (gear, robot, arrows...)"
+  ]
+}

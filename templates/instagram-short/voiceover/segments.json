@@ -1,0 +1,11 @@
+{
+  "model": "eleven_v3",
+  "settings": {
+    "stability": 0.5,
+    "similarity_boost": 0.75,
+    "use_speaker_boost": true
+  },
+  "segments": {
+    "vo": "[curious] Your AI can read the entire web... [serious] but it can't watch it. [matter-of-fact] Ninety percent of the internet is video — and to your agent, it's invisible. [intriguing] Show me the referee's call at minute sixty-seven. [confident] That answer isn't a link... it's a moment, inside a video. [confident] So VideoDB teamed up with TinyFish. [measured] TinyFish finds the right broadcast. VideoDB stitches the exact moments into one reel... [satisfied] already edited. [emphatic] Agents that don't just search the web... they understand it. [confident] VideoDB. With TinyFish."
+  }
+}

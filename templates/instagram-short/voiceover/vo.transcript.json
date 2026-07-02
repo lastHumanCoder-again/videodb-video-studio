@@ -1,0 +1,387 @@
+[
+  {
+    "text": "Your",
+    "start": 0.14,
+    "end": 0.39
+  },
+  {
+    "text": "AI",
+    "start": 0.39,
+    "end": 0.58
+  },
+  {
+    "text": "can",
+    "start": 0.58,
+    "end": 0.87
+  },
+  {
+    "text": "read",
+    "start": 0.87,
+    "end": 1.26
+  },
+  {
+    "text": "the",
+    "start": 1.26,
+    "end": 1.55
+  },
+  {
+    "text": "entire",
+    "start": 1.55,
+    "end": 2.13
+  },
+  {
+    "text": "web,",
+    "start": 2.13,
+    "end": 3.44
+  },
+  {
+    "text": "but",
+    "start": 3.53,
+    "end": 3.73
+  },
+  {
+    "text": "it",
+    "start": 3.77,
+    "end": 3.91
+  },
+  {
+    "text": "can't",
+    "start": 3.94,
+    "end": 4.33
+  },
+  {
+    "text": "watch",
+    "start": 4.37,
+    "end": 4.53
+  },
+  {
+    "text": "it.",
+    "start": 4.81,
+    "end": 5.48
+  },
+  {
+    "text": "90%",
+    "start": 5.62,
+    "end": 6.13
+  },
+  {
+    "text": "of",
+    "start": 6.13,
+    "end": 6.21
+  },
+  {
+    "text": "the",
+    "start": 6.34,
+    "end": 6.6
+  },
+  {
+    "text": "internet",
+    "start": 6.6,
+    "end": 7.35
+  },
+  {
+    "text": "is",
+    "start": 7.35,
+    "end": 7.54
+  },
+  {
+    "text": "video,",
+    "start": 7.54,
+    "end": 8.1
+  },
+  {
+    "text": "and",
+    "start": 8.1,
+    "end": 8.2
+  },
+  {
+    "text": "to",
+    "start": 8.2,
+    "end": 8.37
+  },
+  {
+    "text": "your",
+    "start": 8.37,
+    "end": 8.71
+  },
+  {
+    "text": "agent,",
+    "start": 9,
+    "end": 9.21
+  },
+  {
+    "text": "it's",
+    "start": 9.25,
+    "end": 9.36
+  },
+  {
+    "text": "invisible.",
+    "start": 9.36,
+    "end": 11
+  },
+  {
+    "text": "Show",
+    "start": 11.1,
+    "end": 11.36
+  },
+  {
+    "text": "me",
+    "start": 11.36,
+    "end": 11.54
+  },
+  {
+    "text": "the",
+    "start": 11.54,
+    "end": 11.73
+  },
+  {
+    "text": "referee's",
+    "start": 11.86,
+    "end": 12.55
+  },
+  {
+    "text": "call",
+    "start": 12.7,
+    "end": 12.97
+  },
+  {
+    "text": "at",
+    "start": 12.97,
+    "end": 13.15
+  },
+  {
+    "text": "minute",
+    "start": 13.15,
+    "end": 13.27
+  },
+  {
+    "text": "67.",
+    "start": 13.27,
+    "end": 14.56
+  },
+  {
+    "text": "That",
+    "start": 14.66,
+    "end": 14.91
+  },
+  {
+    "text": "answer",
+    "start": 14.91,
+    "end": 15.43
+  },
+  {
+    "text": "isn't",
+    "start": 15.43,
+    "end": 15.86
+  },
+  {
+    "text": "a",
+    "start": 15.87,
+    "end": 15.95
+  },
+  {
+    "text": "link.",
+    "start": 15.95,
+    "end": 16.6
+  },
+  {
+    "text": "It's",
+    "start": 16.7,
+    "end": 17
+  },
+  {
+    "text": "a",
+    "start": 17,
+    "end": 17.1
+  },
+  {
+    "text": "moment",
+    "start": 17.1,
+    "end": 17.72
+  },
+  {
+    "text": "inside",
+    "start": 17.72,
+    "end": 18.34
+  },
+  {
+    "text": "a",
+    "start": 18.34,
+    "end": 18.44
+  },
+  {
+    "text": "video.",
+    "start": 18.44,
+    "end": 19
+  },
+  {
+    "text": "So",
+    "start": 19.42,
+    "end": 19.52
+  },
+  {
+    "text": "VideoDB",
+    "start": 19.52,
+    "end": 20.21
+  },
+  {
+    "text": "teamed",
+    "start": 20.21,
+    "end": 20.82
+  },
+  {
+    "text": "up",
+    "start": 20.82,
+    "end": 20.87
+  },
+  {
+    "text": "with",
+    "start": 21.01,
+    "end": 21.42
+  },
+  {
+    "text": "Tinyfish.",
+    "start": 21.42,
+    "end": 22.54
+  },
+  {
+    "text": "Tinyfish",
+    "start": 22.64,
+    "end": 23.18
+  },
+  {
+    "text": "finds",
+    "start": 23.18,
+    "end": 23.54
+  },
+  {
+    "text": "the",
+    "start": 23.58,
+    "end": 23.82
+  },
+  {
+    "text": "right",
+    "start": 23.82,
+    "end": 24.21
+  },
+  {
+    "text": "broadcast.",
+    "start": 24.22,
+    "end": 24.98
+  },
+  {
+    "text": "VideoDB",
+    "start": 25.34,
+    "end": 25.84
+  },
+  {
+    "text": "stitches",
+    "start": 25.84,
+    "end": 26.58
+  },
+  {
+    "text": "the",
+    "start": 26.58,
+    "end": 26.75
+  },
+  {
+    "text": "exact",
+    "start": 26.89,
+    "end": 27.32
+  },
+  {
+    "text": "moments",
+    "start": 27.32,
+    "end": 27.47
+  },
+  {
+    "text": "into",
+    "start": 27.94,
+    "end": 28.34
+  },
+  {
+    "text": "one",
+    "start": 28.34,
+    "end": 28.73
+  },
+  {
+    "text": "reel,",
+    "start": 28.73,
+    "end": 29.16
+  },
+  {
+    "text": "already",
+    "start": 29.16,
+    "end": 29.52
+  },
+  {
+    "text": "edited.",
+    "start": 30.79,
+    "end": 31.54
+  },
+  {
+    "text": "Agents",
+    "start": 31.68,
+    "end": 31.95
+  },
+  {
+    "text": "that",
+    "start": 31.95,
+    "end": 32.22
+  },
+  {
+    "text": "don't",
+    "start": 32.22,
+    "end": 32.55
+  },
+  {
+    "text": "just",
+    "start": 32.55,
+    "end": 32.82
+  },
+  {
+    "text": "search",
+    "start": 32.82,
+    "end": 33.09
+  },
+  {
+    "text": "the",
+    "start": 33.24,
+    "end": 33.43
+  },
+  {
+    "text": "web,",
+    "start": 33.43,
+    "end": 33.77
+  },
+  {
+    "text": "they",
+    "start": 33.82,
+    "end": 33.85
+  },
+  {
+    "text": "understand",
+    "start": 35.06,
+    "end": 35.21
+  },
+  {
+    "text": "it.",
+    "start": 35.26,
+    "end": 35.79
+  },
+  {
+    "text": "VideoDB",
+    "start": 35.94,
+    "end": 36.81
+  },
+  {
+    "text": "with",
+    "start": 36.81,
+    "end": 37.35
+  },
+  {
+    "text": "Tinyfish.",
+    "start": 37.47,
+    "end": 39.04
+  }
+]

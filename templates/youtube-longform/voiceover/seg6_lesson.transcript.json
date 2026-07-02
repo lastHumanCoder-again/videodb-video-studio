@@ -1,0 +1,312 @@
+[
+  {
+    "text": "And",
+    "start": 0.1,
+    "end": 0.14
+  },
+  {
+    "text": "this",
+    "start": 0.3,
+    "end": 0.48
+  },
+  {
+    "text": "is",
+    "start": 0.78,
+    "end": 0.9
+  },
+  {
+    "text": "the",
+    "start": 0.9,
+    "end": 1.2
+  },
+  {
+    "text": "lesson",
+    "start": 1.2,
+    "end": 1.75
+  },
+  {
+    "text": "worth",
+    "start": 1.75,
+    "end": 2.07
+  },
+  {
+    "text": "keeping.",
+    "start": 2.07,
+    "end": 3.1
+  },
+  {
+    "text": "The",
+    "start": 3.1,
+    "end": 3.23
+  },
+  {
+    "text": "best",
+    "start": 3.3,
+    "end": 3.48
+  },
+  {
+    "text": "general",
+    "start": 3.56,
+    "end": 4.09
+  },
+  {
+    "text": "model",
+    "start": 4.09,
+    "end": 4.49
+  },
+  {
+    "text": "is",
+    "start": 4.49,
+    "end": 4.63
+  },
+  {
+    "text": "not",
+    "start": 4.75,
+    "end": 5.06
+  },
+  {
+    "text": "automatically",
+    "start": 5.06,
+    "end": 5.2
+  },
+  {
+    "text": "the",
+    "start": 5.94,
+    "end": 6.15
+  },
+  {
+    "text": "best",
+    "start": 6.15,
+    "end": 6.32
+  },
+  {
+    "text": "model",
+    "start": 6.63,
+    "end": 7.08
+  },
+  {
+    "text": "for",
+    "start": 7.08,
+    "end": 7.39
+  },
+  {
+    "text": "your",
+    "start": 7.39,
+    "end": 7.8
+  },
+  {
+    "text": "task.",
+    "start": 7.8,
+    "end": 8.56
+  },
+  {
+    "text": "GPT",
+    "start": 8.64,
+    "end": 8.79
+  },
+  {
+    "text": "didn't",
+    "start": 8.86,
+    "end": 9.23
+  },
+  {
+    "text": "win",
+    "start": 9.34,
+    "end": 9.5
+  },
+  {
+    "text": "because",
+    "start": 9.54,
+    "end": 10.04
+  },
+  {
+    "text": "it's",
+    "start": 10.04,
+    "end": 10.31
+  },
+  {
+    "text": "smarter.",
+    "start": 10.31,
+    "end": 11.2
+  },
+  {
+    "text": "It",
+    "start": 11.29,
+    "end": 11.4
+  },
+  {
+    "text": "won",
+    "start": 11.5,
+    "end": 11.67
+  },
+  {
+    "text": "at",
+    "start": 11.67,
+    "end": 11.99
+  },
+  {
+    "text": "this",
+    "start": 11.99,
+    "end": 12.3
+  },
+  {
+    "text": "one",
+    "start": 12.3,
+    "end": 12.6
+  },
+  {
+    "text": "specific",
+    "start": 12.6,
+    "end": 13.25
+  },
+  {
+    "text": "job,",
+    "start": 13.41,
+    "end": 13.83
+  },
+  {
+    "text": "reading",
+    "start": 13.83,
+    "end": 14.12
+  },
+  {
+    "text": "a",
+    "start": 14.12,
+    "end": 14.31
+  },
+  {
+    "text": "grid,",
+    "start": 14.31,
+    "end": 14.88
+  },
+  {
+    "text": "with",
+    "start": 14.98,
+    "end": 15.25
+  },
+  {
+    "text": "enough",
+    "start": 15.25,
+    "end": 15.79
+  },
+  {
+    "text": "room",
+    "start": 15.86,
+    "end": 16.14
+  },
+  {
+    "text": "to",
+    "start": 16.19,
+    "end": 16.35
+  },
+  {
+    "text": "answer.",
+    "start": 16.35,
+    "end": 17.04
+  },
+  {
+    "text": "You'd",
+    "start": 17.33,
+    "end": 17.57
+  },
+  {
+    "text": "never",
+    "start": 17.57,
+    "end": 17.72
+  },
+  {
+    "text": "know",
+    "start": 18.02,
+    "end": 18.18
+  },
+  {
+    "text": "that",
+    "start": 18.22,
+    "end": 18.45
+  },
+  {
+    "text": "from",
+    "start": 18.45,
+    "end": 18.71
+  },
+  {
+    "text": "a",
+    "start": 18.71,
+    "end": 18.78
+  },
+  {
+    "text": "leaderboard.",
+    "start": 18.78,
+    "end": 19.75
+  },
+  {
+    "text": "You",
+    "start": 19.86,
+    "end": 19.99
+  },
+  {
+    "text": "only",
+    "start": 20.06,
+    "end": 20.24
+  },
+  {
+    "text": "find",
+    "start": 20.3,
+    "end": 20.64
+  },
+  {
+    "text": "it",
+    "start": 20.64,
+    "end": 20.8
+  },
+  {
+    "text": "by",
+    "start": 20.8,
+    "end": 20.96
+  },
+  {
+    "text": "testing",
+    "start": 20.96,
+    "end": 21.51
+  },
+  {
+    "text": "on",
+    "start": 21.56,
+    "end": 21.65
+  },
+  {
+    "text": "the",
+    "start": 21.71,
+    "end": 21.82
+  },
+  {
+    "text": "exact",
+    "start": 21.94,
+    "end": 22.04
+  },
+  {
+    "text": "thing",
+    "start": 22.31,
+    "end": 22.68
+  },
+  {
+    "text": "you're",
+    "start": 22.78,
+    "end": 23.16
+  },
+  {
+    "text": "trying",
+    "start": 23.26,
+    "end": 23.84
+  },
+  {
+    "text": "to",
+    "start": 23.84,
+    "end": 24.03
+  },
+  {
+    "text": "build.",
+    "start": 24.03,
+    "end": 24.74
+  }
+]

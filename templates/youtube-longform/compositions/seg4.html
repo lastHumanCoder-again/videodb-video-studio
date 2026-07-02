@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  [data-composition-id="seg4"]{ position:relative; width:1920px; height:1080px; overflow:hidden;
+    background:#0B0B0C; color:#F4F2EE; font-family:"Inter","Helvetica Neue",Arial,sans-serif;
+    /* BRAND:START */
+    --orange:#E85810; /* brand:accent */
+    --card:#141416;   /* brand:card */
+    --muted:#8C8C94;  /* brand:muted */
+    --line:#2A2A2E;   /* brand:hairline */
+    --red:#E5484D;    /* brand:bad */
+    --green:#3DD68C;  /* brand:good */
+    /* BRAND:END */ }
+  [data-composition-id="seg4"] .scene{ position:absolute; inset:0; width:1920px; height:1080px; overflow:hidden; opacity:0;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  [data-composition-id="seg4"] #s4a{ opacity:1; }
+  [data-composition-id="seg4"] .glow{ position:absolute; inset:0; background:radial-gradient(58% 50% at 50% 44%, rgba(232,88,16,0.09), transparent 70%); }
+  [data-composition-id="seg4"] .glow.red{ background:radial-gradient(58% 56% at 50% 48%, rgba(229,72,77,0.12), transparent 70%); }
+  [data-composition-id="seg4"] .box{ display:inline-block; background:#F4F2EE; color:#0B0B0C;
+    font-family:"Archivo Black",sans-serif; text-transform:uppercase; letter-spacing:0.01em; line-height:0.98;
+    padding:14px 24px; border-radius:12px; font-size:56px; box-shadow:0 14px 40px rgba(0,0,0,0.5); }
+  [data-composition-id="seg4"] .box.pay{ background:var(--orange); color:#fff; box-shadow:0 16px 50px rgba(232,88,16,0.45); }
+  [data-composition-id="seg4"] .box.sm{ font-size:38px; padding:12px 18px; }
+
+  /* ---- SCENE A : title ---- */
+  [data-composition-id="seg4"] .head{ font-family:"Archivo Black",sans-serif; text-transform:uppercase;
+    font-size:120px; line-height:0.94; letter-spacing:0.01em; text-align:center; }
+  [data-composition-id="seg4"] .head .o{ color:var(--orange); }
+  [data-composition-id="seg4"] .sub{ margin-top:34px; color:var(--muted); font-size:34px; font-weight:500; letter-spacing:0.02em;
+    font-variant-numeric:tabular-nums; }
+
+  /* ---- SCENE B : leaderboard card ---- */
+  [data-composition-id="seg4"] .lb{ position:relative; width:1180px; background:var(--card);
+    border:1px solid var(--line); border-radius:18px; padding:26px 30px; box-shadow:0 30px 80px rgba(0,0,0,0.6); }
+  [data-composition-id="seg4"] .lb .bhead{ display:flex; justify-content:space-between; align-items:baseline;
+    padding:0 18px 18px; border-bottom:1px solid var(--line); margin-bottom:8px; }
+  [data-composition-id="seg4"] .lb .btitle{ font-family:"Archivo Black",sans-serif; text-transform:uppercase;
+    font-size:34px; letter-spacing:0.04em; }
+  [data-composition-id="seg4"] .lb .bmeta{ color:var(--muted); font-size:26px; font-weight:600; letter-spacing:0.06em; }
+  [data-composition-id="seg4"] .row{ display:flex; align-items:center; justify-content:space-between;
+    padding:18px 18px; border-radius:12px; }
+  [data-composition-id="seg4"] .row .left{ display:flex; align-items:center; gap:26px; }
+  [data-composition-id="seg4"] .row .rank{ font-family:"Archivo Black",sans-serif; color:var(--muted);
+    font-size:42px; width:56px; font-variant-numeric:tabular-nums; }
+  [data-composition-id="seg4"] .row .name{ font-family:"Archivo Black",sans-serif; text-transform:uppercase;
+    font-size:40px; letter-spacing:0.01em; display:inline-flex; align-items:center; gap:16px; }
+  [data-composition-id="seg4"] .logo{ display:inline-flex; align-items:center; justify-content:center; vertical-align:middle; }
+  [data-composition-id="seg4"] .logo svg{ height:30px; width:auto; fill:#F4F2EE; }
+  [data-composition-id="seg4"] .row .name .q{ color:var(--muted); font-family:"Inter",sans-serif; font-weight:600;
+    text-transform:none; font-size:30px; letter-spacing:0; margin-left:10px; }
+  [data-composition-id="seg4"] .row .score{ font-family:"Archivo Black",sans-serif; color:#F4F2EE;
+    font-size:48px; font-variant-numeric:tabular-nums; letter-spacing:0.01em; }
+  [data-composition-id="seg4"] .row.top{ background:rgba(232,88,16,0.10); box-shadow:inset 0 0 0 2px rgba(232,88,16,0.55); }
+  [data-composition-id="seg4"] .row.top .rank{ color:var(--orange); }
+  [data-composition-id="seg4"] .row.top .score{ color:var(--green); }
+  [data-composition-id="seg4"] .row.hot{ background:rgba(244,242,238,0.04); }
+
+  /* ---- SCENE C : the collapse ---- */
+  [data-composition-id="seg4"] #s4c .twist{ font-family:"Archivo Black",sans-serif; text-transform:uppercase;
+    font-size:96px; line-height:0.96; letter-spacing:0.01em; text-align:center; }
+  [data-composition-id="seg4"] #s4c .twist .o{ color:var(--orange); }
+  [data-composition-id="seg4"] .collapse{ position:relative; display:flex; align-items:flex-end; justify-content:center; gap:80px; }
+  [data-composition-id="seg4"] .barwrap{ position:relative; width:170px; height:520px; display:flex; flex-direction:column; justify-content:flex-end; }
+  [data-composition-id="seg4"] .bar{ width:170px; border-radius:14px 14px 6px 6px; transform-origin:bottom center; }
+  [data-composition-id="seg4"] .bar.up{ height:520px; background:linear-gradient(180deg,#3DD68C,#2bb074); box-shadow:0 0 40px rgba(61,214,140,0.30); }
+  [data-composition-id="seg4"] .bar.down{ height:520px; background:linear-gradient(180deg,#E5484D,#b6353a); box-shadow:0 0 44px rgba(229,72,77,0.40); }
+  [data-composition-id="seg4"] .barlbl{ position:absolute; left:50%; bottom:-44px; transform:translateX(-50%);
+    color:var(--muted); font-size:26px; font-weight:600; white-space:nowrap; font-variant-numeric:tabular-nums; }
+  [data-composition-id="seg4"] .bignum{ display:flex; flex-direction:column; align-items:flex-start; }
+  [data-composition-id="seg4"] .bignum .n{ font-family:"Archivo Black",sans-serif; font-size:200px; line-height:0.84;
+    color:var(--red); font-variant-numeric:tabular-nums; }
+  [data-composition-id="seg4"] .bignum .nlab{ margin-top:18px; color:var(--muted); font-size:30px; font-weight:600;
+    text-transform:uppercase; letter-spacing:0.04em; max-width:540px; line-height:1.3; }
+  [data-composition-id="seg4"] .bignum .nlab .o{ color:var(--orange); }
+  [data-composition-id="seg4"] #s4c .cnote{ margin-top:50px; color:var(--muted); font-size:28px; font-weight:500; font-style:italic; }
+
+  /* ---- SCENE D : payoff ---- */
+  [data-composition-id="seg4"] #s4d .paywrap{ text-align:center; }
+  [data-composition-id="seg4"] #s4d .paysub{ margin-top:36px; color:var(--muted); font-size:38px; font-weight:500; letter-spacing:0.01em; }
+
+  [data-composition-id="seg4"] .bug{ position:absolute; right:46px; bottom:40px; height:34px; width:auto; opacity:0.5; z-index:50; }
+</style>
+</head>
+<body>
+  <div data-composition-id="seg4" data-start="0" data-duration="30.28" data-width="1920" data-height="1080">
+
+    <!-- SCENE A — THE RESULTS title (0.00) -->
+    <div id="s4a" class="scene clip">
+      <div class="glow"></div>
+      <div class="head" id="s4a-head">THE <span class="o">RESULTS</span></div>
+      <div class="sub" id="s4a-sub">exact-match accuracy &middot; 72 positions</div>
+    </div>
+
+    <!-- SCENE B — leaderboard (5.24) -->
+    <div id="s4b" class="scene clip">
+      <div class="glow"></div>
+      <div class="lb" id="board-b">
+        <div class="bhead">
+          <span class="btitle">BOARD-READING ACCURACY</span>
+          <span class="bmeta">EXACT MATCH</span>
+        </div>
+        <div class="row top" id="r1">
+          <div class="left"><span class="rank">1</span><span class="name"><span class="logo"><svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg"><path d="m297.06 130.97c7.26-21.79 4.76-45.66-6.85-65.48-17.46-30.4-52.56-46.04-86.84-38.68-15.25-17.18-37.16-26.95-60.13-26.81-35.04-.08-66.13 22.48-76.91 55.82-22.51 4.61-41.94 18.7-53.31 38.67-17.59 30.32-13.58 68.54 9.92 94.54-7.26 21.79-4.76 45.66 6.85 65.48 17.46 30.4 52.56 46.04 86.84 38.68 15.24 17.18 37.16 26.95 60.13 26.8 35.06.09 66.16-22.49 76.94-55.86 22.51-4.61 41.94-18.7 53.31-38.67 17.57-30.32 13.55-68.51-9.94-94.51zm-120.28 168.11c-14.03.02-27.62-4.89-38.39-13.88.49-.26 1.34-.73 1.89-1.07l63.72-36.8c3.26-1.85 5.26-5.32 5.24-9.07v-89.83l26.93 15.55c.29.14.48.42.52.74v74.39c-.04 33.08-26.83 59.9-59.91 59.97zm-128.84-55.03c-7.03-12.14-9.56-26.37-7.15-40.18.47.28 1.3.79 1.89 1.13l63.72 36.8c3.23 1.89 7.23 1.89 10.47 0l77.79-44.92v31.1c.02.32-.13.63-.38.83l-64.41 37.19c-28.69 16.52-65.33 6.7-81.92-21.95zm-16.77-139.09c7-12.16 18.05-21.46 31.21-26.29 0 .55-.03 1.52-.03 2.2v73.61c-.02 3.74 1.98 7.21 5.23 9.06l77.79 44.91-26.93 15.55c-.27.18-.61.21-.91.08l-64.42-37.22c-28.63-16.58-38.45-53.21-21.95-81.89zm221.26 51.49-77.79-44.92 26.93-15.54c.27-.18.61-.21.91-.08l64.42 37.19c28.68 16.57 38.51 53.26 21.94 81.94-7.01 12.14-18.05 21.44-31.2 26.28v-75.81c.03-3.74-1.96-7.2-5.2-9.06zm26.8-40.34c-.47-.29-1.3-.79-1.89-1.13l-63.72-36.8c-3.23-1.89-7.23-1.89-10.47 0l-77.79 44.92v-31.1c-.02-.32.13-.63.38-.83l64.41-37.16c28.69-16.55 65.37-6.7 81.91 22 6.99 12.12 9.52 26.31 7.15 40.1zm-168.51 55.43-26.94-15.55c-.29-.14-.48-.42-.52-.74v-74.39c.02-33.12 26.89-59.96 60.01-59.94 14.01 0 27.57 4.92 38.34 13.88-.49.26-1.33.73-1.89 1.07l-63.72 36.8c-3.26 1.85-5.26 5.31-5.24 9.06l-.04 89.79zm14.63-31.54 34.65-20.01 34.65 20v40.01l-34.65 20-34.65-20z"/></svg></span>GPT-5.4 <span class="q">low summary</span></span></div>
+          <span class="score" id="sc1">0%</span>
+        </div>
+        <div class="row" id="r2">
+          <div class="left"><span class="rank">2</span><span class="name"><span class="logo"><svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg"><path d="m297.06 130.97c7.26-21.79 4.76-45.66-6.85-65.48-17.46-30.4-52.56-46.04-86.84-38.68-15.25-17.18-37.16-26.95-60.13-26.81-35.04-.08-66.13 22.48-76.91 55.82-22.51 4.61-41.94 18.7-53.31 38.67-17.59 30.32-13.58 68.54 9.92 94.54-7.26 21.79-4.76 45.66 6.85 65.48 17.46 30.4 52.56 46.04 86.84 38.68 15.24 17.18 37.16 26.95 60.13 26.8 35.06.09 66.16-22.49 76.94-55.86 22.51-4.61 41.94-18.7 53.31-38.67 17.57-30.32 13.55-68.51-9.94-94.51zm-120.28 168.11c-14.03.02-27.62-4.89-38.39-13.88.49-.26 1.34-.73 1.89-1.07l63.72-36.8c3.26-1.85 5.26-5.32 5.24-9.07v-89.83l26.93 15.55c.29.14.48.42.52.74v74.39c-.04 33.08-26.83 59.9-59.91 59.97zm-128.84-55.03c-7.03-12.14-9.56-26.37-7.15-40.18.47.28 1.3.79 1.89 1.13l63.72 36.8c3.23 1.89 7.23 1.89 10.47 0l77.79-44.92v31.1c.02.32-.13.63-.38.83l-64.41 37.19c-28.69 16.52-65.33 6.7-81.92-21.95zm-16.77-139.09c7-12.16 18.05-21.46 31.21-26.29 0 .55-.03 1.52-.03 2.2v73.61c-.02 3.74 1.98 7.21 5.23 9.06l77.79 44.91-26.93 15.55c-.27.18-.61.21-.91.08l-64.42-37.22c-28.63-16.58-38.45-53.21-21.95-81.89zm221.26 51.49-77.79-44.92 26.93-15.54c.27-.18.61-.21.91-.08l64.42 37.19c28.68 16.57 38.51 53.26 21.94 81.94-7.01 12.14-18.05 21.44-31.2 26.28v-75.81c.03-3.74-1.96-7.2-5.2-9.06zm26.8-40.34c-.47-.29-1.3-.79-1.89-1.13l-63.72-36.8c-3.23-1.89-7.23-1.89-10.47 0l-77.79 44.92v-31.1c-.02-.32.13-.63.38-.83l64.41-37.16c28.69-16.55 65.37-6.7 81.91 22 6.99 12.12 9.52 26.31 7.15 40.1zm-168.51 55.43-26.94-15.55c-.29-.14-.48-.42-.52-.74v-74.39c.02-33.12 26.89-59.96 60.01-59.94 14.01 0 27.57 4.92 38.34 13.88-.49.26-1.33.73-1.89 1.07l-63.72 36.8c-3.26 1.85-5.26 5.31-5.24 9.06l-.04 89.79zm14.63-31.54 34.65-20.01 34.65 20v40.01l-34.65 20-34.65-20z"/></svg></span>GPT-5.4 <span class="q">default</span></span></div>
+          <span class="score" id="sc2">0%</span>
+        </div>
+        <div class="row" id="r3">
+          <div class="left"><span class="rank">3</span><span class="name"><span class="logo"><svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg"><path d="m297.06 130.97c7.26-21.79 4.76-45.66-6.85-65.48-17.46-30.4-52.56-46.04-86.84-38.68-15.25-17.18-37.16-26.95-60.13-26.81-35.04-.08-66.13 22.48-76.91 55.82-22.51 4.61-41.94 18.7-53.31 38.67-17.59 30.32-13.58 68.54 9.92 94.54-7.26 21.79-4.76 45.66 6.85 65.48 17.46 30.4 52.56 46.04 86.84 38.68 15.24 17.18 37.16 26.95 60.13 26.8 35.06.09 66.16-22.49 76.94-55.86 22.51-4.61 41.94-18.7 53.31-38.67 17.57-30.32 13.55-68.51-9.94-94.51zm-120.28 168.11c-14.03.02-27.62-4.89-38.39-13.88.49-.26 1.34-.73 1.89-1.07l63.72-36.8c3.26-1.85 5.26-5.32 5.24-9.07v-89.83l26.93 15.55c.29.14.48.42.52.74v74.39c-.04 33.08-26.83 59.9-59.91 59.97zm-128.84-55.03c-7.03-12.14-9.56-26.37-7.15-40.18.47.28 1.3.79 1.89 1.13l63.72 36.8c3.23 1.89 7.23 1.89 10.47 0l77.79-44.92v31.1c.02.32-.13.63-.38.83l-64.41 37.19c-28.69 16.52-65.33 6.7-81.92-21.95zm-16.77-139.09c7-12.16 18.05-21.46 31.21-26.29 0 .55-.03 1.52-.03 2.2v73.61c-.02 3.74 1.98 7.21 5.23 9.06l77.79 44.91-26.93 15.55c-.27.18-.61.21-.91.08l-64.42-37.22c-28.63-16.58-38.45-53.21-21.95-81.89zm221.26 51.49-77.79-44.92 26.93-15.54c.27-.18.61-.21.91-.08l64.42 37.19c28.68 16.57 38.51 53.26 21.94 81.94-7.01 12.14-18.05 21.44-31.2 26.28v-75.81c.03-3.74-1.96-7.2-5.2-9.06zm26.8-40.34c-.47-.29-1.3-.79-1.89-1.13l-63.72-36.8c-3.23-1.89-7.23-1.89-10.47 0l-77.79 44.92v-31.1c-.02-.32.13-.63.38-.83l64.41-37.16c28.69-16.55 65.37-6.7 81.91 22 6.99 12.12 9.52 26.31 7.15 40.1zm-168.51 55.43-26.94-15.55c-.29-.14-.48-.42-.52-.74v-74.39c.02-33.12 26.89-59.96 60.01-59.94 14.01 0 27.57 4.92 38.34 13.88-.49.26-1.33.73-1.89 1.07l-63.72 36.8c-3.26 1.85-5.26 5.31-5.24 9.06l-.04 89.79zm14.63-31.54 34.65-20.01 34.65 20v40.01l-34.65 20-34.65-20z"/></svg></span>GPT-5.4 <span class="q">xhigh</span></span></div>
+          <span class="score" id="sc3">0%</span>
+        </div>
+        <div class="row" id="r4">
+          <div class="left"><span class="rank">4</span><span class="name"><span class="logo"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m4.7144 15.9555 4.7174-2.6471.079-.2307-.079-.1275h-.2307l-.7893-.0486-2.6956-.0729-2.3375-.0971-2.2646-.1214-.5707-.1215-.5343-.7042.0546-.3522.4797-.3218.686.0608 1.5179.1032 2.2767.1578 1.6514.0972 2.4468.255h.3886l.0546-.1579-.1336-.0971-.1032-.0972L6.973 9.8356l-2.55-1.6879-1.3356-.9714-.7225-.4918-.3643-.4614-.1578-1.0078.6557-.7225.8803.0607.2246.0607.8925.686 1.9064 1.4754 2.4893 1.8336.3643.3035.1457-.1032.0182-.0728-.164-.2733-1.3539-2.4467-1.445-2.4893-.6435-1.032-.17-.6194c-.0607-.255-.1032-.4674-.1032-.7285L6.287.1335 6.6997 0l.9957.1336.419.3642.6192 1.4147 1.0018 2.2282 1.5543 3.0296.4553.8985.2429.8318.091.255h.1579v-.1457l.1275-1.706.2368-2.0947.2307-2.6957.0789-.7589.3764-.9107.7468-.4918.5828.2793.4797.686-.0668.4433-.2853 1.8517-.5586 2.9021-.3643 1.9429h.2125l.2429-.2429.9835-1.3053 1.6514-2.0643.7286-.8196.85-.9046.5464-.4311h1.0321l.759 1.1293-.34 1.1657-1.0625 1.3478-.8804 1.1414-1.2628 1.7-.7893 1.36.0729.1093.1882-.0183 2.8535-.607 1.5421-.2794 1.8396-.3157.8318.3886.091.3946-.3278.8075-1.967.4857-2.3072.4614-3.4364.8136-.0425.0304.0486.0607 1.5482.1457.6618.0364h1.621l3.0175.2247.7892.522.4736.6376-.079.4857-1.2142.6193-1.6393-.3886-3.825-.9107-1.3113-.3279h-.1822v.1093l1.0929 1.0686 2.0035 1.8092 2.5075 2.3314.1275.5768-.3218.4554-.34-.0486-2.2039-1.6575-.85-.7468-1.9246-1.621h-.1275v.17l.4432.6496 2.3436 3.5214.1214 1.0807-.17.3521-.6071.2125-.6679-.1214-1.3721-1.9246L14.38 17.959l-1.1414-1.9428-.1397.079-.674 7.2552-.3156.3703-.7286.2793-.6071-.4614-.3218-.7468.3218-1.4753.3886-1.9246.3157-1.53.2853-1.9004.17-.6314-.0121-.0425-.1397.0182-1.4328 1.9672-2.1796 2.9446-1.7243 1.8456-.4128.164-.7164-.3704.0667-.6618.4008-.5889 2.386-3.0357 1.4389-1.882.929-1.0868-.0062-.1579h-.0546l-6.3385 4.1164-1.1293.1457-.4857-.4554.0608-.7467.2307-.2429 1.9064-1.3114Z"/></svg></span>Claude Opus 4.7 <span class="q">max</span></span></div>
+          <span class="score" id="sc4">0%</span>
+        </div>
+        <div class="row" id="r5">
+          <div class="left"><span class="rank">5</span><span class="name"><span class="logo"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m4.7144 15.9555 4.7174-2.6471.079-.2307-.079-.1275h-.2307l-.7893-.0486-2.6956-.0729-2.3375-.0971-2.2646-.1214-.5707-.1215-.5343-.7042.0546-.3522.4797-.3218.686.0608 1.5179.1032 2.2767.1578 1.6514.0972 2.4468.255h.3886l.0546-.1579-.1336-.0971-.1032-.0972L6.973 9.8356l-2.55-1.6879-1.3356-.9714-.7225-.4918-.3643-.4614-.1578-1.0078.6557-.7225.8803.0607.2246.0607.8925.686 1.9064 1.4754 2.4893 1.8336.3643.3035.1457-.1032.0182-.0728-.164-.2733-1.3539-2.4467-1.445-2.4893-.6435-1.032-.17-.6194c-.0607-.255-.1032-.4674-.1032-.7285L6.287.1335 6.6997 0l.9957.1336.419.3642.6192 1.4147 1.0018 2.2282 1.5543 3.0296.4553.8985.2429.8318.091.255h.1579v-.1457l.1275-1.706.2368-2.0947.2307-2.6957.0789-.7589.3764-.9107.7468-.4918.5828.2793.4797.686-.0668.4433-.2853 1.8517-.5586 2.9021-.3643 1.9429h.2125l.2429-.2429.9835-1.3053 1.6514-2.0643.7286-.8196.85-.9046.5464-.4311h1.0321l.759 1.1293-.34 1.1657-1.0625 1.3478-.8804 1.1414-1.2628 1.7-.7893 1.36.0729.1093.1882-.0183 2.8535-.607 1.5421-.2794 1.8396-.3157.8318.3886.091.3946-.3278.8075-1.967.4857-2.3072.4614-3.4364.8136-.0425.0304.0486.0607 1.5482.1457.6618.0364h1.621l3.0175.2247.7892.522.4736.6376-.079.4857-1.2142.6193-1.6393-.3886-3.825-.9107-1.3113-.3279h-.1822v.1093l1.0929 1.0686 2.0035 1.8092 2.5075 2.3314.1275.5768-.3218.4554-.34-.0486-2.2039-1.6575-.85-.7468-1.9246-1.621h-.1275v.17l.4432.6496 2.3436 3.5214.1214 1.0807-.17.3521-.6071.2125-.6679-.1214-1.3721-1.9246L14.38 17.959l-1.1414-1.9428-.1397.079-.674 7.2552-.3156.3703-.7286.2793-.6071-.4614-.3218-.7468.3218-1.4753.3886-1.9246.3157-1.53.2853-1.9004.17-.6314-.0121-.0425-.1397.0182-1.4328 1.9672-2.1796 2.9446-1.7243 1.8456-.4128.164-.7164-.3704.0667-.6618.4008-.5889 2.386-3.0357 1.4389-1.882.929-1.0868-.0062-.1579h-.0546l-6.3385 4.1164-1.1293.1457-.4857-.4554.0608-.7467.2307-.2429 1.9064-1.3114Z"/></svg></span>Claude Opus 4.7 <span class="q">default</span></span></div>
+          <span class="score" id="sc5">0%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCENE C — twist + collapse (15.91 → 21.51) -->
+    <div id="s4c" class="scene clip">
+      <div class="glow red" id="c-glow" style="opacity:0"></div>
+      <div class="twist" id="c-twist">NOBODY EXPECTED<br><span class="o">THIS</span></div>
+      <div class="collapse" id="c-collapse" style="opacity:0; position:absolute">
+        <div class="barwrap">
+          <div class="bar up" id="bar" style="height:520px"></div>
+          <div class="barlbl" id="barlbl">max thinking</div>
+        </div>
+        <div class="bignum">
+          <span class="n" id="bignum">85%</span>
+          <span class="nlab" id="bignum-lab">CLAUDE OPUS 4.7 &middot; <span class="o">MAX THINKING</span> &middot; tight output budget &rarr; answer truncated</span>
+        </div>
+      </div>
+      <div class="cnote" id="c-note" style="opacity:0">(answer ran past the token limit and got cut off)</div>
+    </div>
+
+    <!-- SCENE D — payoff (25.83), final scene, hold to 30.28 -->
+    <div id="s4d" class="scene clip">
+      <div class="glow"></div>
+      <div class="paywrap">
+        <span class="box pay" id="payoff" style="font-size:78px; line-height:1.0; padding:26px 44px">SAME MODEL.<br>SAME IMAGES.</span>
+        <div class="paysub" id="paysub">the setup decided the result.</div>
+      </div>
+    </div>
+
+    <img class="bug" src="assets/videodb-logo.png" />
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      var R = '[data-composition-id="seg4"] ';
+      var tl = gsap.timeline({ paused:true });
+      var XF = 0.55;
+      function fadeIn(s,t){ tl.fromTo(R+s,{opacity:0,filter:'blur(18px)'},{opacity:1,filter:'blur(0px)',duration:XF,ease:'sine.inOut'},t); }
+      function fadeOut(s,t){ tl.to(R+s,{opacity:0,filter:'blur(18px)',duration:XF,ease:'sine.inOut'},t); }
+      function countUp(sel,from,to,dur,at,fmt){ var o={n:from};
+        tl.to(o,{n:to,duration:dur,ease:'power2.out',onUpdate:function(){
+          var el=document.querySelector(R+sel); if(el) el.textContent=(fmt?fmt(Math.round(o.n)):Math.round(o.n)); }},at); }
+
+      // bug fade-in
+      tl.from(R+'.bug',{opacity:0,duration:0.6,ease:'power2.out'},0.8);
+
+      // ===== SCENE A (0.00) — "THE RESULTS" / "the spread was wild" =====
+      tl.from(R+'#s4a-head',{opacity:0,y:30,duration:0.55,ease:'power3.out'},0.25);
+      tl.from(R+'#s4a-sub',{opacity:0,y:16,duration:0.5,ease:'power2.out'},0.7);
+      // "wild" — the head shivers/wobbles, the spread is unstable
+      tl.to(R+'#s4a-head',{rotation:1.2,duration:0.16,yoyo:true,repeat:5,ease:'sine.inOut',transformOrigin:'center center'},1.8);
+      // breathe via brightness (no scale)
+      tl.to(R+'#s4a-head',{filter:'brightness(1.18)',duration:1.0,yoyo:true,repeat:1,ease:'sine.inOut'},3.0);
+
+      // ===== SCENE B (5.24) — leaderboard, rows reveal + count-up =====
+      fadeOut('#s4a',5.24); fadeIn('#s4b',5.24);
+      // confident scale-in reveal so the results land with weight
+      tl.from(R+'#board-b',{opacity:0,scale:0.9,y:24,duration:0.6,ease:'power3.out',transformOrigin:'center center'},5.5);
+      tl.from(R+'#board-b .bhead',{opacity:0,y:-12,duration:0.4,ease:'power2.out'},5.75);
+      // rows stamp in top-to-bottom
+      tl.from(R+'#r1',{opacity:0,x:-34,duration:0.4,ease:'back.out(1.5)'},6.0);
+      tl.from(R+'#r2',{opacity:0,x:-34,duration:0.4,ease:'back.out(1.5)'},6.25);
+      tl.from(R+'#r3',{opacity:0,x:-34,duration:0.4,ease:'back.out(1.5)'},6.5);
+      tl.from(R+'#r4',{opacity:0,x:-34,duration:0.4,ease:'back.out(1.5)'},6.75);
+      tl.from(R+'#r5',{opacity:0,x:-34,duration:0.4,ease:'back.out(1.5)'},7.0);
+      // scores count up to their real values (verbatim data)
+      countUp('#sc1',0,100,1.3,6.7,function(v){return v+'%';});
+      countUp('#sc2',0,97,1.3,6.7,function(v){return v+'%';});
+      countUp('#sc3',0,94,1.3,6.7,function(v){return v+'%';});
+      countUp('#sc4',0,85,1.3,6.7,function(v){return v+'%';});
+      countUp('#sc5',0,64,1.3,6.7,function(v){return v+'%';});
+      // "perfect score. 72 out of 72. 100%" — the #1 row & its green score glow-pulse
+      tl.to(R+'#r1',{boxShadow:'inset 0 0 0 2px rgba(232,88,16,0.95), 0 0 36px rgba(232,88,16,0.45)',duration:1.0,yoyo:true,repeat:1,ease:'sine.inOut'},8.7);
+      tl.to(R+'#sc1',{filter:'brightness(1.4) drop-shadow(0 0 18px rgba(61,214,140,0.7))',duration:0.8,yoyo:true,repeat:1,ease:'sine.inOut'},10.6);
+      // (12.76) "Claude Opus, at its best, topped out around 85" — emphasize r4
+      tl.to(R+'#r4',{className:'row hot',duration:0},12.76);
+      tl.to(R+'#r4',{boxShadow:'inset 0 0 0 2px rgba(232,88,16,0.55), 0 0 30px rgba(232,88,16,0.30)',duration:0.85,yoyo:true,repeat:1,ease:'sine.inOut'},12.9);
+      tl.to(R+'#sc4',{color:'#E85810',filter:'drop-shadow(0 0 16px rgba(232,88,16,0.7))',duration:0.8,yoyo:true,repeat:1,ease:'sine.inOut'},13.0);
+
+      // ===== SCENE C (15.91) — "nobody expected this" then the collapse =====
+      fadeOut('#s4b',15.91); fadeIn('#s4c',15.91);
+      tl.from(R+'#c-twist',{opacity:0,y:24,duration:0.5,ease:'power3.out'},16.2);
+      // pattern-interrupt jolt on the twist line
+      tl.to(R+'#c-twist',{x:'+=10',duration:0.07,yoyo:true,repeat:5,ease:'none'},16.8);
+      // breathe via brightness (no scale)
+      tl.to(R+'#c-twist',{filter:'brightness(1.22)',duration:0.9,yoyo:true,repeat:1,ease:'sine.inOut'},17.6);
+
+      // (21.51) THE COLLAPSE — twist clears, bar + big number appear, bar crashes, number ticks down to 2.8
+      tl.to(R+'#c-twist',{opacity:0,y:-30,duration:0.45,ease:'power2.in'},20.9);
+      tl.set(R+'#c-collapse',{position:'static'},21.3);
+      tl.fromTo(R+'#c-collapse',{opacity:0,y:14},{opacity:1,y:0,duration:0.4,ease:'power2.out'},21.3);
+      tl.to(R+'#c-glow',{opacity:1,duration:0.5,ease:'sine.inOut'},21.3);
+      // the tall green bar collapses into a red sliver (height change, no scale)
+      tl.to(R+'#bar',{className:'bar down',duration:0},21.51);
+      tl.to(R+'#bar',{height:15,duration:0.85,ease:'power3.in'},21.51);
+      tl.to(R+'#barlbl',{textContent:'truncated',duration:0},22.0);
+      // big number CRASHES down from 85 → 2.8 (real result), tabular-nums
+      (function(){ var o={n:85};
+        tl.to(o,{n:2.8,duration:0.9,ease:'power3.in',onUpdate:function(){
+          var el=document.querySelector(R+'#bignum'); if(el) el.textContent=(o.n).toFixed(1)+'%'; }},21.51); })();
+      // impact: dramatic scale punch as the number crashes onto 2.8 (visceral crash, then shake)
+      tl.fromTo(R+'#bignum',{scale:1.4},{scale:1,duration:0.22,ease:'power4.out',transformOrigin:'left bottom'},22.41);
+      tl.to(R+'#bignum',{x:'+=12',duration:0.06,yoyo:true,repeat:7,ease:'none'},22.41);
+      tl.to(R+'#c-note',{opacity:1,duration:0.45,ease:'power2.out'},23.0);
+      // continuous life: the red sliver flickers
+      tl.to(R+'#bar',{opacity:0.6,duration:0.5,yoyo:true,repeat:2,ease:'sine.inOut'},23.6);
+
+      // ===== SCENE D (25.83) — payoff (final scene, hold to 30.28) =====
+      fadeOut('#s4c',25.83); fadeIn('#s4d',25.83);
+      // brief scale punch on entrance so the payoff lands hard
+      tl.from(R+'#payoff',{opacity:0,scale:0.8,y:24,duration:0.5,ease:'back.out(1.6)',transformOrigin:'center center'},26.15);
+      tl.from(R+'#paysub',{opacity:0,y:18,duration:0.5,ease:'power2.out'},26.7);
+      // settle glow-pulse on the orange payoff (no scale)
+      tl.to(R+'#payoff',{boxShadow:'0 16px 50px rgba(232,88,16,0.45), 0 0 60px rgba(232,88,16,0.55)',duration:0.85,yoyo:true,repeat:1,ease:'sine.inOut'},27.6);
+      tl.to(R+'#payoff',{boxShadow:'0 16px 50px rgba(232,88,16,0.45), 0 0 48px rgba(232,88,16,0.45)',duration:0.9,yoyo:true,repeat:1,ease:'sine.inOut'},29.0);
+
+      window.__timelines["seg4"] = tl;
+    </script>
+  </div>
+</body>
+</html>

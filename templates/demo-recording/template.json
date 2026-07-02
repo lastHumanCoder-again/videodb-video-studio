@@ -1,0 +1,14 @@
+{
+  "slug": "record-replay",
+  "pipeline": "demo-recording",
+  "next_steps": [
+    "Study the worked example: npm install && npx hyperframes preview (6-segment, ~2min launch video)",
+    "Read BUILD_KIT.md — segment skeleton, shared component CSS, helpers (fadeIn/countUp/typewrite/stamp), per-segment specs",
+    "Optional screen capture: the repo/ dir is a Playwright capture stack (run_demo.py + capture/) — record your product flow to use as real footage",
+    "Write SCRIPT.md (hook → reveal → demo beats → use cases → CTA), one segment per beat",
+    "Voiceover: edit voiceover/segments.json, run the skill's scripts/tts.py — or drop MP3s into voiceover/",
+    "Transcribe each MP3 (npx hyperframes transcribe), edit voiceover/cues_spec.json, run scripts/extract_cues.py",
+    "Rebuild compositions/seg1-6.html against the BUILD_KIT skeleton with your cues",
+    "QA: lint && validate && inspect --samples 60; extract frames; draft render then HQ"
+  ]
+}

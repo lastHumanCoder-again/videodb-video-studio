@@ -1,0 +1,272 @@
+[
+  {
+    "text": "A",
+    "start": 0.1,
+    "end": 0.11
+  },
+  {
+    "text": "machine",
+    "start": 0.11,
+    "end": 0.85
+  },
+  {
+    "text": "beating",
+    "start": 0.85,
+    "end": 1.6
+  },
+  {
+    "text": "a",
+    "start": 1.6,
+    "end": 1.7
+  },
+  {
+    "text": "grandmaster",
+    "start": 1.7,
+    "end": 2.87
+  },
+  {
+    "text": "is",
+    "start": 2.87,
+    "end": 3.04
+  },
+  {
+    "text": "old",
+    "start": 3.07,
+    "end": 3.29
+  },
+  {
+    "text": "news.",
+    "start": 3.39,
+    "end": 3.92
+  },
+  {
+    "text": "The",
+    "start": 4.03,
+    "end": 4.17
+  },
+  {
+    "text": "real",
+    "start": 4.17,
+    "end": 4.51
+  },
+  {
+    "text": "frontier",
+    "start": 4.51,
+    "end": 5.2
+  },
+  {
+    "text": "is",
+    "start": 5.2,
+    "end": 5.29
+  },
+  {
+    "text": "whether",
+    "start": 5.33,
+    "end": 5.67
+  },
+  {
+    "text": "it",
+    "start": 5.67,
+    "end": 5.77
+  },
+  {
+    "text": "can",
+    "start": 5.77,
+    "end": 5.84
+  },
+  {
+    "text": "look",
+    "start": 5.96,
+    "end": 6.16
+  },
+  {
+    "text": "at",
+    "start": 6.16,
+    "end": 6.36
+  },
+  {
+    "text": "the",
+    "start": 6.36,
+    "end": 6.66
+  },
+  {
+    "text": "world",
+    "start": 6.66,
+    "end": 6.95
+  },
+  {
+    "text": "and",
+    "start": 6.95,
+    "end": 7.22
+  },
+  {
+    "text": "get",
+    "start": 7.35,
+    "end": 7.6
+  },
+  {
+    "text": "it",
+    "start": 7.6,
+    "end": 7.76
+  },
+  {
+    "text": "exactly",
+    "start": 7.95,
+    "end": 8.65
+  },
+  {
+    "text": "right.",
+    "start": 8.71,
+    "end": 9.76
+  },
+  {
+    "text": "And",
+    "start": 9.91,
+    "end": 10.05
+  },
+  {
+    "text": "for",
+    "start": 10.05,
+    "end": 10.3
+  },
+  {
+    "text": "your",
+    "start": 10.3,
+    "end": 10.63
+  },
+  {
+    "text": "problem,",
+    "start": 10.63,
+    "end": 11.4
+  },
+  {
+    "text": "knowing",
+    "start": 11.4,
+    "end": 12
+  },
+  {
+    "text": "which",
+    "start": 12.09,
+    "end": 12.5
+  },
+  {
+    "text": "model",
+    "start": 12.5,
+    "end": 12.81
+  },
+  {
+    "text": "does,",
+    "start": 12.81,
+    "end": 13.52
+  },
+  {
+    "text": "that's",
+    "start": 13.82,
+    "end": 14.06
+  },
+  {
+    "text": "not",
+    "start": 14.06,
+    "end": 14.27
+  },
+  {
+    "text": "a",
+    "start": 14.39,
+    "end": 14.42
+  },
+  {
+    "text": "guess.",
+    "start": 14.42,
+    "end": 15.16
+  },
+  {
+    "text": "It's",
+    "start": 15.27,
+    "end": 15.79
+  },
+  {
+    "text": "a",
+    "start": 15.79,
+    "end": 15.95
+  },
+  {
+    "text": "test.",
+    "start": 15.95,
+    "end": 17.07
+  },
+  {
+    "text": "Don't",
+    "start": 17.19,
+    "end": 17.4
+  },
+  {
+    "text": "trust",
+    "start": 17.4,
+    "end": 17.72
+  },
+  {
+    "text": "the",
+    "start": 17.72,
+    "end": 17.91
+  },
+  {
+    "text": "leaderboard.",
+    "start": 17.91,
+    "end": 18.83
+  },
+  {
+    "text": "Run",
+    "start": 18.95,
+    "end": 19.13
+  },
+  {
+    "text": "it",
+    "start": 19.13,
+    "end": 19.32
+  },
+  {
+    "text": "on",
+    "start": 19.32,
+    "end": 19.51
+  },
+  {
+    "text": "your",
+    "start": 19.51,
+    "end": 19.9
+  },
+  {
+    "text": "own",
+    "start": 19.9,
+    "end": 20.19
+  },
+  {
+    "text": "board.",
+    "start": 20.19,
+    "end": 21
+  },
+  {
+    "text": "To",
+    "start": 21.11,
+    "end": 21.23
+  },
+  {
+    "text": "see",
+    "start": 21.23,
+    "end": 21.58
+  },
+  {
+    "text": "is",
+    "start": 21.58,
+    "end": 21.81
+  },
+  {
+    "text": "to",
+    "start": 21.81,
+    "end": 22.04
+  },
+  {
+    "text": "know.",
+    "start": 22.04,
+    "end": 22.88
+  }
+]

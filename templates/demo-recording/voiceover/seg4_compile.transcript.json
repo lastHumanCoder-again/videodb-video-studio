@@ -1,0 +1,277 @@
+[
+  {
+    "text": "Then",
+    "start": 0.12,
+    "end": 0.28
+  },
+  {
+    "text": "a",
+    "start": 0.28,
+    "end": 0.34
+  },
+  {
+    "text": "language",
+    "start": 0.35,
+    "end": 0.92
+  },
+  {
+    "text": "model",
+    "start": 0.92,
+    "end": 1.23
+  },
+  {
+    "text": "compiles",
+    "start": 1.32,
+    "end": 1.73
+  },
+  {
+    "text": "it.",
+    "start": 1.82,
+    "end": 2.66
+  },
+  {
+    "text": "Your",
+    "start": 2.78,
+    "end": 2.99
+  },
+  {
+    "text": "one",
+    "start": 2.99,
+    "end": 3.24
+  },
+  {
+    "text": "demo",
+    "start": 3.24,
+    "end": 3.57
+  },
+  {
+    "text": "becomes",
+    "start": 3.57,
+    "end": 4.15
+  },
+  {
+    "text": "a",
+    "start": 4.15,
+    "end": 4.21
+  },
+  {
+    "text": "reusable",
+    "start": 4.21,
+    "end": 4.4
+  },
+  {
+    "text": "skill.",
+    "start": 5.32,
+    "end": 5.6
+  },
+  {
+    "text": "A",
+    "start": 5.6,
+    "end": 5.72
+  },
+  {
+    "text": "machine-readable",
+    "start": 5.72,
+    "end": 6.66
+  },
+  {
+    "text": "file",
+    "start": 6.72,
+    "end": 6.95
+  },
+  {
+    "text": "an",
+    "start": 6.95,
+    "end": 7.08
+  },
+  {
+    "text": "agent",
+    "start": 7.08,
+    "end": 7.3
+  },
+  {
+    "text": "can",
+    "start": 7.43,
+    "end": 7.48
+  },
+  {
+    "text": "run,",
+    "start": 7.86,
+    "end": 8.24
+  },
+  {
+    "text": "and",
+    "start": 8.36,
+    "end": 8.48
+  },
+  {
+    "text": "a",
+    "start": 8.48,
+    "end": 8.55
+  },
+  {
+    "text": "plain",
+    "start": 8.55,
+    "end": 8.95
+  },
+  {
+    "text": "English",
+    "start": 8.99,
+    "end": 9.47
+  },
+  {
+    "text": "one",
+    "start": 9.56,
+    "end": 9.78
+  },
+  {
+    "text": "a",
+    "start": 9.78,
+    "end": 9.8
+  },
+  {
+    "text": "human",
+    "start": 9.8,
+    "end": 9.98
+  },
+  {
+    "text": "can",
+    "start": 9.98,
+    "end": 10.51
+  },
+  {
+    "text": "follow.",
+    "start": 10.93,
+    "end": 11.28
+  },
+  {
+    "text": "It",
+    "start": 11.4,
+    "end": 11.42
+  },
+  {
+    "text": "even",
+    "start": 11.42,
+    "end": 11.71
+  },
+  {
+    "text": "spots",
+    "start": 11.71,
+    "end": 12.08
+  },
+  {
+    "text": "the",
+    "start": 12.08,
+    "end": 12.3
+  },
+  {
+    "text": "parts",
+    "start": 12.3,
+    "end": 12.67
+  },
+  {
+    "text": "that",
+    "start": 12.67,
+    "end": 12.95
+  },
+  {
+    "text": "change,",
+    "start": 12.95,
+    "end": 13.59
+  },
+  {
+    "text": "a",
+    "start": 13.59,
+    "end": 13.67
+  },
+  {
+    "text": "name,",
+    "start": 13.97,
+    "end": 14.16
+  },
+  {
+    "text": "a",
+    "start": 14.2,
+    "end": 14.27
+  },
+  {
+    "text": "date,",
+    "start": 14.27,
+    "end": 14.72
+  },
+  {
+    "text": "and",
+    "start": 14.84,
+    "end": 14.97
+  },
+  {
+    "text": "a",
+    "start": 14.97,
+    "end": 15.05
+  },
+  {
+    "text": "mount,",
+    "start": 15.05,
+    "end": 15.63
+  },
+  {
+    "text": "and",
+    "start": 15.63,
+    "end": 15.84
+  },
+  {
+    "text": "turns",
+    "start": 15.88,
+    "end": 16.27
+  },
+  {
+    "text": "them",
+    "start": 16.29,
+    "end": 16.46
+  },
+  {
+    "text": "into",
+    "start": 16.54,
+    "end": 16.98
+  },
+  {
+    "text": "variables.",
+    "start": 17.42,
+    "end": 18.03
+  },
+  {
+    "text": "Record",
+    "start": 18.16,
+    "end": 18.51
+  },
+  {
+    "text": "it",
+    "start": 18.51,
+    "end": 18.66
+  },
+  {
+    "text": "once.",
+    "start": 18.67,
+    "end": 19.24
+  },
+  {
+    "text": "Reuse",
+    "start": 19.36,
+    "end": 19.72
+  },
+  {
+    "text": "it",
+    "start": 19.72,
+    "end": 19.91
+  },
+  {
+    "text": "1,000",
+    "start": 19.91,
+    "end": 20.97
+  },
+  {
+    "text": "ways.",
+    "start": 20.97,
+    "end": 22
+  }
+]

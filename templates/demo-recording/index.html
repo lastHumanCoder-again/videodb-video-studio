@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:1920px; height:1080px; overflow:hidden; background:#0B0B0C; }
+  body { font-family:"Inter", sans-serif; }
+</style>
+</head>
+<body>
+  <div id="root" data-composition-id="main" data-start="0" data-duration="125.68" data-width="1920" data-height="1080">
+
+    <!-- VIDEO: 6 segments, back-to-back, alternating tracks 1/2 (clip dur = VO + 0.6s gap) -->
+    <div class="clip" data-composition-id="seg1" data-composition-src="compositions/seg1.html" data-start="0"      data-duration="19.16" data-track-index="1"></div>
+    <div class="clip" data-composition-id="seg2" data-composition-src="compositions/seg2.html" data-start="19.16"  data-duration="15.64" data-track-index="2"></div>
+    <div class="clip" data-composition-id="seg3" data-composition-src="compositions/seg3.html" data-start="34.80"  data-duration="19.08" data-track-index="1"></div>
+    <div class="clip" data-composition-id="seg4" data-composition-src="compositions/seg4.html" data-start="53.88"  data-duration="21.72" data-track-index="2"></div>
+    <div class="clip" data-composition-id="seg5" data-composition-src="compositions/seg5.html" data-start="75.60"  data-duration="24.92" data-track-index="1"></div>
+    <div class="clip" data-composition-id="seg6" data-composition-src="compositions/seg6.html" data-start="100.52" data-duration="25.16" data-track-index="2"></div>
+
+    <!-- AUDIO: narration track 3; natural VO length at each segment start (0.6s gaps) -->
+    <audio id="a1" class="clip" src="voiceover/seg1_hook.mp3"    data-start="0"      data-duration="18.56" data-track-index="3"></audio>
+    <audio id="a2" class="clip" src="voiceover/seg2_reveal.mp3"  data-start="19.16"  data-duration="15.04" data-track-index="3"></audio>
+    <audio id="a3" class="clip" src="voiceover/seg3_record.mp3"  data-start="34.80"  data-duration="18.48" data-track-index="3"></audio>
+    <audio id="a4" class="clip" src="voiceover/seg4_compile.mp3" data-start="53.88"  data-duration="21.12" data-track-index="3"></audio>
+    <audio id="a5" class="clip" src="voiceover/seg5_replay.mp3"  data-start="75.60"  data-duration="24.32" data-track-index="3"></audio>
+    <audio id="a6" class="clip" src="voiceover/seg6_close.mp3"   data-start="100.52" data-duration="24.56" data-track-index="3"></audio>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused:true });
+    </script>
+  </div>
+</body>
+</html>

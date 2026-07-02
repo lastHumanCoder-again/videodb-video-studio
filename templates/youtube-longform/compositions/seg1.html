@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  [data-composition-id="seg1"]{ position:relative; width:1920px; height:1080px; overflow:hidden;
+    background:#0B0B0C; color:#F4F2EE; font-family:"Inter","Helvetica Neue",Arial,sans-serif;
+    /* BRAND:START */
+    --orange:#E85810; /* brand:accent */
+    --card:#141416;   /* brand:card */
+    --muted:#8C8C94;  /* brand:muted */
+    --line:#2A2A2E;   /* brand:hairline */
+    --red:#E5484D;    /* brand:bad */
+    /* BRAND:END */ }
+  [data-composition-id="seg1"] .scene{ position:absolute; inset:0; width:1920px; height:1080px; overflow:hidden; opacity:0; }
+  [data-composition-id="seg1"] #s1a{ opacity:1; }
+  /* full-bleed photo layers (cinematic push-in via scale) */
+  [data-composition-id="seg1"] .imgwrap{ position:absolute; inset:0; overflow:hidden; }
+  [data-composition-id="seg1"] .imgwrap img{ position:absolute; inset:0; width:1920px; height:1080px; object-fit:cover; }
+  [data-composition-id="seg1"] #kasparov{ object-position:50% 22%; }
+  [data-composition-id="seg1"] .veil{ position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(11,11,12,0.50) 0%, rgba(11,11,12,0.20) 38%, rgba(11,11,12,0.92) 100%); }
+  [data-composition-id="seg1"] .lower{ position:absolute; left:110px; bottom:120px; z-index:3; }
+  [data-composition-id="seg1"] .yr{ display:inline-flex; align-items:center; gap:16px; font-family:"Archivo Black",sans-serif;
+    color:var(--orange); font-size:48px; letter-spacing:0.05em; margin-bottom:20px; text-shadow:0 2px 14px rgba(0,0,0,0.8); }
+  [data-composition-id="seg1"] .yr .rec{ width:18px; height:18px; border-radius:50%; background:var(--red); box-shadow:0 0 16px var(--red); }
+  [data-composition-id="seg1"] .box{ display:inline-block; background:#F4F2EE; color:#0B0B0C;
+    font-family:"Archivo Black",sans-serif; text-transform:uppercase; letter-spacing:0.01em; line-height:0.98;
+    padding:16px 26px; border-radius:12px; font-size:64px; box-shadow:0 14px 40px rgba(0,0,0,0.6); }
+  [data-composition-id="seg1"] .box.pay{ background:var(--orange); color:#fff; box-shadow:0 16px 50px rgba(232,88,16,0.5); }
+  [data-composition-id="seg1"] .box.red{ background:var(--red); color:#fff; }
+  [data-composition-id="seg1"] .credit{ position:absolute; left:112px; bottom:80px; z-index:3; font-size:18px; color:#b9b9c0;
+    text-shadow:0 1px 6px rgba(0,0,0,0.9); }
+  /* deep blue inset (man vs machine) */
+  [data-composition-id="seg1"] .inset{ position:absolute; right:90px; bottom:120px; z-index:4; width:188px; height:282px;
+    border-radius:12px; overflow:hidden; border:1px solid rgba(255,255,255,0.18); box-shadow:0 24px 60px rgba(0,0,0,0.7); }
+  [data-composition-id="seg1"] .inset img{ width:100%; height:100%; object-fit:cover; }
+  [data-composition-id="seg1"] .inset .il{ position:absolute; left:0; right:0; bottom:0; padding:10px 12px; font-family:"Archivo Black",sans-serif;
+    font-size:16px; letter-spacing:0.06em; background:linear-gradient(0deg, rgba(0,0,0,0.9), transparent); }
+  [data-composition-id="seg1"] .inset .il i{ font-style:normal; color:var(--orange); }
+  /* question card over chessboard */
+  [data-composition-id="seg1"] .center{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; z-index:3; }
+  [data-composition-id="seg1"] .reticle{ position:absolute; left:0; right:0; height:4px; top:42%; z-index:2;
+    background:linear-gradient(90deg, transparent, rgba(232,88,16,0.9), transparent); box-shadow:0 0 22px rgba(232,88,16,0.7); }
+  [data-composition-id="seg1"] .qcard{ background:rgba(20,20,22,0.92); border:1px solid var(--line); border-radius:18px;
+    padding:34px 44px; display:flex; align-items:center; gap:24px; box-shadow:0 26px 70px rgba(0,0,0,0.7); }
+  [data-composition-id="seg1"] .qcard .qmark{ width:78px; height:78px; border-radius:14px; background:var(--orange); color:#fff;
+    font-family:"Archivo Black",sans-serif; font-size:52px; display:flex; align-items:center; justify-content:center; }
+  [data-composition-id="seg1"] .qcard .qtxt{ font-size:40px; font-weight:600; }
+  /* wrong + pivot */
+  [data-composition-id="seg1"] .col{ display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  [data-composition-id="seg1"] .xmark{ display:inline-flex; align-items:center; justify-content:center; width:104px; height:104px;
+    border-radius:50%; background:var(--red); color:#fff; font-family:"Archivo Black",sans-serif; font-size:64px; margin-bottom:30px;
+    box-shadow:0 12px 36px rgba(229,72,77,0.55); }
+  [data-composition-id="seg1"] .pre{ color:#d7d5d0; font-size:32px; font-weight:500; margin-bottom:26px; }
+  [data-composition-id="seg1"] .bug{ position:absolute; right:46px; bottom:40px; height:34px; width:auto; opacity:0.55; z-index:50; }
+</style>
+</head>
+<body>
+  <div data-composition-id="seg1" data-start="0" data-duration="26.04" data-width="1920" data-height="1080">
+
+    <!-- s1a: real defeated-champion photo + cinematic push-in -->
+    <div id="s1a" class="scene">
+      <div class="imgwrap"><img id="kasparov" src="assets/kasparov_board.jpg" /></div>
+      <div class="veil"></div>
+      <div class="inset" id="inset"><img src="assets/deep_blue.jpg" /><div class="il">DEEP BLUE · <i>IBM</i></div></div>
+      <div class="lower">
+        <div class="yr"><span class="rec" id="rec"></span>1997</div>
+        <span class="box">AI beat the world champion</span>
+      </div>
+      <div class="credit">Garry Kasparov vs IBM Deep Blue · photo: Wikimedia (CC BY-SA)</div>
+    </div>
+
+    <!-- s1b: chessboard photo + push-in + question -->
+    <div id="s1b" class="scene">
+      <div class="imgwrap"><img id="cbimg" src="assets/ai_chessboard.png" /></div>
+      <div class="veil"></div>
+      <div class="reticle" id="reticle"></div>
+      <div class="center"><div class="qcard">
+        <div class="qmark" id="qmark">?</div>
+        <div class="qtxt">"Here's a photo of a chessboard.<br>What's on it?"</div>
+      </div></div>
+    </div>
+
+    <!-- s1c: gets it wrong -->
+    <div id="s1c" class="scene col">
+      <div class="xmark" id="x1c">✗</div>
+      <span class="box red">the best models get it wrong</span>
+    </div>
+
+    <!-- s1d: pivot -->
+    <div id="s1d" class="scene col">
+      <div class="pre" id="s1d-pre">Not "can it play chess."</div>
+      <span class="box pay" id="s1d-box">Can it even SEE the board?</span>
+    </div>
+
+    <img class="bug" src="assets/videodb-logo.png" />
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      var R = '[data-composition-id="seg1"] ';
+      var tl = gsap.timeline({ paused:true });
+      var XF = 0.55;
+      function fadeIn(s,t){ tl.fromTo(R+s,{opacity:0,filter:'blur(16px)'},{opacity:1,filter:'blur(0px)',duration:XF,ease:'sine.inOut'},t); }
+      function fadeOut(s,t){ tl.to(R+s,{opacity:0,filter:'blur(16px)',duration:XF,ease:'sine.inOut'},t); }
+
+      tl.from(R+'.bug',{opacity:0,duration:0.6},0.8);
+
+      // s1a (0.0) — cinematic slow push-in on the defeated champion; text + machine inset
+      tl.fromTo(R+'#kasparov',{scale:1.0},{scale:1.10,duration:13.4,ease:'sine.inOut'},0);
+      tl.from(R+'#s1a .yr',{opacity:0,y:18,duration:0.6,ease:'power3.out'},0.5);
+      tl.from(R+'#s1a .box',{opacity:0,y:24,duration:0.6,ease:'power3.out'},0.9);
+      tl.from(R+'#inset',{opacity:0,x:40,duration:0.7,ease:'power3.out'},2.6);
+      tl.from(R+'.credit',{opacity:0,duration:0.6},1.4);
+      tl.to(R+'#rec',{opacity:0.25,duration:0.7,yoyo:true,repeat:16,ease:'power1.inOut'},0.6);
+
+      // s1b (13.42) — chessboard push-in + reticle sweep + question
+      fadeOut('#s1a',13.42); fadeIn('#s1b',13.42);
+      tl.fromTo(R+'#cbimg',{scale:1.08},{scale:1.0,duration:5.6,ease:'sine.out'},13.42);
+      tl.from(R+'#s1b .qcard',{opacity:0,y:26,duration:0.5,ease:'power3.out'},13.8);
+      tl.fromTo(R+'#reticle',{top:'30%'},{top:'70%',duration:2.4,ease:'sine.inOut',yoyo:true,repeat:1},14.0);
+      tl.to(R+'#qmark',{boxShadow:'0 0 38px 6px rgba(232,88,16,0.7)',duration:0.7,yoyo:true,repeat:4,ease:'sine.inOut'},14.3);
+
+      // s1c (19.17) — wrong
+      fadeOut('#s1b',19.17); fadeIn('#s1c',19.17);
+      tl.from(R+'#x1c',{opacity:0,scale:0.4,rotation:-50,duration:0.5,ease:'back.out(2)'},19.5);
+      tl.from(R+'#s1c .box',{opacity:0,y:20,duration:0.4,ease:'power3.out'},19.85);
+      tl.to(R+'#x1c',{boxShadow:'0 0 50px 8px rgba(229,72,77,0.7)',duration:0.6,yoyo:true,repeat:3,ease:'sine.inOut'},20.4);
+
+      // s1d (24.0) — pivot (orange box punches in)
+      fadeOut('#s1c',24.0); fadeIn('#s1d',24.0);
+      tl.from(R+'#s1d-pre',{opacity:0,y:12,duration:0.4,ease:'power2.out'},24.3);
+      tl.from(R+'#s1d-box',{opacity:0,scale:0.72,duration:0.5,ease:'back.out(1.7)'},24.7);
+      tl.to(R+'#s1d-box',{boxShadow:'0 16px 70px rgba(232,88,16,0.85)',duration:0.7,yoyo:true,repeat:2,ease:'sine.inOut'},25.3);
+
+      window.__timelines["seg1"] = tl;
+    </script>
+  </div>
+</body>
+</html>

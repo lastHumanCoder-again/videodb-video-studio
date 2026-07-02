@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  [data-composition-id="seg2"]{ position:relative; width:1920px; height:1080px; overflow:hidden;
+    font-family:"Inter","Helvetica Neue",Arial,sans-serif;
+    /* BRAND:START */
+    background:#0B0B0C; /* brand:canvas */
+    color:#F4F2EE;      /* brand:text */
+    --orange:#E85810;   /* brand:accent */
+    --card:#141416;     /* brand:card */
+    --muted:#8C8C94;    /* brand:muted */
+    --line:#2A2A2E;     /* brand:hairline */
+    --red:#E5484D;      /* brand:bad */
+    --green:#3DD68C;    /* brand:good */
+    /* BRAND:END */
+  }
+  [data-composition-id="seg2"] .scene{ position:absolute; inset:0; width:1920px; height:1080px; overflow:hidden; opacity:0; }
+  [data-composition-id="seg2"] #s2a{ opacity:1; }
+  [data-composition-id="seg2"] .glow{ position:absolute; inset:0; background:radial-gradient(60% 50% at 50% 42%, rgba(232,88,16,0.10), transparent 70%); }
+  [data-composition-id="seg2"] .wrap{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:90px; }
+
+  /* ● REC dot + label */
+  [data-composition-id="seg2"] .rec{ display:inline-flex; align-items:center; gap:16px; font-family:"Archivo Black",sans-serif;
+    color:var(--orange); font-size:40px; letter-spacing:0.14em; text-shadow:0 2px 14px rgba(0,0,0,0.8); }
+  [data-composition-id="seg2"] .rec .dot{ width:26px; height:26px; border-radius:50%; background:var(--orange); box-shadow:0 0 22px var(--orange); }
+
+  /* RECORD→COMPILE→REPLAY spine */
+  [data-composition-id="seg2"] .spine{ display:inline-flex; align-items:center; gap:26px; }
+  [data-composition-id="seg2"] .snode{ font-family:"Archivo Black",sans-serif; text-transform:uppercase; letter-spacing:0.03em;
+    font-size:34px; padding:20px 30px; border-radius:14px; background:var(--card); border:1px solid var(--line); color:var(--muted); }
+  [data-composition-id="seg2"] .snode.on{ color:#fff; border-color:var(--orange);
+    box-shadow:0 0 0 2px rgba(232,88,16,0.4), 0 0 34px rgba(232,88,16,0.4); background:#1a1310; }
+  [data-composition-id="seg2"] .sarrow{ color:var(--muted); font-size:40px; }
+
+  /* Callout boxes */
+  [data-composition-id="seg2"] .box{ display:inline-block; background:#F4F2EE; color:#0B0B0C; font-family:"Archivo Black",sans-serif;
+    text-transform:uppercase; letter-spacing:0.01em; line-height:0.98; padding:16px 26px; border-radius:12px; font-size:60px; box-shadow:0 14px 40px rgba(0,0,0,0.6); }
+  [data-composition-id="seg2"] .box.pay{ background:var(--orange); color:#fff; box-shadow:0 16px 50px rgba(232,88,16,0.5); }
+  [data-composition-id="seg2"] .box.red{ background:var(--red); color:#fff; }
+  [data-composition-id="seg2"] .box.sm{ font-size:38px; padding:12px 18px; }
+
+  /* Card / chip */
+  [data-composition-id="seg2"] .card{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:26px 30px; }
+  [data-composition-id="seg2"] .chip{ display:inline-flex; align-items:center; gap:12px; background:var(--card); border:1px solid var(--line);
+    border-radius:999px; padding:12px 24px; font-size:28px; font-weight:600; color:var(--txt,#F4F2EE); }
+  [data-composition-id="seg2"] .chip .cd{ width:12px; height:12px; border-radius:50%; background:var(--orange); }
+
+  /* s2a lockup layout */
+  [data-composition-id="seg2"] .lockup{ font-family:"Archivo Black",sans-serif; text-transform:uppercase; letter-spacing:0.01em;
+    line-height:0.94; font-size:120px; color:#F4F2EE; text-align:center; margin-top:34px;
+    text-shadow:0 4px 30px rgba(0,0,0,0.7); }
+  [data-composition-id="seg2"] .lockup .amp{ color:var(--orange); }
+  [data-composition-id="seg2"] .subrow{ display:inline-flex; align-items:center; gap:20px; margin-top:44px; }
+
+  [data-composition-id="seg2"] .bug{ position:absolute; right:46px; bottom:40px; height:34px; width:auto; opacity:0.55; z-index:50; }
+</style>
+</head>
+<body>
+  <div data-composition-id="seg2" data-start="0" data-duration="15.64" data-width="1920" data-height="1080">
+
+    <!-- s2a: name reveal — REC dot + RECORD & REPLAY lockup + chip subrow -->
+    <div id="s2a" class="scene">
+      <div class="glow" id="s2a-glow"></div>
+      <div class="wrap">
+        <div class="rec" id="s2a-rec"><span class="dot"></span>REC</div>
+        <div class="lockup" id="s2a-lockup">RECORD <span class="amp">&amp;</span> REPLAY</div>
+        <div class="subrow" id="s2a-subrow">
+          <span class="chip"><span class="cd"></span>OPEN SOURCE</span>
+          <span class="chip"><span class="cd"></span>VIDEODB</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- s2b: RECORD → COMPILE → REPLAY spine draws in node by node (all default) -->
+    <div id="s2b" class="scene">
+      <div class="wrap">
+        <div class="spine" id="s2b-spine">
+          <span class="snode" id="s2b-n1">RECORD</span>
+          <span class="sarrow" id="s2b-a1">&rarr;</span>
+          <span class="snode" id="s2b-n2">COMPILE</span>
+          <span class="sarrow" id="s2b-a2">&rarr;</span>
+          <span class="snode" id="s2b-n3">REPLAY</span>
+        </div>
+      </div>
+    </div>
+
+    <img class="bug" src="assets/videodb-logo.png" />
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      var R = '[data-composition-id="seg2"] ';
+      var tl = gsap.timeline({ paused:true });
+      var XF = 0.5;
+      function fadeIn(s,t){ tl.fromTo(R+s,{opacity:0,filter:'blur(16px)'},{opacity:1,filter:'blur(0px)',duration:XF,ease:'sine.inOut'},t); }
+      function fadeOut(s,t){ tl.to(R+s,{opacity:0,filter:'blur(16px)',duration:XF,ease:'sine.inOut'},t); }
+      function countUp(sel,from,to,dur,at,fmt){ var o={n:from};
+        tl.to(o,{n:to,duration:dur,ease:'power2.out',onUpdate:function(){ var el=document.querySelector(R+sel); if(el) el.textContent=(fmt?fmt(Math.round(o.n)):Math.round(o.n)); }},at); }
+      function typewrite(sel,str,dur,at){ var o={n:0};
+        tl.to(o,{n:str.length,duration:dur,ease:'none',onUpdate:function(){ var el=document.querySelector(R+sel); if(el) el.textContent=str.slice(0,Math.round(o.n)); }},at); }
+      function stamp(sel,at){ tl.from(R+sel,{opacity:0,scale:0.72,duration:0.36,ease:'back.out(1.6)'},at); }
+
+      tl.from(R+'.bug',{opacity:0,duration:0.6},0.8);
+
+      // s2a (0.0) — REC dot in, lockup stamps with overshoot, chip subrow fades ~2s
+      tl.from(R+'#s2a-rec',{opacity:0,y:-18,duration:0.5,ease:'power3.out'},0.25);
+      tl.to(R+'#s2a-rec .dot',{opacity:0.28,duration:0.7,yoyo:true,repeat:18,ease:'power1.inOut'},0.4);
+      tl.from(R+'#s2a-lockup',{opacity:0,scale:0.68,duration:0.55,ease:'back.out(1.7)'},0.55);
+      tl.from(R+'#s2a-subrow',{opacity:0,y:22,duration:0.6,ease:'power3.out'},2.0);
+      // soft orange glow pulse (finite) + very slow scale push so the lockup never freezes
+      tl.fromTo(R+'#s2a-glow',{opacity:0.6},{opacity:1,duration:1.6,yoyo:true,repeat:6,ease:'sine.inOut'},0.6);
+      tl.to(R+'#s2a-lockup',{scale:1.05,duration:10.4,ease:'sine.inOut'},1.1);
+
+      // s2b (11.41) — crossfade in; spine draws node by node, arrows fade between
+      fadeOut('#s2a',11.41); fadeIn('#s2b',11.41);
+      tl.from(R+'#s2b-n1',{opacity:0,scale:0.8,duration:0.4,ease:'back.out(1.5)'},11.66);
+      tl.from(R+'#s2b-a1',{opacity:0,duration:0.3,ease:'sine.out'},11.91);
+      tl.from(R+'#s2b-n2',{opacity:0,scale:0.8,duration:0.4,ease:'back.out(1.5)'},12.16);
+      tl.from(R+'#s2b-a2',{opacity:0,duration:0.3,ease:'sine.out'},12.41);
+      tl.from(R+'#s2b-n3',{opacity:0,scale:0.8,duration:0.4,ease:'back.out(1.5)'},12.66);
+      // keep motion alive to the end: a slow settle push on the whole spine
+      tl.fromTo(R+'#s2b-spine',{scale:0.98},{scale:1.04,duration:2.6,ease:'sine.inOut'},13.0);
+
+      window.__timelines["seg2"] = tl;
+    </script>
+  </div>
+</body>
+</html>

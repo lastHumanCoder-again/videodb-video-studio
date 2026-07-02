@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  [data-composition-id="seg8"]{ position:relative; width:1920px; height:1080px; overflow:hidden;
+    background:#0B0B0C; color:#F4F2EE; font-family:"Inter","Helvetica Neue",Arial,sans-serif;
+    /* BRAND:START */
+    --orange:#E85810; /* brand:accent */
+    --canvas:#0B0B0C; /* brand:canvas */
+    --card:#141416;   /* brand:card */
+    --txt:#F4F2EE;    /* brand:text */
+    --muted:#8C8C94;  /* brand:muted */
+    --line:#2A2A2E;   /* brand:hairline */
+    --red:#E5484D;    /* brand:bad */
+    --green:#3DD68C;  /* brand:good */
+    /* BRAND:END */ }
+  [data-composition-id="seg8"] .scene{ position:absolute; inset:0; width:1920px; height:1080px; overflow:hidden; opacity:0;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  [data-composition-id="seg8"] #s8a{ opacity:1; }
+  [data-composition-id="seg8"] .glow{ position:absolute; inset:0;
+    background:radial-gradient(58% 50% at 50% 44%, rgba(232,88,16,0.10), transparent 70%); }
+
+  /* signature callout box */
+  [data-composition-id="seg8"] .box{ display:inline-block; background:#F4F2EE; color:#0B0B0C;
+    font-family:"Archivo Black",sans-serif; text-transform:uppercase; letter-spacing:0.01em; line-height:0.98;
+    padding:14px 24px; border-radius:12px; font-size:56px; box-shadow:0 14px 40px rgba(0,0,0,0.5); }
+  [data-composition-id="seg8"] .box.pay{ background:var(--orange); color:#fff; box-shadow:0 16px 50px rgba(232,88,16,0.45); }
+  [data-composition-id="seg8"] .box.sm{ font-size:34px; padding:10px 16px; border-radius:10px; }
+
+  /* SCENE A — "old news" struck node */
+  [data-composition-id="seg8"] #s8a .node{ position:relative; display:inline-flex; align-items:center; justify-content:center;
+    background:var(--card); border:1px solid var(--line); border-radius:18px; padding:34px 60px;
+    font-family:"Archivo Black",sans-serif; text-transform:uppercase; font-size:72px; line-height:0.96;
+    letter-spacing:0.01em; color:#cfcfd4; text-align:center; }
+  [data-composition-id="seg8"] #s8a .strike{ position:absolute; left:-5%; top:50%; width:110%; height:8px; border-radius:4px;
+    background:var(--red); transform:translateY(-50%) scaleX(0); transform-origin:left center; box-shadow:0 0 22px rgba(229,72,77,0.5); }
+  [data-composition-id="seg8"] #s8a .oldnews{ margin-top:46px; font-family:"Archivo Black",sans-serif; text-transform:uppercase;
+    font-size:54px; letter-spacing:0.03em; color:var(--muted); }
+  [data-composition-id="seg8"] #s8a .oldnews .o{ color:var(--orange); }
+
+  /* SCENE B — the frontier statement */
+  [data-composition-id="seg8"] #s8b .stack{ display:flex; flex-direction:column; align-items:center; gap:0; }
+  [data-composition-id="seg8"] #s8b .kicker{ font-family:"Inter",sans-serif; font-weight:500; color:var(--muted);
+    font-size:36px; letter-spacing:0.04em; text-transform:uppercase; margin-bottom:34px; }
+  [data-composition-id="seg8"] #s8b .head{ max-width:1560px; text-align:center; font-family:"Archivo Black",sans-serif;
+    text-transform:uppercase; font-size:104px; line-height:0.94; letter-spacing:-0.01em; color:var(--txt); }
+  [data-composition-id="seg8"] #s8b .head .o{ color:var(--orange); }
+  [data-composition-id="seg8"] #s8b .head .em{ display:inline-block; }
+
+  /* SCENE C — orange pay box + the test sub */
+  [data-composition-id="seg8"] #s8c .stack{ display:flex; flex-direction:column; align-items:center; gap:0; }
+  [data-composition-id="seg8"] #s8c .pay{ font-size:78px; line-height:0.98; text-align:center; padding:24px 44px; }
+  [data-composition-id="seg8"] #s8c .sub{ margin-top:42px; max-width:1320px; text-align:center; color:var(--muted);
+    font-family:"Inter",sans-serif; font-weight:400; font-size:42px; line-height:1.28; letter-spacing:0.01em; }
+  [data-composition-id="seg8"] #s8c .sub b{ color:var(--txt); font-weight:700; }
+  [data-composition-id="seg8"] #s8c .sub .o{ color:var(--orange); font-weight:700; }
+
+  /* SCENE D — the end card */
+  [data-composition-id="seg8"] #s8d .endlogo{ height:120px; width:auto;
+    filter:drop-shadow(0 0 40px rgba(232,88,16,0.45)); }
+  [data-composition-id="seg8"] #s8d .tagline{ margin-top:54px; font-family:"Archivo Black",sans-serif; text-transform:uppercase;
+    font-size:138px; line-height:0.92; letter-spacing:-0.01em; color:var(--txt); }
+  [data-composition-id="seg8"] #s8d .tagline .o{ color:var(--orange); }
+  [data-composition-id="seg8"] #s8d .cta{ margin-top:62px; display:inline-flex; flex-direction:column; align-items:center;
+    gap:16px; background:var(--card); border:1px solid var(--line); border-radius:18px; padding:28px 52px;
+    box-shadow:0 24px 70px rgba(0,0,0,0.55); }
+  [data-composition-id="seg8"] #s8d .cta .ctahead{ font-family:"Archivo Black",sans-serif; text-transform:uppercase;
+    font-size:34px; letter-spacing:0.03em; color:var(--txt); text-align:center; line-height:1.06; }
+  [data-composition-id="seg8"] #s8d .cta .ctalink{ display:inline-flex; align-items:center; gap:16px;
+    font-family:"Inter",sans-serif; font-weight:700; font-size:34px; color:var(--orange); letter-spacing:0.01em;
+    font-variant-numeric:tabular-nums; }
+  [data-composition-id="seg8"] #s8d .cta .ctalink .arrow{ font-family:"Archivo Black",sans-serif; }
+
+  [data-composition-id="seg8"] .bug{ position:absolute; right:46px; bottom:40px; height:34px; width:auto; opacity:0.5; z-index:50; }
+</style>
+</head>
+<body>
+  <div data-composition-id="seg8" data-start="0" data-duration="24.36" data-width="1920" data-height="1080">
+
+    <!-- SCENE A (0.00) — "A machine beating a grandmaster is old news." -->
+    <div id="s8a" class="scene clip">
+      <div class="glow"></div>
+      <div class="node" id="oldnode">
+        BEATING A GRANDMASTER
+        <div class="strike" id="strike"></div>
+      </div>
+      <div class="oldnews" id="oldnews">THAT'S <span class="o">OLD NEWS.</span></div>
+    </div>
+
+    <!-- SCENE B (7.95) — "whether it can look at the world and get it exactly right" -->
+    <div id="s8b" class="scene clip">
+      <div class="glow"></div>
+      <div class="stack">
+        <div class="kicker" id="kicker">the real frontier</div>
+        <div class="head" id="frontierhead">CAN IT LOOK AT THE WORLD<br>&mdash; AND GET IT <span class="o em" id="exactly">EXACTLY</span> RIGHT?</div>
+      </div>
+    </div>
+
+    <!-- SCENE C (14.06 → 17.19) — "Don't trust the leaderboard. Test it." -->
+    <div id="s8c" class="scene clip">
+      <div class="glow"></div>
+      <div class="stack">
+        <div><span class="box pay" id="testbox">DON'T TRUST THE LEADERBOARD.<br>TEST IT.</span></div>
+        <div class="sub" id="testsub">For <b>your problem</b>, that's not a guess &mdash; <span class="o">it's a test.</span></div>
+      </div>
+    </div>
+
+    <!-- SCENE D (21.11) — END CARD + tagline + ONE CTA. Final scene; holds to 24.36. -->
+    <div id="s8d" class="scene clip">
+      <div class="glow"></div>
+      <img class="endlogo" id="endlogo" src="assets/videodb-logo.png" />
+      <div class="tagline" id="tagline">TO SEE IS TO <span class="o">KNOW.</span></div>
+      <div class="cta" id="cta">
+        <div class="ctahead">READ THE FIELD NOTE</div>
+        <div class="ctalink"><span class="arrow">&rarr;</span>github.com/video-db/chess-lens</div>
+      </div>
+    </div>
+
+    <img class="bug" src="assets/videodb-logo.png" />
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      var R = '[data-composition-id="seg8"] ';
+      var tl = gsap.timeline({ paused:true });
+      var XF = 0.55;
+      function fadeIn(s,t){ tl.fromTo(R+s,{opacity:0,filter:'blur(18px)'},{opacity:1,filter:'blur(0px)',duration:XF,ease:'sine.inOut'},t); }
+      function fadeOut(s,t){ tl.to(R+s,{opacity:0,filter:'blur(18px)',duration:XF,ease:'sine.inOut'},t); }
+
+      // bug fade-in
+      tl.from(R+'.bug',{opacity:0,duration:0.6,ease:'power2.out'},0.6);
+
+      // SCENE A (0.00) — "beating a grandmaster is old news" — node lands, strike sweeps, dismissed
+      tl.from(R+'#oldnode',{opacity:0,y:34,duration:0.55,ease:'power3.out'},0.25);
+      tl.to(R+'#strike',{scaleX:1,duration:0.55,ease:'power2.inOut'},2.4);
+      tl.from(R+'#oldnews',{opacity:0,y:16,duration:0.5,ease:'power2.out'},3.0);
+      // the rejected idea dims a touch — finite breathe (opacity only, no scale)
+      tl.to(R+'#oldnode',{opacity:0.6,duration:1.2,yoyo:true,repeat:1,ease:'sine.inOut'},4.6);
+      // orange "OLD NEWS." pulses with a glow/brightness beat — no scale
+      tl.to(R+'#oldnews .o',{filter:'brightness(1.5) drop-shadow(0 0 14px rgba(232,88,16,0.55))',duration:0.7,yoyo:true,repeat:1,ease:'sine.inOut'},5.6);
+
+      // SCENE B (7.95) — "whether it can look at the world and get it EXACTLY right"
+      fadeOut('#s8a',7.95); fadeIn('#s8b',7.95);
+      tl.from(R+'#kicker',{opacity:0,y:18,duration:0.45,ease:'power2.out'},8.25);
+      tl.from(R+'#frontierhead',{opacity:0,y:30,duration:0.6,ease:'power3.out'},8.55);
+      // EXACTLY punches in slightly later — the loud beat, via color/glow (no scale)
+      tl.from(R+'#exactly',{opacity:0,y:14,duration:0.45,ease:'power3.out'},10.6);
+      tl.fromTo(R+'#exactly',{filter:'brightness(1)'},{filter:'brightness(1.6) drop-shadow(0 0 18px rgba(232,88,16,0.6))',duration:0.7,yoyo:true,repeat:1,ease:'sine.inOut'},11.6);
+      // gentle hold-life on the head before the cut — soft glow + tiny drift, no scale
+      tl.to(R+'#frontierhead',{y:-6,textShadow:'0 0 26px rgba(244,242,238,0.28)',duration:0.9,yoyo:true,repeat:1,ease:'sine.inOut'},12.6);
+
+      // SCENE C (14.06) — orange pay box "DON'T TRUST THE LEADERBOARD. TEST IT." + test sub
+      fadeOut('#s8b',14.06); fadeIn('#s8c',14.06);
+      tl.from(R+'#testbox',{opacity:0,y:24,scale:0.8,duration:0.5,ease:'back.out(1.5)'},14.37);
+      // "for your problem ... it's a test" — sub lands on its cue (17.19)
+      tl.from(R+'#testsub',{opacity:0,y:20,duration:0.5,ease:'power2.out'},17.19);
+      // orange pay box keeps the beat with a glow pulse — no scale
+      tl.to(R+'#testbox',{boxShadow:'0 16px 70px rgba(232,88,16,0.75)',duration:0.8,yoyo:true,repeat:1,ease:'sine.inOut'},18.4);
+      tl.to(R+'#testsub .o',{filter:'brightness(1.5) drop-shadow(0 0 12px rgba(232,88,16,0.5))',duration:0.6,yoyo:true,repeat:1,ease:'sine.inOut'},19.4);
+
+      // SCENE D (21.11) — END CARD + tagline + ONE CTA. Final scene; holds to 24.36 (~3.25s).
+      fadeOut('#s8c',21.11); fadeIn('#s8d',21.11);
+      // full VideoDB logo stamps in — confident scale-in (scale:0.8→1) + opacity + rise
+      tl.from(R+'#endlogo',{opacity:0,y:22,scale:0.8,duration:0.55,ease:'back.out(1.4)'},21.42);
+      // big tagline (KNOW. in orange) — confident scale-in stamp
+      tl.from(R+'#tagline',{opacity:0,y:26,scale:0.8,duration:0.55,ease:'back.out(1.4)'},21.95);
+      // "TO SEE IS TO KNOW." lands with a brief scale punch
+      tl.fromTo(R+'#tagline',{scale:1},{scale:1.04,duration:0.32,yoyo:true,repeat:1,ease:'back.out(1.5)'},22.55);
+      tl.to(R+'#tagline .o',{filter:'brightness(1.5) drop-shadow(0 0 22px rgba(232,88,16,0.6))',duration:0.6,yoyo:true,repeat:1,ease:'sine.inOut'},22.7);
+      // the single CTA block — fades/scales in just after the tagline lands
+      tl.from(R+'#cta',{opacity:0,y:30,scale:0.8,duration:0.5,ease:'back.out(1.4)'},22.9);
+      // gentle glow-pulse on the CTA for life through the hold (finite repeat, no scale)
+      tl.to(R+'#cta',{boxShadow:'0 24px 90px rgba(232,88,16,0.4)',duration:0.85,yoyo:true,repeat:2,ease:'sine.inOut'},23.4);
+
+      window.__timelines["seg8"] = tl;
+    </script>
+  </div>
+</body>
+</html>

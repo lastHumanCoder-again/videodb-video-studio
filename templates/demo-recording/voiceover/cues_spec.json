@@ -1,0 +1,34 @@
+{
+  "seg1_hook": {
+    "s_fumble": 0.0,
+    "s_rec": "obvious fix",
+    "s_show": "watch you"
+  },
+  "seg2_reveal": {
+    "s_name": 0.0,
+    "s_spine": "three steps"
+  },
+  "seg3_record": {
+    "s_rec": 0.0,
+    "s_split": "at once",
+    "s_os": "windows"
+  },
+  "seg4_compile": {
+    "s_compile": 0.0,
+    "s_var": "into variables",
+    "s_pay": "reuse it"
+  },
+  "seg5_replay": {
+    "s_replay": 0.0,
+    "s_change": "apps change",
+    "s_crash": "crashes",
+    "s_heal": "finds the button",
+    "s_pay": "heals itself"
+  },
+  "seg6_close": {
+    "s_cases": 0.0,
+    "s_pay": "all of it",
+    "s_cta": "github today",
+    "s_know": "to see is to know"
+  }
+}

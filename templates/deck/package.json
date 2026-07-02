@@ -1,0 +1,11 @@
+{
+  "name": "deck-template",
+  "private": true,
+  "scripts": {
+    "render": "node render.js slides.html out/deck.pdf",
+    "shots": "node shots.js slides.html out/shots slide"
+  },
+  "dependencies": {
+    "playwright": "^1.45.0"
+  }
+}

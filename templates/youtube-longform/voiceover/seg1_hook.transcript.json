@@ -1,0 +1,382 @@
+[
+  {
+    "text": "25",
+    "start": 0.11,
+    "end": 0.52
+  },
+  {
+    "text": "years",
+    "start": 0.52,
+    "end": 0.95
+  },
+  {
+    "text": "ago,",
+    "start": 0.95,
+    "end": 1.29
+  },
+  {
+    "text": "a",
+    "start": 1.42,
+    "end": 1.44
+  },
+  {
+    "text": "computer",
+    "start": 1.49,
+    "end": 1.95
+  },
+  {
+    "text": "beat",
+    "start": 1.95,
+    "end": 2.17
+  },
+  {
+    "text": "the",
+    "start": 2.28,
+    "end": 2.39
+  },
+  {
+    "text": "world",
+    "start": 2.49,
+    "end": 2.77
+  },
+  {
+    "text": "chess",
+    "start": 2.82,
+    "end": 3.08
+  },
+  {
+    "text": "champion.",
+    "start": 3.14,
+    "end": 4.16
+  },
+  {
+    "text": "Today,",
+    "start": 4.31,
+    "end": 4.96
+  },
+  {
+    "text": "a",
+    "start": 4.96,
+    "end": 5.01
+  },
+  {
+    "text": "chess",
+    "start": 5.01,
+    "end": 5.3
+  },
+  {
+    "text": "engine",
+    "start": 5.3,
+    "end": 5.64
+  },
+  {
+    "text": "on",
+    "start": 5.69,
+    "end": 5.76
+  },
+  {
+    "text": "your",
+    "start": 5.76,
+    "end": 5.99
+  },
+  {
+    "text": "phone",
+    "start": 5.99,
+    "end": 6.32
+  },
+  {
+    "text": "would",
+    "start": 6.43,
+    "end": 6.69
+  },
+  {
+    "text": "crush",
+    "start": 6.77,
+    "end": 7.2
+  },
+  {
+    "text": "every",
+    "start": 7.21,
+    "end": 7.56
+  },
+  {
+    "text": "human",
+    "start": 7.74,
+    "end": 8.12
+  },
+  {
+    "text": "who",
+    "start": 8.12,
+    "end": 8.39
+  },
+  {
+    "text": "has",
+    "start": 8.39,
+    "end": 8.66
+  },
+  {
+    "text": "ever",
+    "start": 8.66,
+    "end": 9.02
+  },
+  {
+    "text": "lived.",
+    "start": 9.02,
+    "end": 9.77
+  },
+  {
+    "text": "So",
+    "start": 9.88,
+    "end": 9.89
+  },
+  {
+    "text": "this",
+    "start": 9.89,
+    "end": 10.12
+  },
+  {
+    "text": "should",
+    "start": 10.12,
+    "end": 10.45
+  },
+  {
+    "text": "be",
+    "start": 10.45,
+    "end": 10.57
+  },
+  {
+    "text": "the",
+    "start": 10.57,
+    "end": 10.73
+  },
+  {
+    "text": "easiest",
+    "start": 10.73,
+    "end": 11.07
+  },
+  {
+    "text": "question",
+    "start": 11.2,
+    "end": 11.64
+  },
+  {
+    "text": "we",
+    "start": 11.64,
+    "end": 11.75
+  },
+  {
+    "text": "could",
+    "start": 11.82,
+    "end": 12.32
+  },
+  {
+    "text": "ask",
+    "start": 12.32,
+    "end": 12.55
+  },
+  {
+    "text": "an",
+    "start": 12.6,
+    "end": 12.8
+  },
+  {
+    "text": "AI.",
+    "start": 12.8,
+    "end": 13.32
+  },
+  {
+    "text": "Here's",
+    "start": 13.42,
+    "end": 13.69
+  },
+  {
+    "text": "a",
+    "start": 13.77,
+    "end": 13.81
+  },
+  {
+    "text": "photo",
+    "start": 13.81,
+    "end": 14.16
+  },
+  {
+    "text": "of",
+    "start": 14.16,
+    "end": 14.28
+  },
+  {
+    "text": "a",
+    "start": 14.33,
+    "end": 14.38
+  },
+  {
+    "text": "chess",
+    "start": 14.38,
+    "end": 14.61
+  },
+  {
+    "text": "board.",
+    "start": 14.74,
+    "end": 15.31
+  },
+  {
+    "text": "What's",
+    "start": 15.45,
+    "end": 15.94
+  },
+  {
+    "text": "on",
+    "start": 15.95,
+    "end": 16.15
+  },
+  {
+    "text": "it?",
+    "start": 16.15,
+    "end": 16.63
+  },
+  {
+    "text": "And",
+    "start": 16.78,
+    "end": 16.9
+  },
+  {
+    "text": "some",
+    "start": 16.9,
+    "end": 17.2
+  },
+  {
+    "text": "of",
+    "start": 17.2,
+    "end": 17.35
+  },
+  {
+    "text": "the",
+    "start": 17.35,
+    "end": 17.56
+  },
+  {
+    "text": "best",
+    "start": 17.56,
+    "end": 17.87
+  },
+  {
+    "text": "models",
+    "start": 17.87,
+    "end": 18.32
+  },
+  {
+    "text": "in",
+    "start": 18.32,
+    "end": 18.47
+  },
+  {
+    "text": "the",
+    "start": 18.47,
+    "end": 18.67
+  },
+  {
+    "text": "world",
+    "start": 18.68,
+    "end": 19.05
+  },
+  {
+    "text": "get",
+    "start": 19.17,
+    "end": 19.28
+  },
+  {
+    "text": "it",
+    "start": 19.28,
+    "end": 19.42
+  },
+  {
+    "text": "wrong.",
+    "start": 19.42,
+    "end": 20.01
+  },
+  {
+    "text": "We're",
+    "start": 20.16,
+    "end": 20.39
+  },
+  {
+    "text": "not",
+    "start": 20.39,
+    "end": 20.59
+  },
+  {
+    "text": "testing",
+    "start": 20.59,
+    "end": 21.01
+  },
+  {
+    "text": "whether",
+    "start": 21.06,
+    "end": 21.5
+  },
+  {
+    "text": "AI",
+    "start": 21.55,
+    "end": 21.66
+  },
+  {
+    "text": "can",
+    "start": 21.7,
+    "end": 21.88
+  },
+  {
+    "text": "play",
+    "start": 21.88,
+    "end": 22.15
+  },
+  {
+    "text": "chess.",
+    "start": 22.15,
+    "end": 22.74
+  },
+  {
+    "text": "We're",
+    "start": 22.84,
+    "end": 23.06
+  },
+  {
+    "text": "testing",
+    "start": 23.06,
+    "end": 23.52
+  },
+  {
+    "text": "whether",
+    "start": 23.52,
+    "end": 23.96
+  },
+  {
+    "text": "it",
+    "start": 23.96,
+    "end": 24.04
+  },
+  {
+    "text": "can",
+    "start": 24.16,
+    "end": 24.31
+  },
+  {
+    "text": "even",
+    "start": 24.31,
+    "end": 24.56
+  },
+  {
+    "text": "see",
+    "start": 24.58,
+    "end": 24.72
+  },
+  {
+    "text": "the",
+    "start": 24.78,
+    "end": 24.92
+  },
+  {
+    "text": "board.",
+    "start": 25.02,
+    "end": 25.51
+  }
+]

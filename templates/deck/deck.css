@@ -1,0 +1,180 @@
+/* ============================================================
+   VideoDB deck system — 16:9 slides, dark + light variants
+   Brand: BRAND.md / STYLE.md / DESIGN.md
+   ============================================================ */
+
+@font-face{font-family:'Archivo';src:url('fonts/Archivo-800.woff2') format('woff2');font-weight:800;font-display:block}
+@font-face{font-family:'Archivo';src:url('fonts/Archivo-900.woff2') format('woff2');font-weight:900;font-display:block}
+@font-face{font-family:'Caveat';src:url('fonts/Caveat-500.woff2') format('woff2');font-weight:500;font-display:block}
+@font-face{font-family:'Caveat';src:url('fonts/Caveat-600.woff2') format('woff2');font-weight:600;font-display:block}
+@font-face{font-family:'Space Mono';src:url('fonts/SpaceMono-400.woff2') format('woff2');font-weight:400;font-display:block}
+@font-face{font-family:'Space Mono';src:url('fonts/SpaceMono-700.woff2') format('woff2');font-weight:700;font-display:block}
+
+:root{
+  /* BRAND:START */
+  --orange:#E85810;       /* brand:accent */
+  --ink:#141416;          /* near-black ink on light slides */
+  --canvas:#0B0B0C;       /* brand:canvas (dark slide bg) */
+  --card:#141416;         /* brand:card */
+  --offwhite:#F4F2EE;     /* brand:text */
+  --gray:#8C8C94;         /* brand:muted */
+  --hairline:#2A2A2E;     /* brand:hairline */
+  /* light "graph paper" slide */
+  --paper:#F2EFE9;
+  --paper-line:rgba(20,20,22,.06);
+  --paper-ink:#16161A;
+  --paper-gray:#9A958C;
+  --paper-frame:rgba(20,20,22,.22);
+  /* dark slide grid */
+  --dark-line:rgba(255,255,255,.045);
+  --dark-frame:rgba(255,255,255,.16);
+  /* BRAND:END */
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+/* one slide = one print page. Size is driven by CSS vars so a deck can be
+   any dimension: override --slide-w / --slide-h in the deck's HTML.
+   render.js auto-detects the rendered size, so the PDF page matches. */
+:root{--slide-w:1280px;--slide-h:720px}
+
+.slide{
+  position:relative;
+  width:var(--slide-w);height:var(--slide-h);
+  overflow:hidden;
+  font-family:'Inter','Helvetica Neue',Arial,sans-serif;
+  page-break-after:always;
+  break-after:page;
+}
+.slide:last-child{page-break-after:auto;break-after:auto}
+
+/* ---- themes ---- */
+.slide.dark{background:var(--canvas);color:var(--offwhite)}
+.slide.light{background:var(--paper);color:var(--paper-ink)}
+
+/* grid background */
+.slide .grid{position:absolute;inset:0;pointer-events:none}
+.slide.dark .grid{
+  background-image:linear-gradient(var(--dark-line) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--dark-line) 1px,transparent 1px);
+  background-size:48px 48px;
+}
+.slide.light .grid{
+  background-image:linear-gradient(var(--paper-line) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--paper-line) 1px,transparent 1px);
+  background-size:40px 40px;
+}
+
+/* inset frame */
+.slide .frame{position:absolute;inset:26px;border-radius:14px;pointer-events:none}
+.slide.dark .frame{border:1.5px solid var(--dark-frame)}
+.slide.light .frame{border:1.5px solid var(--paper-frame)}
+/* accent-framed variant (title / closing) */
+.slide.framed.dark .frame{border-color:var(--orange);opacity:.85}
+
+/* content padding box — extra top room so the headline clears the eyebrow */
+.slide .pad{position:absolute;inset:26px;padding:86px 56px 42px}
+
+/* ---- eyebrow (top-left) ---- */
+.eyebrow{
+  position:absolute;top:46px;left:64px;
+  font-family:'Space Mono',monospace;font-weight:700;
+  font-size:14px;letter-spacing:.34em;text-transform:uppercase;
+}
+.slide.dark .eyebrow{color:var(--gray)}
+.slide.light .eyebrow{color:var(--paper-gray)}
+.eyebrow .sep{opacity:.55;margin:0 .2em}
+.eyebrow .accent{color:var(--orange)}
+
+/* ---- logo bug (top-right): the real PNG wordmark ---- */
+.logo{position:absolute;top:38px;right:56px;height:26px;line-height:0}
+.logo img{height:100%;width:auto;display:block}
+/* the white "Video" vanishes on light surfaces -> sit it on a dark pill */
+.logo.pill{background:#1c1c1f;padding:11px 16px;border-radius:9px;height:auto}
+.logo.pill img{height:24px}
+
+/* big centered hero logo (title / closing) */
+.herologo{display:block;height:72px;line-height:0}
+.herologo img{height:100%;width:auto;display:block;margin:0 auto}
+
+/* ---- headline ---- */
+.headline{font-family:'Archivo';font-weight:800;letter-spacing:-.02em;line-height:.98}
+.headline.hero{font-weight:900;text-transform:uppercase;letter-spacing:-.01em;text-align:center}
+.o{color:var(--orange)}
+.slide.dark .headline{color:#fff}
+.slide.light .headline{color:var(--paper-ink)}
+
+/* ---- handwriting body ---- */
+.hand{font-family:'Caveat',cursive;font-weight:500;line-height:1.18}
+.slide.dark .hand{color:var(--offwhite)}
+.slide.light .hand{color:var(--paper-ink)}
+.hand .o{font-weight:600}
+
+/* mono sub-label row (e.g. CHAT // SEARCH // ...) */
+.crumbs{font-family:'Space Mono',monospace;font-weight:400;font-size:15px;letter-spacing:.18em;
+  text-transform:uppercase}
+.slide.dark .crumbs{color:var(--gray)}
+.slide.light .crumbs{color:var(--paper-gray)}
+
+/* mono chips (Punchy Reels / Calm Explainer) */
+.chip{display:inline-block;font-family:'Space Mono',monospace;font-weight:700;font-size:14px;
+  padding:8px 16px;border-radius:999px;letter-spacing:.02em}
+.chip.solid{background:var(--orange);color:#fff}
+.chip.ghost{background:transparent;border:1.5px solid currentColor}
+.slide.light .chip.ghost{color:var(--paper-ink)}
+.slide.dark .chip.ghost{color:var(--offwhite)}
+
+/* ---- footer quote ---- */
+.quote{position:absolute;left:64px;right:64px;bottom:40px;
+  font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:16px;line-height:1.4}
+.slide.dark .quote{color:var(--gray)}
+.slide.light .quote{color:var(--paper-gray)}
+.quote b{font-style:italic;color:var(--orange);font-weight:700}
+.quote .by{font-style:italic}
+
+/* ---- art canvas (right side doodles) ---- */
+.art{position:absolute;pointer-events:none}
+.art svg{overflow:visible}
+.scrib{font-family:'Caveat',cursive;font-weight:600;fill:var(--orange)}
+.scrib.mut{fill:var(--gray)}
+.slide.light .scrib.mut{fill:var(--paper-gray)}
+
+/* sparkles / hearts for hero+closing */
+.spark{position:absolute;font-family:'Space Mono',monospace}
+
+/* ============================================================
+   Instagram portrait carousel layout (4:5 / 9:16)
+   ============================================================ */
+.slide.ig .ig-wrap{position:absolute;inset:32px;padding:62px 60px;display:flex;flex-direction:column}
+.ig-top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
+.ig-num{font-family:'Space Mono',monospace;font-weight:700;font-size:15px;letter-spacing:.22em;
+  text-transform:uppercase;line-height:1.5}
+.slide.dark .ig-num{color:var(--gray)}
+.ig-num .accent{color:var(--orange)}
+.slide.ig .logo{position:static}                 /* logo flows inside ig-top */
+.slide.ig .logo img{height:24px}
+.ig-body{flex:1;display:flex;flex-direction:column;min-height:0;padding-top:14px}
+.headline.ig-h{font-family:'Archivo';font-weight:800;line-height:1.06;letter-spacing:-.02em;flex:0 0 auto}
+.ig-art{display:flex;justify-content:center}
+/* content slides: graphic fills all space between headline and footer (no dead band) */
+.ig-art.ig-fill{flex:1 1 auto;min-height:0;align-items:center;padding:38px 0 8px}
+.ig-art.ig-fill .art{width:100%;height:100%;max-width:780px}
+.ig-foot{display:flex;justify-content:space-between;align-items:center;padding-top:18px}
+.ig-dots{display:flex;gap:9px}
+.ig-dots i{width:9px;height:9px;border-radius:50%;background:var(--hairline);display:block}
+.ig-dots i.on{background:var(--orange)}
+.ig-handle{font-family:'Space Mono',monospace;font-size:14px;letter-spacing:.14em;color:var(--gray)}
+/* product UI mock (slide 5 of carousel 1) */
+.uimock{background:#161618;border:1.5px solid var(--hairline);border-radius:14px;padding:22px;width:560px}
+.uimock .bar{display:flex;align-items:center;gap:12px;background:#0E0E10;border:1.5px solid var(--hairline);
+  border-radius:10px;padding:14px 18px;font-family:'Space Mono',monospace;font-size:18px;color:var(--offwhite)}
+.uimock .bar .mag{color:var(--orange);font-weight:700}
+.uimock .bar .cur{color:var(--gray)}
+.uimock .clip{margin-top:18px;position:relative;height:200px;border-radius:10px;overflow:hidden;
+  background:linear-gradient(135deg,#23130c,#0E0E10);border:1.5px solid var(--hairline);display:flex;align-items:center;justify-content:center}
+.uimock .clip .play{width:0;height:0;border-left:34px solid var(--orange);border-top:22px solid transparent;border-bottom:22px solid transparent}
+.uimock .clip .ts{position:absolute;left:16px;bottom:14px;font-family:'Space Mono',monospace;font-size:15px;
+  color:var(--offwhite);background:rgba(0,0,0,.5);padding:4px 10px;border-radius:6px}
+.uimock .clip .scrub{position:absolute;left:16px;right:16px;bottom:48px;height:5px;border-radius:3px;background:#333}
+.uimock .clip .scrub b{display:block;height:100%;width:38%;border-radius:3px;background:var(--orange)}
+.uimock .cap{margin-top:14px;font-family:'Caveat',cursive;font-size:24px;color:var(--orange)}

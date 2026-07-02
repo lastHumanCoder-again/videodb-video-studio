@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  [data-composition-id="seg6"]{ position:relative; width:1920px; height:1080px; overflow:hidden;
+    font-family:"Inter","Helvetica Neue",Arial,sans-serif;
+    /* BRAND:START */
+    background:#0B0B0C; /* brand:canvas */
+    color:#F4F2EE;      /* brand:text */
+    --orange:#E85810;   /* brand:accent */
+    --card:#141416;     /* brand:card */
+    --muted:#8C8C94;    /* brand:muted */
+    --line:#2A2A2E;     /* brand:hairline */
+    --red:#E5484D;      /* brand:bad */
+    --green:#3DD68C;    /* brand:good */
+    /* BRAND:END */
+  }
+  [data-composition-id="seg6"] .scene{ position:absolute; inset:0; width:1920px; height:1080px; overflow:hidden; opacity:0; }
+  [data-composition-id="seg6"] #s6a{ opacity:1; }
+  [data-composition-id="seg6"] .glow{ position:absolute; inset:0; background:radial-gradient(60% 50% at 50% 42%, rgba(232,88,16,0.10), transparent 70%); }
+  [data-composition-id="seg6"] .wrap{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:90px; }
+
+  /* ● REC dot + label */
+  [data-composition-id="seg6"] .rec{ display:inline-flex; align-items:center; gap:16px; font-family:"Archivo Black",sans-serif;
+    color:var(--orange); font-size:40px; letter-spacing:0.14em; text-shadow:0 2px 14px rgba(0,0,0,0.8); }
+  [data-composition-id="seg6"] .rec .dot{ width:26px; height:26px; border-radius:50%; background:var(--orange); box-shadow:0 0 22px var(--orange); }
+
+  /* RECORD→COMPILE→REPLAY spine */
+  [data-composition-id="seg6"] .spine{ display:inline-flex; align-items:center; gap:26px; }
+  [data-composition-id="seg6"] .snode{ font-family:"Archivo Black",sans-serif; text-transform:uppercase; letter-spacing:0.03em;
+    font-size:34px; padding:20px 30px; border-radius:14px; background:var(--card); border:1px solid var(--line); color:var(--muted); }
+  [data-composition-id="seg6"] .snode.on{ color:#fff; border-color:var(--orange);
+    box-shadow:0 0 0 2px rgba(232,88,16,0.4), 0 0 34px rgba(232,88,16,0.4); background:#1a1310; }
+  [data-composition-id="seg6"] .sarrow{ color:var(--muted); font-size:40px; }
+
+  /* Callout boxes */
+  [data-composition-id="seg6"] .box{ display:inline-block; background:#F4F2EE; color:#0B0B0C; font-family:"Archivo Black",sans-serif;
+    text-transform:uppercase; letter-spacing:0.01em; line-height:0.98; padding:16px 26px; border-radius:12px; font-size:60px; box-shadow:0 14px 40px rgba(0,0,0,0.6); }
+  [data-composition-id="seg6"] .box.pay{ background:var(--orange); color:#fff; box-shadow:0 16px 50px rgba(232,88,16,0.5); }
+  [data-composition-id="seg6"] .box.red{ background:var(--red); color:#fff; }
+  [data-composition-id="seg6"] .box.sm{ font-size:38px; padding:12px 18px; }
+
+  /* Card / chip */
+  [data-composition-id="seg6"] .card{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:26px 30px; }
+  [data-composition-id="seg6"] .chip{ display:inline-flex; align-items:center; gap:12px; background:var(--card); border:1px solid var(--line);
+    border-radius:999px; padding:12px 24px; font-size:28px; font-weight:600; color:var(--txt,#F4F2EE); }
+  [data-composition-id="seg6"] .chip .cd{ width:12px; height:12px; border-radius:50%; background:var(--orange); }
+
+  /* use-case tile (seg6) */
+  [data-composition-id="seg6"] .tile{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:30px 28px; width:410px; }
+  [data-composition-id="seg6"] .tile .h{ font-family:"Archivo Black",sans-serif; text-transform:uppercase; font-size:30px; letter-spacing:0.01em; }
+  [data-composition-id="seg6"] .tile .g{ width:56px; height:56px; border-radius:12px; background:#1a1310; border:1px solid var(--orange);
+    display:flex; align-items:center; justify-content:center; color:var(--orange); font-size:30px; margin-bottom:18px; }
+
+  /* s6a grid layout */
+  [data-composition-id="seg6"] .grid{ display:grid; grid-template-columns:repeat(2, 410px); grid-template-rows:repeat(2, auto);
+    gap:40px 60px; }
+  /* tiny live progress bar inside each tile */
+  [data-composition-id="seg6"] .tile .track{ margin-top:20px; height:8px; border-radius:6px; background:#0e0e10; border:1px solid var(--line); overflow:hidden; }
+  [data-composition-id="seg6"] .tile .track .fill{ height:100%; width:0%; background:var(--orange); border-radius:6px; box-shadow:0 0 14px rgba(232,88,16,0.6); }
+
+  /* s6b payoff stack */
+  [data-composition-id="seg6"] .paystack{ display:flex; flex-direction:column; align-items:center; gap:56px; }
+
+  /* s6c CTA layout */
+  [data-composition-id="seg6"] .cta{ display:flex; flex-direction:column; align-items:center; gap:38px; text-align:center; }
+  [data-composition-id="seg6"] .brandmark{ display:flex; flex-direction:column; align-items:center; gap:22px; }
+  [data-composition-id="seg6"] .brandmark .biglogo{ height:64px; width:auto; }
+  [data-composition-id="seg6"] .ctaline{ font-family:"Inter","Helvetica Neue",Arial,sans-serif; font-size:30px; font-weight:600;
+    letter-spacing:0.02em; color:#F4F2EE; }
+  [data-composition-id="seg6"] .ctaline .repo{ color:var(--orange); font-weight:700; }
+  [data-composition-id="seg6"] .tagline{ font-family:"Archivo Black",sans-serif; text-transform:uppercase; letter-spacing:0.04em;
+    font-size:88px; line-height:0.95; color:#F4F2EE; text-shadow:0 4px 30px rgba(0,0,0,0.7); }
+
+  [data-composition-id="seg6"] .bug{ position:absolute; right:46px; bottom:40px; height:34px; width:auto; opacity:0.55; z-index:50; }
+</style>
+</head>
+<body>
+  <div data-composition-id="seg6" data-start="0" data-duration="25.16" data-width="1920" data-height="1080">
+
+    <!-- s6a: 2x2 use-case tiles stagger in -->
+    <div id="s6a" class="scene">
+      <div class="glow" id="s6a-glow"></div>
+      <div class="wrap">
+        <div class="grid" id="s6a-grid">
+          <div class="tile" id="t1">
+            <div class="g">&#9656;</div>
+            <div class="h">AUTOMATE THE BORING</div>
+            <div class="track"><div class="fill" id="t1-fill"></div></div>
+          </div>
+          <div class="tile" id="t2">
+            <div class="g">&rarr;</div>
+            <div class="h">DOCS THAT RUN</div>
+            <div class="track"><div class="fill" id="t2-fill"></div></div>
+          </div>
+          <div class="tile" id="t3">
+            <div class="g">&#9679;</div>
+            <div class="h">DRIVE LEGACY APPS</div>
+            <div class="track"><div class="fill" id="t3-fill"></div></div>
+          </div>
+          <div class="tile" id="t4">
+            <div class="g">&#10003;</div>
+            <div class="h">SURVIVES REDESIGNS</div>
+            <div class="track"><div class="fill" id="t4-fill"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- s6b: full spine all-on + payoff box -->
+    <div id="s6b" class="scene">
+      <div class="glow" id="s6b-glow"></div>
+      <div class="wrap">
+        <div class="paystack">
+          <div class="spine" id="s6b-spine">
+            <span class="snode on" id="s6b-n1">RECORD</span>
+            <span class="sarrow" id="s6b-a1">&rarr;</span>
+            <span class="snode on" id="s6b-n2">COMPILE</span>
+            <span class="sarrow" id="s6b-a2">&rarr;</span>
+            <span class="snode on" id="s6b-n3">REPLAY</span>
+          </div>
+          <span class="box pay" id="s6b-pay">RECORD ONCE.<br>REPLAY ANYWHERE.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- s6c: CTA — full logo + REC dot + repo line + tagline -->
+    <div id="s6c" class="scene">
+      <div class="glow" id="s6c-glow"></div>
+      <div class="wrap">
+        <div class="cta">
+          <div class="rec" id="s6c-rec"><span class="dot"></span>REC</div>
+          <div class="brandmark">
+            <img class="biglogo" id="s6c-logo" src="assets/videodb-logo.png" />
+          </div>
+          <div class="ctaline" id="s6c-repo">OPEN SOURCE &middot; <span class="repo">github.com/video-db/open-record-replay</span></div>
+          <div class="tagline" id="s6c-tag">TO SEE IS TO KNOW</div>
+        </div>
+      </div>
+    </div>
+
+    <img class="bug" src="assets/videodb-logo.png" />
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      var R = '[data-composition-id="seg6"] ';
+      var tl = gsap.timeline({ paused:true });
+      var XF = 0.5;
+      function fadeIn(s,t){ tl.fromTo(R+s,{opacity:0,filter:'blur(16px)'},{opacity:1,filter:'blur(0px)',duration:XF,ease:'sine.inOut'},t); }
+      function fadeOut(s,t){ tl.to(R+s,{opacity:0,filter:'blur(16px)',duration:XF,ease:'sine.inOut'},t); }
+      function countUp(sel,from,to,dur,at,fmt){ var o={n:from};
+        tl.to(o,{n:to,duration:dur,ease:'power2.out',onUpdate:function(){ var el=document.querySelector(R+sel); if(el) el.textContent=(fmt?fmt(Math.round(o.n)):Math.round(o.n)); }},at); }
+      function typewrite(sel,str,dur,at){ var o={n:0};
+        tl.to(o,{n:str.length,duration:dur,ease:'none',onUpdate:function(){ var el=document.querySelector(R+sel); if(el) el.textContent=str.slice(0,Math.round(o.n)); }},at); }
+      function stamp(sel,at){ tl.from(R+sel,{opacity:0,scale:0.72,duration:0.36,ease:'back.out(1.6)'},at); }
+
+      tl.from(R+'.bug',{opacity:0,duration:0.6},0.8);
+
+      // s6a (0.0) — 2x2 tiles stagger in ~every 1.2s, each gets a live progress-bar fill after entering
+      // soft glow pulse so the frame never freezes between tile entrances
+      tl.fromTo(R+'#s6a-glow',{opacity:0.6},{opacity:1,duration:1.8,yoyo:true,repeat:8,ease:'sine.inOut'},0.4);
+
+      // tile 1 — "AUTOMATE THE BORING"
+      tl.from(R+'#t1',{opacity:0,y:34,scale:0.9,duration:0.5,ease:'back.out(1.5)'},0.25);
+      tl.fromTo(R+'#t1-fill',{width:'0%'},{width:'100%',duration:1.6,ease:'power2.out'},0.75);
+      // tile 2 — "DOCS THAT RUN"
+      tl.from(R+'#t2',{opacity:0,y:34,scale:0.9,duration:0.5,ease:'back.out(1.5)'},1.45);
+      tl.fromTo(R+'#t2-fill',{width:'0%'},{width:'100%',duration:1.6,ease:'power2.out'},1.95);
+      // tile 3 — "DRIVE LEGACY APPS"
+      tl.from(R+'#t3',{opacity:0,y:34,scale:0.9,duration:0.5,ease:'back.out(1.5)'},2.65);
+      tl.fromTo(R+'#t3-fill',{width:'0%'},{width:'100%',duration:1.6,ease:'power2.out'},3.15);
+      // tile 4 — "SURVIVES REDESIGNS"
+      tl.from(R+'#t4',{opacity:0,y:34,scale:0.9,duration:0.5,ease:'back.out(1.5)'},3.85);
+      tl.fromTo(R+'#t4-fill',{width:'0%'},{width:'100%',duration:1.6,ease:'power2.out'},4.35);
+      // keep the grid alive after all four land — a gentle synchronized re-pulse of the fills
+      tl.to(R+'#s6a-grid .fill',{opacity:0.55,duration:0.9,yoyo:true,repeat:9,ease:'sine.inOut',stagger:0.06},6.6);
+
+      // s6b (15.85) — crossfade in; spine already all-on, payoff stamps in
+      fadeOut('#s6a',15.85); fadeIn('#s6b',15.85);
+      tl.from(R+'#s6b-spine',{opacity:0,y:-20,duration:0.5,ease:'power3.out'},16.10);
+      // re-glow each on-node to complete the motif
+      tl.fromTo(R+'#s6b-spine .snode.on',{boxShadow:'0 0 0 2px rgba(232,88,16,0.15), 0 0 10px rgba(232,88,16,0.15)'},
+        {boxShadow:'0 0 0 2px rgba(232,88,16,0.4), 0 0 34px rgba(232,88,16,0.4)',duration:0.5,ease:'sine.out',stagger:0.18},16.20);
+      stamp('#s6b-pay',16.85);
+      tl.to(R+'#s6b-pay',{boxShadow:'0 16px 70px rgba(232,88,16,0.85)',duration:0.8,yoyo:true,repeat:2,ease:'sine.inOut'},17.4);
+      // slow settle push so it doesn't freeze
+      tl.fromTo(R+'#s6b-spine',{scale:0.99},{scale:1.03,duration:2.4,ease:'sine.inOut'},18.0);
+
+      // s6c (19.13) — CTA: full logo + REC dot, repo line, then tagline at 23.13
+      fadeOut('#s6b',19.13); fadeIn('#s6c',19.13);
+      tl.from(R+'#s6c-rec',{opacity:0,y:-16,duration:0.5,ease:'power3.out'},19.38);
+      tl.to(R+'#s6c-rec .dot',{opacity:0.28,duration:0.7,yoyo:true,repeat:12,ease:'power1.inOut'},19.5);
+      tl.from(R+'#s6c-logo',{opacity:0,scale:0.8,duration:0.6,ease:'back.out(1.6)'},19.6);
+      tl.from(R+'#s6c-repo',{opacity:0,y:18,duration:0.6,ease:'power3.out'},20.2);
+      // slow push on the logo so the hold stays alive until the tagline
+      tl.fromTo(R+'#s6c-logo',{scale:1.0},{scale:1.05,duration:5.0,ease:'sine.inOut'},20.4);
+      // tagline (23.13)
+      tl.from(R+'#s6c-tag',{opacity:0,y:26,duration:0.6,ease:'power3.out'},23.13);
+      tl.fromTo(R+'#s6c-glow',{opacity:0.7},{opacity:1,duration:1.2,yoyo:true,repeat:1,ease:'sine.inOut'},23.2);
+      // ONLY allowed exit — gentle fade of the whole scene in the last ~0.5s
+      tl.to(R+'#s6c',{opacity:0.0,duration:0.5,ease:'sine.inOut'},24.66);
+
+      window.__timelines["seg6"] = tl;
+    </script>
+  </div>
+</body>
+</html>

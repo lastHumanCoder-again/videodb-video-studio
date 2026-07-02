@@ -1,0 +1,67 @@
+{
+  "seg1_hook": {
+    "_dur": 25.51,
+    "s_engine": 0.0,
+    "s_question": 13.42,
+    "s_wrong": 19.17,
+    "s_pivot": 24.31
+  },
+  "seg2_question": {
+    "_dur": 34.66,
+    "s_logic": 0.0,
+    "s_vision": 5.08,
+    "s_place": 12.9,
+    "s_missone": 16.19,
+    "s_usecases": 23.04,
+    "s_which": 32.46
+  },
+  "seg3_experiment": {
+    "_dur": 38,
+    "s_test": 0.0,
+    "s_72": 3.48,
+    "s_job": 11.93,
+    "s_scoring": 20.15,
+    "s_models": 29.69
+  },
+  "seg4_results": {
+    "_dur": 29.64,
+    "s_spread": 0.0,
+    "s_gpt100": 5.24,
+    "s_claude85": 12.76,
+    "s_twist": 15.91,
+    "s_collapse": 21.51,
+    "s_samemodel": 25.83
+  },
+  "seg5_why": {
+    "_dur": 42.16,
+    "s_what": 0.0,
+    "s_location": 7.54,
+    "s_errors": 10.24,
+    "s_truncated": 21.83,
+    "s_setup": 27.22,
+    "s_anthropic": 35.96
+  },
+  "seg6_lesson": {
+    "_dur": 24.74,
+    "s_lesson": 0.0,
+    "s_why": 9.54,
+    "s_leaderboard": 18.45,
+    "s_test": 20.06
+  },
+  "seg7_videodb": {
+    "_dur": 25.74,
+    "s_builtfor": 0.0,
+    "s_chesslens": 4.95,
+    "s_pipeline": 7.11,
+    "s_eval": 15.88,
+    "s_seeworld": 24.29
+  },
+  "seg8_close": {
+    "_dur": 22.88,
+    "s_oldnews": 0.0,
+    "s_frontier": 7.95,
+    "s_test": 14.06,
+    "s_leaderboard": 17.19,
+    "s_know": 21.11
+  }
+}

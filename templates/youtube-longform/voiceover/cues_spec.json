@@ -1,0 +1,59 @@
+{
+  "seg1_hook": {
+    "s_engine": 0.0,
+    "s_question": "here's a photo",
+    "s_wrong": "get it wrong",
+    "s_pivot": "even see"
+  },
+  "seg2_question": {
+    "s_logic": 0.0,
+    "s_vision": "is vision",
+    "s_place": "every single piece",
+    "s_missone": "miss one",
+    "s_usecases": "watches a board",
+    "s_which": "top models"
+  },
+  "seg3_experiment": {
+    "s_test": 0.0,
+    "s_72": "72 real",
+    "s_job": "exact layout",
+    "s_scoring": "exact match only",
+    "s_models": "in the ring"
+  },
+  "seg4_results": {
+    "s_spread": 0.0,
+    "s_gpt100": "perfect score",
+    "s_claude85": "topped out",
+    "s_twist": "nobody expected",
+    "s_collapse": "it collapsed",
+    "s_samemodel": "same model"
+  },
+  "seg5_why": {
+    "s_what": 0.0,
+    "s_location": "exact location",
+    "s_errors": "one square over",
+    "s_truncated": "ran out of room",
+    "s_setup": "wasn't the brain",
+    "s_anthropic": "spatial reasoning"
+  },
+  "seg6_lesson": {
+    "s_lesson": 0.0,
+    "s_why": "because it's smarter",
+    "s_leaderboard": "from a leaderboard",
+    "s_test": "only find it"
+  },
+  "seg7_videodb": {
+    "s_builtfor": 0.0,
+    "s_chesslens": "runs on videodb",
+    "s_pipeline": "ingests the board",
+    "s_eval": "the traces",
+    "s_seeworld": "reads the world"
+  },
+  "seg8_close": {
+    "s_oldnews": 0.0,
+    "s_frontier": "exactly right",
+    "s_test": "not a guess",
+    "s_leaderboard": "don't trust",
+    "s_know": "to see is to know"
+  }
+}

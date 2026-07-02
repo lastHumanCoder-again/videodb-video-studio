@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script src="assets/captions.js"></script>
+<style>
+  @font-face{ font-family:'Marker'; src:url('assets/permanentmarker.woff2') format('woff2'); font-weight:400; font-display:block; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  [data-composition-id="seg1"]{ position:relative; width:1080px; height:1920px; overflow:hidden; background:#0B0B0C; color:#F4F2EE;
+    font-family:"Inter","Helvetica Neue",Arial,sans-serif;
+    /* BRAND:START */
+    --orange:#E85810; /* brand:accent */
+    --tf:#FF6700;
+    --card:#141416;   /* brand:card */
+    --muted:#8C8C94;  /* brand:muted */
+    --line:#2A2A2E;   /* brand:hairline */
+    --red:#E5484D;    /* brand:bad */
+    --green:#3DD68C;  /* brand:good */
+    /* BRAND:END */ }
+  [data-composition-id="seg1"] .scene{ position:absolute; inset:0; width:1080px; height:1920px; overflow:hidden; opacity:0; }
+  [data-composition-id="seg1"] #s1{ opacity:1; }
+  [data-composition-id="seg1"] .col{ display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  [data-composition-id="seg1"] .dots{ position:absolute; inset:0; background-image:radial-gradient(circle, rgba(255,255,255,.05) 1.6px, transparent 1.7px); background-size:46px 46px; }
+  [data-composition-id="seg1"] .glow{ position:absolute; inset:0; background:radial-gradient(60% 40% at 50% 42%, rgba(232,88,16,.15), transparent 70%); }
+
+  /* hand-drawn + handwriting */
+  [data-composition-id="seg1"] .marker{ position:absolute; z-index:30; pointer-events:none; }
+  [data-composition-id="seg1"] .marker path{ fill:none; stroke:var(--orange); stroke-linecap:round; stroke-linejoin:round; }
+  [data-composition-id="seg1"] .marker.red path{ stroke:var(--red); }
+  [data-composition-id="seg1"] .scribble{ position:absolute; z-index:31; font-family:'Marker',cursive; color:var(--orange); line-height:1; text-shadow:0 2px 10px rgba(0,0,0,.6); }
+  [data-composition-id="seg1"] .scribble.w{ color:#F4F2EE; } [data-composition-id="seg1"] .scribble.r{ color:var(--red); }
+
+  /* generic cards / stamps */
+  [data-composition-id="seg1"] .box{ display:inline-block; background:#F4F2EE; color:#0B0B0C; font-family:"Archivo Black",sans-serif; text-transform:uppercase; letter-spacing:.01em; line-height:.98; padding:16px 28px; border-radius:14px; font-size:64px; box-shadow:0 16px 44px rgba(0,0,0,.6); }
+  [data-composition-id="seg1"] .box.pay{ background:var(--orange); color:#fff; box-shadow:0 18px 56px rgba(232,88,16,.5); }
+  [data-composition-id="seg1"] .box.red{ background:var(--red); color:#fff; }
+
+  /* S1 hook cards */
+  [data-composition-id="seg1"] .hk{ position:absolute; left:90px; width:900px; border-radius:20px; border:1px solid var(--line); background:var(--card); padding:30px 34px; z-index:4; }
+  [data-composition-id="seg1"] #hk1{ top:560px; } [data-composition-id="seg1"] #hk2{ top:1010px; overflow:hidden; padding:0; }
+  [data-composition-id="seg1"] .hk .lbl{ display:flex; align-items:center; gap:16px; font-family:"Archivo Black"; font-size:40px; letter-spacing:.02em; }
+  [data-composition-id="seg1"] .hk .ic{ width:54px; height:54px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:34px; font-family:"Archivo Black"; flex:none; }
+  [data-composition-id="seg1"] .ic.ok{ background:var(--green); color:#06231a; } [data-composition-id="seg1"] .ic.no{ background:var(--red); color:#fff; }
+  [data-composition-id="seg1"] .hk .ln{ height:14px; border-radius:7px; background:#3a3a40; margin-top:18px; }
+  [data-composition-id="seg1"] #hk2 .vthumb{ width:100%; height:280px; object-fit:cover; filter:blur(7px) brightness(.6) grayscale(.4); }
+  [data-composition-id="seg1"] #hk2 .vlabel{ position:absolute; left:34px; bottom:26px; display:flex; align-items:center; gap:16px; font-family:"Archivo Black"; font-size:40px; z-index:3; }
+  [data-composition-id="seg1"] #hk2 .static{ position:absolute; inset:0; background-image:repeating-linear-gradient(0deg, rgba(255,255,255,.05) 0 2px, transparent 2px 4px); z-index:2; }
+
+  /* S2 grid of video tiles */
+  [data-composition-id="seg1"] #pcount{ position:absolute; top:300px; left:0; right:0; text-align:center; z-index:5; }
+  [data-composition-id="seg1"] #pcount .big{ position:relative; display:inline-block; font-family:"Archivo Black"; font-size:170px; color:var(--orange); line-height:.9; font-variant-numeric:tabular-nums; }
+  [data-composition-id="seg1"] #pcircle{ left:-13%; top:-20%; width:126%; height:140%; }
+  [data-composition-id="seg1"] #pcount .sub{ font-family:"Archivo Black"; font-size:38px; letter-spacing:.06em; color:#F4F2EE; margin-top:4px; }
+  [data-composition-id="seg1"] .vgrid{ position:absolute; left:90px; top:640px; width:900px; display:grid; grid-template-columns:1fr 1fr 1fr; gap:18px; z-index:4; }
+  [data-composition-id="seg1"] .vgrid .vt{ position:relative; height:170px; border-radius:12px; overflow:hidden; border:1px solid var(--line); }
+  [data-composition-id="seg1"] .vgrid .vt img{ width:100%; height:100%; object-fit:cover; }
+  [data-composition-id="seg1"] #blindstamp{ position:absolute; left:0; right:0; top:1080px; text-align:center; z-index:6; }
+
+  /* player + search (S3) */
+  [data-composition-id="seg1"] #player{ position:absolute; left:60px; top:430px; width:960px; height:540px; border-radius:18px; overflow:hidden; border:1px solid var(--line); box-shadow:0 30px 80px rgba(0,0,0,.7); z-index:4; }
+  [data-composition-id="seg1"] .frame{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; }
+  [data-composition-id="seg1"] #pf1{ opacity:1; }
+  [data-composition-id="seg1"] .ptag{ position:absolute; top:16px; left:18px; z-index:4; font-size:23px; font-weight:600; color:#e9e7e3; background:rgba(11,11,12,.6); border:1px solid rgba(255,255,255,.12); border-radius:8px; padding:7px 14px; }
+  [data-composition-id="seg1"] .pscore{ position:absolute; top:16px; right:18px; z-index:4; font-family:"Archivo Black"; font-size:24px; letter-spacing:.05em; color:#fff; background:rgba(11,11,12,.55); border-radius:8px; padding:7px 14px; }
+  [data-composition-id="seg1"] #momentbox{ position:absolute; left:19%; top:8%; width:62%; height:84%; border:4px solid var(--orange); border-radius:8px; box-shadow:0 0 30px rgba(232,88,16,.5) inset; opacity:0; z-index:5; }
+  [data-composition-id="seg1"] #tl{ position:absolute; left:60px; top:1015px; width:960px; height:12px; background:#26262b; border-radius:6px; z-index:5; }
+  [data-composition-id="seg1"] #tlfill{ position:absolute; left:0; top:0; height:100%; width:0; background:var(--orange); border-radius:6px; opacity:.6; }
+  [data-composition-id="seg1"] #ph{ position:absolute; left:60px; top:1001px; width:6px; height:40px; background:#fff; border-radius:3px; z-index:7; box-shadow:0 0 16px rgba(255,255,255,.7); }
+  [data-composition-id="seg1"] .tlab{ position:absolute; top:1050px; font-size:24px; font-weight:700; color:#cfcdd2; font-variant-numeric:tabular-nums; z-index:6; }
+  [data-composition-id="seg1"] #tcur{ left:60px; } [data-composition-id="seg1"] #tdur{ right:60px; }
+  [data-composition-id="seg1"] #mk67{ position:absolute; top:1007px; width:9px; height:28px; background:var(--orange); border-radius:3px; z-index:6; box-shadow:0 0 16px rgba(232,88,16,.9); opacity:0; }
+  [data-composition-id="seg1"] #sbar{ position:absolute; left:80px; top:1110px; width:920px; height:104px; background:#141416; border:2px solid var(--line); border-radius:20px; display:flex; align-items:center; gap:20px; padding:0 26px; z-index:9; opacity:0; box-shadow:0 20px 60px rgba(0,0,0,.6); }
+  [data-composition-id="seg1"] #sbar .mag{ width:36px; height:36px; flex:none; } [data-composition-id="seg1"] #sbar .mag circle, [data-composition-id="seg1"] #sbar .mag line{ stroke:var(--muted); stroke-width:4; fill:none; stroke-linecap:round; }
+  [data-composition-id="seg1"] #qtext{ font-size:33px; font-weight:500; color:#F4F2EE; white-space:nowrap; overflow:hidden; flex:1; }
+  [data-composition-id="seg1"] #cursor{ display:inline-block; width:4px; height:36px; background:var(--orange); vertical-align:middle; }
+  [data-composition-id="seg1"] #sbtn{ flex:none; font-family:"Archivo Black"; font-size:26px; color:#fff; background:var(--orange); border-radius:12px; padding:13px 22px; }
+  /* link result that gets struck out */
+  [data-composition-id="seg1"] #linkres{ position:absolute; left:90px; top:430px; width:900px; background:#141416; border:1px solid var(--line); border-radius:14px; padding:24px 28px; z-index:6; opacity:0; }
+  [data-composition-id="seg1"] #linkres .u{ color:#6ea8ff; font-size:30px; font-weight:600; } [data-composition-id="seg1"] #linkres .t{ color:#bdbbc2; font-size:26px; margin-top:8px; }
+  [data-composition-id="seg1"] #linkstrike{ position:absolute; left:90px; top:495px; width:900px; height:8px; background:var(--red); border-radius:4px; transform-origin:left center; z-index:7; opacity:0; }
+
+  /* co-brand lockup */
+  [data-composition-id="seg1"] .lockup{ position:relative; z-index:3; display:flex; flex-direction:column; align-items:center; gap:34px; }
+  [data-composition-id="seg1"] .lockup .vdb{ height:84px; } [data-composition-id="seg1"] .lockup .tf{ height:74px; }
+  [data-composition-id="seg1"] .lockup .x{ font-family:"Archivo Black"; font-size:46px; color:var(--muted); }
+  [data-composition-id="seg1"] #collabsub{ position:absolute; left:0; right:0; top:1230px; text-align:center; font-size:38px; font-weight:500; color:#dedce0; z-index:3; }
+
+  /* S5 flow + reel */
+  [data-composition-id="seg1"] #rolehdr{ position:absolute; top:300px; left:0; right:0; text-align:center; z-index:6; }
+  [data-composition-id="seg1"] .rolechip{ display:inline-flex; align-items:center; gap:16px; border-radius:16px; padding:18px 34px; font-family:"Archivo Black"; font-size:40px; letter-spacing:.02em; border:2px solid; }
+  [data-composition-id="seg1"] #roleTF{ color:var(--tf); border-color:var(--tf); } [data-composition-id="seg1"] #roleVDB{ color:var(--orange); border-color:var(--orange); }
+  [data-composition-id="seg1"] #roleline{ font-size:32px; color:var(--muted); margin-top:14px; font-weight:500; }
+  [data-composition-id="seg1"] #reel{ position:absolute; left:44px; top:760px; width:992px; height:200px; border:3px solid var(--orange); border-radius:14px; overflow:hidden; display:flex; align-items:stretch; z-index:5; box-shadow:0 0 40px rgba(232,88,16,.3); }
+  [data-composition-id="seg1"] .rc{ position:relative; flex:0 0 246px; width:246px; height:194px; overflow:hidden; border-right:2px solid rgba(11,11,12,.7); opacity:0; }
+  [data-composition-id="seg1"] .rc img{ position:absolute; inset:0; width:248px; height:194px; object-fit:cover; }
+  [data-composition-id="seg1"] .rc .cap2{ position:absolute; left:0; right:0; bottom:0; height:42px; padding:0 12px; background:linear-gradient(0deg, rgba(0,0,0,.92), transparent); display:flex; justify-content:space-between; align-items:center; }
+  [data-composition-id="seg1"] .rc .mm{ font-family:"Archivo Black"; font-size:17px; color:#fff; white-space:nowrap; } [data-composition-id="seg1"] .rc .tc{ font-size:17px; font-weight:700; color:var(--orange); white-space:nowrap; }
+  [data-composition-id="seg1"] #reelph{ position:absolute; left:44px; top:760px; width:5px; height:200px; background:#fff; box-shadow:0 0 14px rgba(255,255,255,.8); z-index:7; opacity:0; }
+  [data-composition-id="seg1"] #reellabel{ position:absolute; left:0; right:0; top:1010px; text-align:center; z-index:6; }
+  [data-composition-id="seg1"] #playbig{ position:absolute; left:50%; top:860px; transform:translateX(-50%); width:96px; height:96px; border-radius:50%; background:rgba(232,88,16,.92); display:flex; align-items:center; justify-content:center; z-index:8; opacity:0; }
+  [data-composition-id="seg1"] #playbig::after{ content:""; border-left:34px solid #fff; border-top:21px solid transparent; border-bottom:21px solid transparent; margin-left:8px; }
+
+  /* S6 thesis */
+  [data-composition-id="seg1"] .thline{ font-family:"Archivo Black"; text-transform:uppercase; font-size:84px; line-height:1.02; text-align:center; }
+  [data-composition-id="seg1"] #th1{ color:var(--muted); } [data-composition-id="seg1"] #th1 .s{ position:relative; }
+  [data-composition-id="seg1"] #th2{ color:#fff; margin-top:30px; position:relative; white-space:nowrap; } [data-composition-id="seg1"] #th2 b{ color:var(--orange); }
+
+  /* S7 final */
+  [data-composition-id="seg1"] #cta{ position:absolute; left:0; right:0; top:1230px; text-align:center; z-index:3; }
+  [data-composition-id="seg1"] #cta .b{ display:inline-block; font-family:"Archivo Black"; font-size:34px; color:#fff; background:var(--orange); border-radius:14px; padding:16px 34px; letter-spacing:.02em; }
+  [data-composition-id="seg1"] #cta .h{ margin-top:22px; font-size:34px; font-style:italic; font-weight:300; color:var(--muted); }
+
+  /* captions */
+  [data-composition-id="seg1"] .caps{ position:absolute; left:0; right:0; top:1330px; height:220px; z-index:40; pointer-events:none; }
+  [data-composition-id="seg1"] .cap{ position:absolute; left:50%; transform:translateX(-50%); top:0; opacity:0; display:inline-flex; flex-wrap:wrap; justify-content:center; gap:8px 14px; width:960px; background:rgba(11,11,12,.6); border:1px solid var(--line); border-radius:18px; padding:20px 28px; }
+  [data-composition-id="seg1"] .cw{ font-size:50px; font-weight:700; color:var(--muted); letter-spacing:.01em; line-height:1.05; font-variant-numeric:tabular-nums; }
+  [data-composition-id="seg1"] .bug{ position:absolute; left:46px; top:150px; height:38px; width:auto; opacity:.6; z-index:50; filter:drop-shadow(0 2px 7px rgba(0,0,0,.95)); }
+</style>
+</head>
+<body>
+  <div data-composition-id="seg1" data-start="0" data-duration="39.5" data-width="1080" data-height="1920">
+
+    <!-- S1 HOOK -->
+    <div id="s1" class="scene">
+      <div class="dots"></div>
+      <div class="hk" id="hk1">
+        <div class="lbl"><span class="ic ok">✓</span>READS THE WEB</div>
+        <div class="ln" style="width:92%"></div><div class="ln" style="width:78%"></div><div class="ln" style="width:85%"></div>
+      </div>
+      <div class="hk" id="hk2">
+        <img class="vthumb" src="assets/match_wide.png" /><div class="static"></div>
+        <div class="vlabel"><span class="ic no">✕</span>CAN'T WATCH IT</div>
+      </div>
+      <svg class="marker red" id="hookx" viewBox="0 0 900 300" style="left:90px; top:1010px; width:900px; height:300px;">
+        <path pathLength="1" stroke-width="12" d="M70,60 C400,120 600,180 840,250" /><path pathLength="1" stroke-width="12" d="M840,60 C520,150 360,200 70,250" /></svg>
+    </div>
+
+    <!-- S2 90% PROBLEM -->
+    <div id="s2" class="scene">
+      <div class="dots"></div>
+      <div id="pcount"><div class="big"><span id="pnum">0</span>%<svg class="marker" id="pcircle" viewBox="0 0 460 200" preserveAspectRatio="none"><path pathLength="1" stroke-width="7" d="M50,110 C36,30 424,24 440,100 C448,160 70,176 30,108 C24,72 52,48 110,42" /></svg></div><div class="sub">OF THE INTERNET IS VIDEO</div></div>
+      <div class="vgrid">
+        <div class="vt"><img src="assets/match_wide.png"/></div><div class="vt"><img src="assets/clip_goal.png"/></div><div class="vt"><img src="assets/clip_crowd.png"/></div>
+        <div class="vt"><img src="assets/clip_penalty.png"/></div><div class="vt"><img src="assets/clip_save.png"/></div><div class="vt"><img src="assets/clip_ref.png"/></div>
+      </div>
+      <div id="blindstamp"><span class="box red" id="blindbox">INVISIBLE TO YOUR AI</span></div>
+    </div>
+
+    <!-- S3 QUERY + MOMENT -->
+    <div id="s3" class="scene">
+      <div class="dots"></div>
+      <div id="player">
+        <img class="frame" id="pf1" src="assets/match_wide.png" />
+        <img class="frame" id="pf2" src="assets/clip_ref.png" />
+        <div class="ptag">worldcup_final.mp4</div><div class="pscore">90:00</div>
+        <div id="momentbox"></div>
+      </div>
+      <div class="tlab" id="tcur">00:00</div><div class="tlab" id="tdur">90:00</div>
+      <div id="tl"><div id="tlfill"></div></div><div id="ph"></div><div id="mk67"></div>
+      <div id="sbar"><svg class="mag" viewBox="0 0 40 40"><circle cx="17" cy="17" r="12"/><line x1="26" y1="26" x2="36" y2="36"/></svg><div id="qtext"></div><span id="cursor"></span><div id="sbtn">ASK</div></div>
+      <!-- link result struck out -->
+      <div id="linkres"><div class="u">https://results.example/&hellip; — top link</div><div class="t">"a summary of something you weren't asking about"</div></div>
+      <div id="linkstrike"></div>
+      <div class="scribble r" id="notlink" style="right:90px; top:360px; font-size:46px; transform:rotate(-6deg);">not a link!</div>
+      <div class="scribble w" id="themoment" style="left:110px; top:900px; font-size:46px; transform:rotate(-5deg);">the exact moment</div>
+      <svg class="marker" id="momentarrow" viewBox="0 0 200 140" style="left:300px; top:820px; width:220px; height:150px;"><path pathLength="1" stroke-width="7" d="M20,120 C60,60 130,40 180,30 M180,30 L150,28 M180,30 L170,58"/></svg>
+    </div>
+
+    <!-- S4 COLLAB REVEAL -->
+    <div id="s4" class="scene col">
+      <div class="dots"></div><div class="glow"></div>
+      <div class="lockup">
+        <img class="vdb" src="assets/videodb-logo.png" id="lk_vdb" />
+        <div class="x" id="lk_x">×</div>
+        <img class="tf" src="assets/tinyfish-logo-white.svg" id="lk_tf" />
+      </div>
+      <div id="collabsub">a perception layer for agents</div>
+    </div>
+
+    <!-- S5 HOW + REEL -->
+    <div id="s5" class="scene">
+      <div class="dots"></div>
+      <div id="rolehdr">
+        <span class="rolechip" id="roleTF">TINYFISH</span>
+        <div id="roleline">finds the right broadcast on the open web</div>
+      </div>
+      <div id="reel">
+        <div class="rc" id="rc1"><img src="assets/clip_goal.png"/><div class="cap2"><span class="mm">GOAL</span><span class="tc">23:14</span></div></div>
+        <div class="rc" id="rc2"><img src="assets/clip_ref.png"/><div class="cap2"><span class="mm">CARD</span><span class="tc">67:02</span></div></div>
+        <div class="rc" id="rc3"><img src="assets/clip_penalty.png"/><div class="cap2"><span class="mm">PENALTY</span><span class="tc">78:40</span></div></div>
+        <div class="rc" id="rc4"><img src="assets/clip_save.png"/><div class="cap2"><span class="mm">SAVE</span><span class="tc">89:55</span></div></div>
+      </div>
+      <div id="reelph"></div>
+      <div id="playbig"></div>
+      <div id="reellabel"><span class="box pay" id="editedstamp" style="font-size:46px;">ONE REEL · ALREADY EDITED</span></div>
+      <div class="scribble" id="stitched" style="right:80px; top:710px; font-size:42px; transform:rotate(-5deg);">stitched for you</div>
+    </div>
+
+    <!-- S6 THESIS -->
+    <div id="s6" class="scene col">
+      <div class="dots"></div><div class="glow"></div>
+      <div class="thline" id="th1">DON'T JUST <span class="s">SEARCH<svg class="marker red" id="thstrike" viewBox="0 0 360 40" preserveAspectRatio="none" style="left:0;top:42px;width:100%;height:30px;"><path pathLength="1" stroke-width="10" d="M8,20 C120,8 250,30 352,16"/></svg></span> THE WEB</div>
+      <div class="thline" id="th2">THEY <b>UNDERSTAND</b> IT
+        <svg class="marker" id="thunder" viewBox="0 0 560 40" preserveAspectRatio="none" style="left:14%;top:108%;width:72%;height:34px;"><path pathLength="1" stroke-width="13" d="M14,24 C150,10 410,34 546,16"/></svg>
+      </div>
+    </div>
+
+    <!-- S7 FINAL LOCKUP -->
+    <div id="s7" class="scene col">
+      <div class="dots"></div><div class="glow"></div>
+      <div class="lockup">
+        <img class="vdb" src="assets/videodb-logo.png" id="f_vdb" />
+        <div class="x" id="f_x">×</div>
+        <img class="tf" src="assets/tinyfish-logo-white.svg" id="f_tf" />
+      </div>
+      <div id="cta"><span class="b">Try the World Cup briefing</span><div class="h">To see is to know.</div></div>
+    </div>
+
+    <div class="caps" id="caps" data-layout-allow-occlusion></div>
+    <img class="bug" src="assets/videodb-logo.png" />
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      var R = '[data-composition-id="seg1"] ';
+      var seg = document.querySelector('[data-composition-id="seg1"]');
+      var tl = gsap.timeline({ paused:true });
+      var XF = 0.45;
+      function fIn(s,t){ tl.fromTo(R+s,{opacity:0,filter:'blur(14px)'},{opacity:1,filter:'blur(0px)',duration:XF,ease:'sine.inOut'},t); }
+      function fOut(s,t){ tl.to(R+s,{opacity:0,filter:'blur(14px)',duration:XF,ease:'sine.inOut'},t); }
+      function draw(s,t,d){ tl.fromTo(R+s,{strokeDashoffset:1,strokeDasharray:1},{strokeDashoffset:0,duration:d||0.5,ease:'power1.inOut'},t); }
+      function mmss(s){ var m=Math.floor(s/60),x=Math.floor(s%60); return (m<10?'0'+m:m)+':'+(x<10?'0'+x:x); }
+      ['#hookx path','#pcircle path','#momentarrow path','#thstrike path','#thunder path']
+        .forEach(function(s){ gsap.set(R+s,{strokeDasharray:1,strokeDashoffset:1}); });
+
+      // captions
+      (function(){
+        if(!window.WW_CAPS) return; var root=seg.querySelector('#caps');
+        WW_CAPS.chunks.forEach(function(c){ var d=document.createElement('div'); d.className='cap'; d.id='capc'+c.i; root.appendChild(d); });
+        WW_CAPS.words.forEach(function(wd){ var s=document.createElement('span'); s.className='cw'; s.id=wd.id; s.textContent=wd.text; seg.querySelector('#capc'+wd.chunk).appendChild(s); });
+        WW_CAPS.chunks.forEach(function(c){
+          tl.fromTo(R+'#capc'+c.i,{opacity:0,y:16},{opacity:1,y:0,duration:0.18,ease:'power2.out'}, Math.max(0,c.start-0.06));
+          tl.to(R+'#capc'+c.i,{opacity:0,duration:0.16,ease:'power1.in'}, Math.max(0.2,c.end-0.22));
+        });
+        WW_CAPS.words.forEach(function(wd){
+          tl.to(R+'#'+wd.id,{color:'#E85810',duration:0.01}, wd.start);
+          tl.to(R+'#'+wd.id,{color:'#F4F2EE',duration:0.01}, Math.min(wd.end+0.04, wd.start+0.6));
+        });
+      })();
+
+      tl.from(R+'.bug',{opacity:0,duration:0.5},0.6);
+
+      // ===== S1 HOOK (0) =====
+      tl.fromTo(R+'#hk1',{opacity:0,y:30},{opacity:1,y:0,duration:0.5,ease:'power3.out'},0.5);
+      tl.from(R+'#hk1 .ln',{scaleX:0,transformOrigin:'left',duration:0.4,stagger:0.12,ease:'power2.out'},0.9);
+      tl.fromTo(R+'#hk2',{opacity:0,y:30},{opacity:1,y:0,duration:0.5,ease:'power3.out'},3.6);
+      draw('#hookx path',4.0,0.5);
+
+      // ===== S2 (5.62) =====
+      fOut('#s1',5.62); fIn('#s2',5.62);
+      tl.to({n:0},{n:90,duration:1.6,ease:'power1.out',onUpdate:function(){var e=document.getElementById('pnum'); if(e) e.textContent=Math.round(this.targets()[0].n);}},5.9);
+      draw('#pcircle path',7.0,0.6);
+      tl.from(R+'.vgrid .vt',{opacity:0,scale:0.6,duration:0.4,stagger:0.07,ease:'back.out(1.6)'},6.2);
+      tl.from(R+'#blindbox',{opacity:0,scale:0.7,duration:0.45,ease:'back.out(1.7)'},9.0);
+      tl.to(R+'.vgrid .vt img',{filter:'blur(8px) brightness(.4) grayscale(.8)',duration:0.6,stagger:0.04},9.0);
+
+      // ===== S3 QUERY + MOMENT (11.10) =====
+      fOut('#s2',11.10); fIn('#s3',11.10);
+      tl.fromTo(R+'#sbar',{opacity:0,y:30},{opacity:1,y:0,duration:0.4,ease:'power3.out'},11.2);
+      tl.to(R+'#cursor',{opacity:0,duration:0.45,yoyo:true,repeat:6,ease:'power1.inOut'},11.4);
+      (function(){ var q="show me the referee's call at minute 67";
+        tl.to({n:0},{n:q.length,duration:2.7,ease:'none',onUpdate:function(){var e=document.getElementById('qtext'); if(e) e.textContent=q.slice(0,Math.round(this.targets()[0].n));}},11.5); })();
+      tl.to(R+'#sbtn',{scale:0.9,duration:0.12,yoyo:true,repeat:1},14.4);
+      // link struck out (14.66)
+      tl.fromTo(R+'#linkres',{opacity:0,y:20},{opacity:1,y:0,duration:0.35,ease:'power2.out'},14.7);
+      tl.fromTo(R+'#linkstrike',{opacity:1,scaleX:0},{scaleX:1,duration:0.4,ease:'power2.in'},15.95);
+      tl.fromTo(R+'#notlink',{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.35,ease:'back.out(1.7)'},16.0);
+      // jump to the moment (17.0)
+      tl.to(R+'#linkres, '+R+'#linkstrike, '+R+'#notlink',{opacity:0,duration:0.3},16.9);
+      tl.to(R+'#sbar',{opacity:0,duration:0.3},16.9);
+      tl.to(R+'#pf1',{opacity:0,duration:0.4},17.0); tl.to(R+'#pf2',{opacity:1,duration:0.4},17.0);
+      tl.fromTo(R+'#momentbox',{opacity:0,scale:1.15},{opacity:1,scale:1,duration:0.35,ease:'back.out(2)'},17.2);
+      tl.fromTo(R+'#mk67',{opacity:0,scaleY:0},{opacity:1,scaleY:1,duration:0.3,ease:'back.out(2)'},17.1);
+      tl.fromTo(R+'#ph',{x:0},{x:704,duration:0.6,ease:'power3.inOut'},17.0); // jump playhead toward 67'
+      tl.fromTo(R+'#tlfill',{width:0},{width:744,duration:0.6,ease:'power3.inOut'},17.0);
+      tl.to({n:0},{n:67,duration:0.6,ease:'power3.inOut',onUpdate:function(){var e=document.getElementById('tcur'); if(e) e.textContent=mmss(this.targets()[0].n*60);}},17.0);
+      draw('#momentarrow path',17.4,0.45);
+      tl.fromTo(R+'#themoment',{opacity:0,y:12},{opacity:1,y:0,duration:0.35,ease:'back.out(1.6)'},17.5);
+
+      // ===== S4 COLLAB (19.42) =====
+      fOut('#s3',19.42); fIn('#s4',19.42);
+      tl.to(R+'.bug',{opacity:0,duration:0.3},19.2);
+      tl.fromTo(R+'#lk_vdb',{opacity:0,x:-80},{opacity:1,x:0,duration:0.5,ease:'power3.out'},19.7);
+      tl.fromTo(R+'#lk_tf',{opacity:0,x:80},{opacity:1,x:0,duration:0.5,ease:'power3.out'},19.9);
+      tl.fromTo(R+'#lk_x',{opacity:0,scale:0},{opacity:1,scale:1,duration:0.4,ease:'back.out(2)'},20.4);
+      tl.from(R+'#collabsub',{opacity:0,y:14,duration:0.4,ease:'power2.out'},21.0);
+
+      // ===== S5 HOW + REEL (22.64) =====
+      fOut('#s4',22.64); fIn('#s5',22.64);
+      tl.from(R+'#roleTF',{opacity:0,scale:0.8,duration:0.4,ease:'back.out(1.6)'},22.8);
+      tl.from(R+'#roleline',{opacity:0,y:12,duration:0.4,ease:'power2.out'},23.1);
+      // at 25.34 switch role to VideoDB + stitch the reel
+      tl.to(R+'#roleline',{opacity:0,duration:0.25},25.2);
+      tl.to(R+'#roleTF',{opacity:0,duration:0.3},25.2);
+      tl.call(function(){ var e=document.getElementById('roleTF'); if(e){ e.textContent='VIDEODB'; e.style.color='#E85810'; e.style.borderColor='#E85810'; } var l=document.getElementById('roleline'); if(l) l.textContent='indexes the video, returns the moments'; }, null, 25.25);
+      tl.to(R+'#roleTF',{opacity:1,duration:0.3},25.4);
+      tl.to(R+'#roleline',{opacity:1,duration:0.3},25.5);
+      tl.fromTo(R+'#stitched',{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.35,ease:'back.out(1.7)'},25.6);
+      ['#rc1','#rc2','#rc3','#rc4'].forEach(function(c,i){ tl.fromTo(R+c,{opacity:0,y:120,scale:0.5},{opacity:1,y:0,scale:1,duration:0.45,ease:'back.out(1.5)'},25.6+i*0.34); });
+      // already edited (29.16): play button + stamp + playhead sweeps the reel
+      tl.fromTo(R+'#editedstamp',{opacity:0,scale:0.7},{opacity:1,scale:1,duration:0.4,ease:'back.out(1.7)'},29.2);
+      tl.fromTo(R+'#playbig',{opacity:0,scale:0.5},{opacity:1,scale:1,duration:0.4,ease:'back.out(1.8)'},29.4);
+      tl.fromTo(R+'#reelph',{opacity:1,x:0},{x:986,duration:1.7,ease:'power1.inOut'},29.5);
+
+      // ===== S6 THESIS (31.68) =====
+      fOut('#s5',31.68); fIn('#s6',31.68);
+      tl.from(R+'#th1',{opacity:0,y:20,duration:0.45,ease:'power3.out'},31.8);
+      draw('#thstrike path',32.8,0.4);
+      tl.from(R+'#th2',{opacity:0,scale:0.8,y:20,duration:0.5,ease:'back.out(1.6)'},34.9);
+      draw('#thunder path',35.4,0.45);
+
+      // ===== S7 FINAL (35.94) =====
+      fOut('#s6',35.94); fIn('#s7',35.94);
+      tl.fromTo(R+'#f_vdb',{opacity:0,x:-70},{opacity:1,x:0,duration:0.5,ease:'power3.out'},36.1);
+      tl.fromTo(R+'#f_tf',{opacity:0,x:70},{opacity:1,x:0,duration:0.5,ease:'power3.out'},36.3);
+      tl.fromTo(R+'#f_x',{opacity:0,scale:0},{opacity:1,scale:1,duration:0.4,ease:'back.out(2)'},36.7);
+      tl.from(R+'#cta .b',{opacity:0,y:16,duration:0.45,ease:'power2.out'},37.2);
+      tl.from(R+'#cta .h',{opacity:0,y:12,duration:0.45,ease:'power2.out'},37.8);
+
+      window.__timelines["seg1"] = tl;
+    </script>
+  </div>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "slug": "videodb-highlights",
+  "pipeline": "highlights",
+  "next_steps": [
+    "Watch the worked example: npm install && npx hyperframes preview (windowed player, detection circles, scan timeline)",
+    "Replace clip1-3.mp4 with your source clips",
+    "Edit build.py: the CLIPS schema (timings, labels, detection callouts) to match your clips",
+    "Regenerate: python3 build.py (never edit index.html by hand)",
+    "QA + render: npx hyperframes lint && npx hyperframes render -o out.mp4 --quality draft"
+  ]
+}

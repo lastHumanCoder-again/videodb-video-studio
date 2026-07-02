@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  [data-composition-id="seg7"]{ position:relative; width:1920px; height:1080px; overflow:hidden;
+    background:#0B0B0C; color:#F4F2EE; font-family:"Inter","Helvetica Neue",Arial,sans-serif;
+    /* BRAND:START */
+    --orange:#E85810; /* brand:accent */
+    --card:#141416;   /* brand:card */
+    --muted:#8C8C94;  /* brand:muted */
+    --line:#2A2A2E;   /* brand:hairline */
+    --red:#E5484D;    /* brand:bad */
+    --green:#3DD68C;  /* brand:good */
+    /* BRAND:END */ }
+  [data-composition-id="seg7"] .scene{ position:absolute; inset:0; width:1920px; height:1080px; overflow:hidden; opacity:0;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  [data-composition-id="seg7"] #s7a{ opacity:1; }
+  [data-composition-id="seg7"] .glow{ position:absolute; inset:0; background:radial-gradient(58% 50% at 50% 44%, rgba(232,88,16,0.09), transparent 70%); }
+
+  /* shared callout box (mirrored from seg2) */
+  [data-composition-id="seg7"] .box{ display:inline-block; background:#F4F2EE; color:#0B0B0C;
+    font-family:"Archivo Black",sans-serif; text-transform:uppercase; letter-spacing:0.01em; line-height:0.98;
+    padding:14px 24px; border-radius:12px; font-size:56px; box-shadow:0 14px 40px rgba(0,0,0,0.5); }
+  [data-composition-id="seg7"] .box.pay{ background:var(--orange); color:#fff; box-shadow:0 16px 50px rgba(232,88,16,0.45); }
+  [data-composition-id="seg7"] .box.sm{ font-size:38px; padding:12px 18px; }
+
+  /* SCENE A — MEET CHESS LENS title card */
+  [data-composition-id="seg7"] #s7a .kicker{ font-family:"Inter",sans-serif; font-weight:700; text-transform:uppercase;
+    font-size:28px; letter-spacing:0.22em; color:var(--orange); margin-bottom:26px; }
+  [data-composition-id="seg7"] #s7a .product{ font-family:"Archivo Black",sans-serif; text-transform:uppercase;
+    font-size:128px; line-height:0.92; letter-spacing:0.005em; text-align:center; }
+  [data-composition-id="seg7"] #s7a .product .o{ color:var(--orange); }
+  [data-composition-id="seg7"] #s7a .builton{ display:flex; align-items:center; gap:20px; margin-top:46px;
+    color:var(--muted); font-size:34px; font-weight:500; letter-spacing:0.02em; }
+  [data-composition-id="seg7"] #s7a .builton .stamp{ height:48px; width:auto; }
+  [data-composition-id="seg7"] #s7a .repo{ margin-top:40px; display:inline-flex; align-items:center; gap:12px;
+    background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 20px;
+    font-family:"Inter",sans-serif; font-size:24px; color:#cfcfd4; letter-spacing:0.02em; }
+  [data-composition-id="seg7"] #s7a .repo .gh{ width:14px; height:14px; border-radius:50%; background:var(--green); flex:none; }
+
+  /* SCENE B — PIPELINE spine (mirrored from seg6) */
+  [data-composition-id="seg7"] #s7b .pipehead{ font-family:"Archivo Black",sans-serif; text-transform:uppercase;
+    font-size:46px; line-height:0.98; letter-spacing:0.02em; text-align:center; margin-bottom:52px; }
+  [data-composition-id="seg7"] #s7b .pipehead .o{ color:var(--orange); }
+  [data-composition-id="seg7"] .pipe{ display:flex; align-items:center; justify-content:center; gap:24px; }
+  [data-composition-id="seg7"] .node{ display:inline-flex; align-items:center; justify-content:center;
+    background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px 28px;
+    font-family:"Archivo Black",sans-serif; text-transform:uppercase; font-size:32px; letter-spacing:0.02em;
+    color:#cfcfd4; transition:none; text-align:center; }
+  [data-composition-id="seg7"] .node.on{ color:#fff; border-color:var(--orange);
+    box-shadow:0 0 0 2px rgba(232,88,16,0.35), 0 0 30px rgba(232,88,16,0.40); }
+  [data-composition-id="seg7"] .arrowh{ color:var(--muted); font-family:"Archivo Black",sans-serif; font-size:40px; }
+  [data-composition-id="seg7"] .pulse{ position:absolute; left:0; top:50%; width:120px; height:8px; border-radius:8px;
+    transform:translateY(-50%); background:linear-gradient(90deg,transparent,rgba(232,88,16,0.9),transparent);
+    filter:blur(2px); opacity:0; pointer-events:none; }
+  /* conversion strip: board thumb -> position record chip */
+  [data-composition-id="seg7"] .convert{ margin-top:72px; display:flex; align-items:center; justify-content:center; gap:42px; }
+  [data-composition-id="seg7"] .miniboard{ width:148px; height:148px; display:grid;
+    grid-template-columns:repeat(8,1fr); grid-template-rows:repeat(8,1fr);
+    border-radius:8px; overflow:hidden; border:1px solid var(--line); box-shadow:0 16px 44px rgba(0,0,0,0.55); flex:none; }
+  [data-composition-id="seg7"] .miniboard .ms{ width:100%; height:100%; }
+  [data-composition-id="seg7"] .miniboard .ms.l{ background:#24242c; }
+  [data-composition-id="seg7"] .miniboard .ms.d{ background:#16161b; }
+  [data-composition-id="seg7"] .convarrow{ color:var(--orange); font-family:"Archivo Black",sans-serif; font-size:48px; }
+  [data-composition-id="seg7"] .record{ background:var(--card); border:1px solid var(--line); border-radius:12px;
+    padding:20px 26px; box-shadow:0 16px 44px rgba(0,0,0,0.55); min-width:380px; }
+  [data-composition-id="seg7"] .record .rtitle{ font-family:"Inter",sans-serif; font-weight:700; text-transform:uppercase;
+    font-size:18px; letter-spacing:0.10em; color:var(--muted); margin-bottom:14px; }
+  [data-composition-id="seg7"] .record .rline{ font-family:"Inter",sans-serif; font-size:26px; line-height:1.5;
+    font-variant-numeric:tabular-nums; }
+  [data-composition-id="seg7"] .record .rline .k{ color:var(--muted); }
+  [data-composition-id="seg7"] .record .rline .v{ color:var(--green); font-weight:600; }
+
+  /* SCENE C — EVAL GRID (MODEL x SETTING -> SCORE) */
+  [data-composition-id="seg7"] #s7c .gridhead{ font-family:"Archivo Black",sans-serif; text-transform:uppercase;
+    font-size:48px; line-height:0.98; letter-spacing:0.02em; text-align:center; margin-bottom:44px; }
+  [data-composition-id="seg7"] #s7c .gridhead .o{ color:var(--orange); }
+  [data-composition-id="seg7"] .evalcard{ width:1040px; background:var(--card); border:1px solid var(--line);
+    border-radius:18px; padding:14px 22px 22px; box-shadow:0 30px 80px rgba(0,0,0,0.6); }
+  [data-composition-id="seg7"] .erow{ display:grid; grid-template-columns:1.4fr 1fr 0.9fr; align-items:center;
+    padding:18px 14px; border-bottom:1px solid var(--line); }
+  [data-composition-id="seg7"] .erow:last-child{ border-bottom:none; }
+  [data-composition-id="seg7"] .erow.head{ border-bottom:2px solid var(--line); }
+  [data-composition-id="seg7"] .erow.head span{ font-family:"Inter",sans-serif; font-weight:700; text-transform:uppercase;
+    font-size:20px; letter-spacing:0.10em; color:var(--muted); }
+  [data-composition-id="seg7"] .erow .model{ font-family:"Inter",sans-serif; font-weight:600; font-size:32px; color:#F4F2EE;
+    display:flex; align-items:center; gap:14px; }
+  [data-composition-id="seg7"] .logo{ display:inline-flex; align-items:center; justify-content:center; vertical-align:middle; flex:none; }
+  [data-composition-id="seg7"] .logo svg{ height:28px; width:auto; fill:#F4F2EE; }
+  [data-composition-id="seg7"] .erow .setting{ font-family:"Inter",sans-serif; font-weight:500; font-size:28px; color:#cfcfd4;
+    text-transform:uppercase; letter-spacing:0.04em; }
+  [data-composition-id="seg7"] .erow .score{ font-family:"Inter",sans-serif; font-weight:700; font-size:36px;
+    font-variant-numeric:tabular-nums; text-align:right; color:#F4F2EE; }
+  [data-composition-id="seg7"] .erow.best{ background:rgba(232,88,16,0.07); border-radius:10px; }
+  [data-composition-id="seg7"] .erow.best .score{ color:var(--orange); }
+  [data-composition-id="seg7"] #s7c .gridcap{ margin-top:36px; font-family:"Archivo Black",sans-serif; text-transform:uppercase;
+    font-size:30px; letter-spacing:0.03em; text-align:center; }
+  [data-composition-id="seg7"] #s7c .gridcap .o{ color:var(--orange); }
+
+  /* SCENE D — payoff */
+  [data-composition-id="seg7"] #s7d .pay{ font-size:78px; padding:26px 44px; text-align:center; line-height:1.0; max-width:1320px; }
+  [data-composition-id="seg7"] #s7d .pay .em{ color:#fff; }
+  [data-composition-id="seg7"] #s7d .paylogo{ height:42px; width:auto; margin-top:42px; opacity:0.8; }
+
+  [data-composition-id="seg7"] .bug{ position:absolute; right:46px; bottom:40px; height:34px; width:auto; opacity:0.5; z-index:50; }
+</style>
+</head>
+<body>
+  <div data-composition-id="seg7" data-start="0" data-duration="26.28" data-width="1920" data-height="1080">
+
+    <!-- SCENE A (0.00) — MEET CHESS LENS title card -->
+    <div id="s7a" class="scene clip">
+      <div class="glow"></div>
+      <div class="kicker" id="s7a-kick">MEET</div>
+      <div class="product" id="s7a-prod">CHESS <span class="o">LENS</span></div>
+      <div class="builton" id="s7a-built">built on <img class="stamp" id="s7a-stamp" src="assets/videodb-logo.png" /></div>
+      <div class="repo" id="s7a-repo"><span class="gh"></span>github.com/video-db/chess-lens</div>
+    </div>
+
+    <!-- SCENE B (7.11) — the PIPELINE spine -->
+    <div id="s7b" class="scene clip">
+      <div class="glow"></div>
+      <div class="pipehead" id="s7b-head">ONE BOARD, READ <span class="o">FRAME BY FRAME</span></div>
+      <div style="position:relative;">
+        <div class="pipe" id="pipe">
+          <span class="node" id="n1">BOARD</span>
+          <span class="arrowh">&rarr;</span>
+          <span class="node" id="n2">INGEST</span>
+          <span class="arrowh">&rarr;</span>
+          <span class="node" id="n3">TRACK<br>POSITION</span>
+          <span class="arrowh">&rarr;</span>
+          <span class="node" id="n4">STRUCTURED<br>DATA</span>
+        </div>
+        <div class="pulse" id="pulse"></div>
+      </div>
+      <div class="convert" id="convert">
+        <div class="miniboard" id="miniboard"></div>
+        <span class="convarrow">&rarr;</span>
+        <div class="record" id="record">
+          <div class="rtitle">POSITION RECORD</div>
+          <div class="rline"><span class="k">frame</span> <span class="v">00:42</span></div>
+          <div class="rline"><span class="k">fen</span> <span class="v">r1bqkb1r/&hellip;</span></div>
+          <div class="rline"><span class="k">to_move</span> <span class="v">white</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCENE C (15.88) — EVAL GRID -->
+    <div id="s7c" class="scene clip">
+      <div class="glow"></div>
+      <div class="gridhead" id="s7c-head">MODEL &times; SETTING <span class="o">&rarr;</span> SCORE</div>
+      <div class="evalcard" id="evalcard">
+        <div class="erow head" id="ehead"><span>MODEL</span><span>SETTING</span><span style="text-align:right">SCORE</span></div>
+        <div class="erow best" id="er1"><span class="model"><span class="logo"><svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg"><path d="m297.06 130.97c7.26-21.79 4.76-45.66-6.85-65.48-17.46-30.4-52.56-46.04-86.84-38.68-15.25-17.18-37.16-26.95-60.13-26.81-35.04-.08-66.13 22.48-76.91 55.82-22.51 4.61-41.94 18.7-53.31 38.67-17.59 30.32-13.58 68.54 9.92 94.54-7.26 21.79-4.76 45.66 6.85 65.48 17.46 30.4 52.56 46.04 86.84 38.68 15.24 17.18 37.16 26.95 60.13 26.8 35.06.09 66.16-22.49 76.94-55.86 22.51-4.61 41.94-18.7 53.31-38.67 17.57-30.32 13.55-68.51-9.94-94.51zm-120.28 168.11c-14.03.02-27.62-4.89-38.39-13.88.49-.26 1.34-.73 1.89-1.07l63.72-36.8c3.26-1.85 5.26-5.32 5.24-9.07v-89.83l26.93 15.55c.29.14.48.42.52.74v74.39c-.04 33.08-26.83 59.9-59.91 59.97zm-128.84-55.03c-7.03-12.14-9.56-26.37-7.15-40.18.47.28 1.3.79 1.89 1.13l63.72 36.8c3.23 1.89 7.23 1.89 10.47 0l77.79-44.92v31.1c.02.32-.13.63-.38.83l-64.41 37.19c-28.69 16.52-65.33 6.7-81.92-21.95zm-16.77-139.09c7-12.16 18.05-21.46 31.21-26.29 0 .55-.03 1.52-.03 2.2v73.61c-.02 3.74 1.98 7.21 5.23 9.06l77.79 44.91-26.93 15.55c-.27.18-.61.21-.91.08l-64.42-37.22c-28.63-16.58-38.45-53.21-21.95-81.89zm221.26 51.49-77.79-44.92 26.93-15.54c.27-.18.61-.21.91-.08l64.42 37.19c28.68 16.57 38.51 53.26 21.94 81.94-7.01 12.14-18.05 21.44-31.2 26.28v-75.81c.03-3.74-1.96-7.2-5.2-9.06zm26.8-40.34c-.47-.29-1.3-.79-1.89-1.13l-63.72-36.8c-3.23-1.89-7.23-1.89-10.47 0l-77.79 44.92v-31.1c-.02-.32.13-.63.38-.83l64.41-37.16c28.69-16.55 65.37-6.7 81.91 22 6.99 12.12 9.52 26.31 7.15 40.1zm-168.51 55.43-26.94-15.55c-.29-.14-.48-.42-.52-.74v-74.39c.02-33.12 26.89-59.96 60.01-59.94 14.01 0 27.57 4.92 38.34 13.88-.49.26-1.33.73-1.89 1.07l-63.72 36.8c-3.26 1.85-5.26 5.31-5.24 9.06l-.04 89.79zm14.63-31.54 34.65-20.01 34.65 20v40.01l-34.65 20-34.65-20z"/></svg></span>GPT-5.4</span><span class="setting">low</span><span class="score" id="bestscore">1.00</span></div>
+        <div class="erow" id="er2"><span class="model"><span class="logo"><svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg"><path d="m297.06 130.97c7.26-21.79 4.76-45.66-6.85-65.48-17.46-30.4-52.56-46.04-86.84-38.68-15.25-17.18-37.16-26.95-60.13-26.81-35.04-.08-66.13 22.48-76.91 55.82-22.51 4.61-41.94 18.7-53.31 38.67-17.59 30.32-13.58 68.54 9.92 94.54-7.26 21.79-4.76 45.66 6.85 65.48 17.46 30.4 52.56 46.04 86.84 38.68 15.24 17.18 37.16 26.95 60.13 26.8 35.06.09 66.16-22.49 76.94-55.86 22.51-4.61 41.94-18.7 53.31-38.67 17.57-30.32 13.55-68.51-9.94-94.51zm-120.28 168.11c-14.03.02-27.62-4.89-38.39-13.88.49-.26 1.34-.73 1.89-1.07l63.72-36.8c3.26-1.85 5.26-5.32 5.24-9.07v-89.83l26.93 15.55c.29.14.48.42.52.74v74.39c-.04 33.08-26.83 59.9-59.91 59.97zm-128.84-55.03c-7.03-12.14-9.56-26.37-7.15-40.18.47.28 1.3.79 1.89 1.13l63.72 36.8c3.23 1.89 7.23 1.89 10.47 0l77.79-44.92v31.1c.02.32-.13.63-.38.83l-64.41 37.19c-28.69 16.52-65.33 6.7-81.92-21.95zm-16.77-139.09c7-12.16 18.05-21.46 31.21-26.29 0 .55-.03 1.52-.03 2.2v73.61c-.02 3.74 1.98 7.21 5.23 9.06l77.79 44.91-26.93 15.55c-.27.18-.61.21-.91.08l-64.42-37.22c-28.63-16.58-38.45-53.21-21.95-81.89zm221.26 51.49-77.79-44.92 26.93-15.54c.27-.18.61-.21.91-.08l64.42 37.19c28.68 16.57 38.51 53.26 21.94 81.94-7.01 12.14-18.05 21.44-31.2 26.28v-75.81c.03-3.74-1.96-7.2-5.2-9.06zm26.8-40.34c-.47-.29-1.3-.79-1.89-1.13l-63.72-36.8c-3.23-1.89-7.23-1.89-10.47 0l-77.79 44.92v-31.1c-.02-.32.13-.63.38-.83l64.41-37.16c28.69-16.55 65.37-6.7 81.91 22 6.99 12.12 9.52 26.31 7.15 40.1zm-168.51 55.43-26.94-15.55c-.29-.14-.48-.42-.52-.74v-74.39c.02-33.12 26.89-59.96 60.01-59.94 14.01 0 27.57 4.92 38.34 13.88-.49.26-1.33.73-1.89 1.07l-63.72 36.8c-3.26 1.85-5.26 5.31-5.24 9.06l-.04 89.79zm14.63-31.54 34.65-20.01 34.65 20v40.01l-34.65 20-34.65-20z"/></svg></span>GPT-5.4</span><span class="setting">default</span><span class="score">0.97</span></div>
+        <div class="erow" id="er3"><span class="model"><span class="logo"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m4.7144 15.9555 4.7174-2.6471.079-.2307-.079-.1275h-.2307l-.7893-.0486-2.6956-.0729-2.3375-.0971-2.2646-.1214-.5707-.1215-.5343-.7042.0546-.3522.4797-.3218.686.0608 1.5179.1032 2.2767.1578 1.6514.0972 2.4468.255h.3886l.0546-.1579-.1336-.0971-.1032-.0972L6.973 9.8356l-2.55-1.6879-1.3356-.9714-.7225-.4918-.3643-.4614-.1578-1.0078.6557-.7225.8803.0607.2246.0607.8925.686 1.9064 1.4754 2.4893 1.8336.3643.3035.1457-.1032.0182-.0728-.164-.2733-1.3539-2.4467-1.445-2.4893-.6435-1.032-.17-.6194c-.0607-.255-.1032-.4674-.1032-.7285L6.287.1335 6.6997 0l.9957.1336.419.3642.6192 1.4147 1.0018 2.2282 1.5543 3.0296.4553.8985.2429.8318.091.255h.1579v-.1457l.1275-1.706.2368-2.0947.2307-2.6957.0789-.7589.3764-.9107.7468-.4918.5828.2793.4797.686-.0668.4433-.2853 1.8517-.5586 2.9021-.3643 1.9429h.2125l.2429-.2429.9835-1.3053 1.6514-2.0643.7286-.8196.85-.9046.5464-.4311h1.0321l.759 1.1293-.34 1.1657-1.0625 1.3478-.8804 1.1414-1.2628 1.7-.7893 1.36.0729.1093.1882-.0183 2.8535-.607 1.5421-.2794 1.8396-.3157.8318.3886.091.3946-.3278.8075-1.967.4857-2.3072.4614-3.4364.8136-.0425.0304.0486.0607 1.5482.1457.6618.0364h1.621l3.0175.2247.7892.522.4736.6376-.079.4857-1.2142.6193-1.6393-.3886-3.825-.9107-1.3113-.3279h-.1822v.1093l1.0929 1.0686 2.0035 1.8092 2.5075 2.3314.1275.5768-.3218.4554-.34-.0486-2.2039-1.6575-.85-.7468-1.9246-1.621h-.1275v.17l.4432.6496 2.3436 3.5214.1214 1.0807-.17.3521-.6071.2125-.6679-.1214-1.3721-1.9246L14.38 17.959l-1.1414-1.9428-.1397.079-.674 7.2552-.3156.3703-.7286.2793-.6071-.4614-.3218-.7468.3218-1.4753.3886-1.9246.3157-1.53.2853-1.9004.17-.6314-.0121-.0425-.1397.0182-1.4328 1.9672-2.1796 2.9446-1.7243 1.8456-.4128.164-.7164-.3704.0667-.6618.4008-.5889 2.386-3.0357 1.4389-1.882.929-1.0868-.0062-.1579h-.0546l-6.3385 4.1164-1.1293.1457-.4857-.4554.0608-.7467.2307-.2429 1.9064-1.3114Z"/></svg></span>Claude Opus 4.7</span><span class="setting">max</span><span class="score">0.85</span></div>
+        <div class="erow" id="er4"><span class="model"><span class="logo"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m4.7144 15.9555 4.7174-2.6471.079-.2307-.079-.1275h-.2307l-.7893-.0486-2.6956-.0729-2.3375-.0971-2.2646-.1214-.5707-.1215-.5343-.7042.0546-.3522.4797-.3218.686.0608 1.5179.1032 2.2767.1578 1.6514.0972 2.4468.255h.3886l.0546-.1579-.1336-.0971-.1032-.0972L6.973 9.8356l-2.55-1.6879-1.3356-.9714-.7225-.4918-.3643-.4614-.1578-1.0078.6557-.7225.8803.0607.2246.0607.8925.686 1.9064 1.4754 2.4893 1.8336.3643.3035.1457-.1032.0182-.0728-.164-.2733-1.3539-2.4467-1.445-2.4893-.6435-1.032-.17-.6194c-.0607-.255-.1032-.4674-.1032-.7285L6.287.1335 6.6997 0l.9957.1336.419.3642.6192 1.4147 1.0018 2.2282 1.5543 3.0296.4553.8985.2429.8318.091.255h.1579v-.1457l.1275-1.706.2368-2.0947.2307-2.6957.0789-.7589.3764-.9107.7468-.4918.5828.2793.4797.686-.0668.4433-.2853 1.8517-.5586 2.9021-.3643 1.9429h.2125l.2429-.2429.9835-1.3053 1.6514-2.0643.7286-.8196.85-.9046.5464-.4311h1.0321l.759 1.1293-.34 1.1657-1.0625 1.3478-.8804 1.1414-1.2628 1.7-.7893 1.36.0729.1093.1882-.0183 2.8535-.607 1.5421-.2794 1.8396-.3157.8318.3886.091.3946-.3278.8075-1.967.4857-2.3072.4614-3.4364.8136-.0425.0304.0486.0607 1.5482.1457.6618.0364h1.621l3.0175.2247.7892.522.4736.6376-.079.4857-1.2142.6193-1.6393-.3886-3.825-.9107-1.3113-.3279h-.1822v.1093l1.0929 1.0686 2.0035 1.8092 2.5075 2.3314.1275.5768-.3218.4554-.34-.0486-2.2039-1.6575-.85-.7468-1.9246-1.621h-.1275v.17l.4432.6496 2.3436 3.5214.1214 1.0807-.17.3521-.6071.2125-.6679-.1214-1.3721-1.9246L14.38 17.959l-1.1414-1.9428-.1397.079-.674 7.2552-.3156.3703-.7286.2793-.6071-.4614-.3218-.7468.3218-1.4753.3886-1.9246.3157-1.53.2853-1.9004.17-.6314-.0121-.0425-.1397.0182-1.4328 1.9672-2.1796 2.9446-1.7243 1.8456-.4128.164-.7164-.3704.0667-.6618.4008-.5889 2.386-3.0357 1.4389-1.882.929-1.0868-.0062-.1579h-.0546l-6.3385 4.1164-1.1293.1457-.4857-.4554.0608-.7467.2307-.2429 1.9064-1.3114Z"/></svg></span>Claude Opus 4.7</span><span class="setting">default</span><span class="score">0.64</span></div>
+      </div>
+      <div class="gridcap" id="s7c-cap">EVERY RUN, TRACED AND SCORED, <span class="o">IN ONE PLACE</span></div>
+    </div>
+
+    <!-- SCENE D (24.29) — payoff, hold to 26.28 -->
+    <div id="s7d" class="scene clip">
+      <div class="glow"></div>
+      <div><span class="box pay" id="paybox">SEE WHICH MODEL READS <span class="em">YOUR</span> WORLD CORRECTLY</span></div>
+      <img class="paylogo" id="paylogo" src="assets/videodb-logo.png" />
+    </div>
+
+    <img class="bug" src="assets/videodb-logo.png" />
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      var R = '[data-composition-id="seg7"] ';
+      var tl = gsap.timeline({ paused:true });
+      var XF = 0.55;
+      function fadeIn(s,t){ tl.fromTo(R+s,{opacity:0,filter:'blur(18px)'},{opacity:1,filter:'blur(0px)',duration:XF,ease:'sine.inOut'},t); }
+      function fadeOut(s,t){ tl.to(R+s,{opacity:0,filter:'blur(18px)',duration:XF,ease:'sine.inOut'},t); }
+      function nodeOn(sel,at){ tl.call(function(){ var el=document.querySelector(R+sel); if(el) el.classList.add('on'); },null,at);
+        tl.fromTo(R+sel,{filter:'brightness(1.0)'},{filter:'brightness(1.35)',duration:0.18,ease:'power2.out'},at);
+        tl.to(R+sel,{filter:'brightness(1.0)',duration:0.5,ease:'sine.out'},at+0.18); }
+
+      // build the mini chessboard synchronously
+      (function buildMini(){
+        var el=document.querySelector(R+'#miniboard'); if(!el) return;
+        for(var r=0;r<8;r++){ for(var f=0;f<8;f++){
+          var s=document.createElement('div'); s.className='ms '+(((f+r)%2===0)?'l':'d'); el.appendChild(s);
+        }}
+      })();
+
+      // bug fade-in
+      tl.from(R+'.bug',{opacity:0,duration:0.6,ease:'power2.out'},0.8);
+
+      // SCENE A (0.00) — MEET CHESS LENS
+      tl.from(R+'#s7a-kick',{opacity:0,y:14,duration:0.45,ease:'power2.out'},0.25);
+      // product title scales in confidently (one-directional, lands at 1.0)
+      tl.from(R+'#s7a-prod',{opacity:0,y:30,scale:0.85,duration:0.6,ease:'power3.out'},0.45);
+      // "built on" line + logo fades in (dark bg only)
+      tl.from(R+'#s7a-built',{opacity:0,duration:0.4,ease:'power2.out'},1.4);
+      // VideoDB logo stamp scales in (one-directional)
+      tl.fromTo(R+'#s7a-stamp',{opacity:0,y:14,scale:0.85},{opacity:1,y:0,scale:1,duration:0.42,ease:'power2.out'},1.7);
+      tl.from(R+'#s7a-repo',{opacity:0,y:16,duration:0.45,ease:'power2.out'},2.4);
+      // continuous life: a slow glow breath on the product title (no scale)
+      tl.fromTo(R+'#s7a-prod',{filter:'brightness(1.0)'},{filter:'brightness(1.12)',duration:1.4,yoyo:true,repeat:1,ease:'sine.inOut'},3.6);
+
+      // SCENE B (7.11) — PIPELINE spine
+      fadeOut('#s7a',6.65); fadeIn('#s7b',6.65);
+      tl.from(R+'#s7b-head',{opacity:0,y:24,duration:0.5,ease:'power3.out'},7.11);
+      // nodes & arrows enter softly first (pre-lit grey)
+      tl.from(R+'#pipe .node',{opacity:0,y:18,duration:0.4,ease:'power2.out',stagger:0.08},7.3);
+      tl.from(R+'#pipe .arrowh',{opacity:0,duration:0.3,ease:'power2.out',stagger:0.08},7.5);
+      // subtle slow push-in on the pipeline node group across the scene (one-directional, cinematic)
+      tl.fromTo(R+'#pipe',{scale:1.0},{scale:1.06,duration:6.5,ease:'sine.inOut'},7.3);
+      // light each node in sequence with the VO (ingest / follow / structured data)
+      nodeOn('#n1',7.9);   // BOARD — ingests the board visually
+      nodeOn('#n2',9.3);   // INGEST
+      nodeOn('#n3',11.0);  // TRACK POSITION — follows the position as the game moves
+      nodeOn('#n4',12.9);  // STRUCTURED DATA — turns every frame into structured data
+      // finite light pulse travels the spine after STRUCTURED DATA lights
+      tl.fromTo(R+'#pulse',{left:-40,opacity:0},{left:760,opacity:1,duration:1.3,ease:'power1.inOut'},13.3);
+      tl.to(R+'#pulse',{opacity:0,duration:0.3,ease:'power1.out'},14.6);
+      // conversion strip: board thumb -> position record
+      tl.from(R+'#miniboard',{opacity:0,y:18,duration:0.5,ease:'power2.out'},13.4);
+      tl.from(R+'#convert .convarrow',{opacity:0,x:-16,duration:0.4,ease:'power2.out'},14.0);
+      tl.from(R+'#record',{opacity:0,x:24,duration:0.5,ease:'power3.out'},14.2);
+      // life: the record breathes once
+      tl.to(R+'#record',{y:-8,duration:0.7,yoyo:true,repeat:1,ease:'sine.inOut'},15.0);
+
+      // SCENE C (15.88) — EVAL GRID
+      fadeOut('#s7b',15.42); fadeIn('#s7c',15.42);
+      tl.from(R+'#s7c-head',{opacity:0,y:22,duration:0.5,ease:'power3.out'},15.88);
+      // eval grid card scales in on reveal (one-directional, lands at 1.0)
+      tl.from(R+'#evalcard',{opacity:0,y:24,scale:0.9,duration:0.5,ease:'power3.out'},16.05);
+      tl.from(R+'#ehead',{opacity:0,y:-10,duration:0.4,ease:'power2.out'},16.4);
+      // rows stagger in (the evaluation, the traces, the score for every model and every setting)
+      tl.from(R+'#er1',{opacity:0,x:-30,duration:0.4,ease:'power2.out'},16.9);
+      tl.from(R+'#er2',{opacity:0,x:-30,duration:0.4,ease:'power2.out'},17.7);
+      tl.from(R+'#er3',{opacity:0,x:-30,duration:0.4,ease:'power2.out'},18.5);
+      tl.from(R+'#er4',{opacity:0,x:-30,duration:0.4,ease:'power2.out'},19.3);
+      // the best score counts up to land on 1.00 (GPT-5.4 low)
+      (function(){ var o={n:0}; tl.to(o,{n:100,duration:0.9,ease:'power2.out',onUpdate:function(){
+        var el=document.querySelector(R+'#bestscore'); if(el) el.textContent=(o.n/100).toFixed(2); }},19.5); })();
+      // caption "all in one place"
+      tl.from(R+'#s7c-cap',{opacity:0,y:16,duration:0.45,ease:'back.out(1.5)'},20.6);
+      // life: the best row glows once more (no scale)
+      tl.fromTo(R+'#er1',{boxShadow:'0 0 0 0 rgba(232,88,16,0)'},{boxShadow:'0 0 26px 2px rgba(232,88,16,0.35)',duration:0.9,yoyo:true,repeat:1,ease:'sine.inOut'},21.8);
+      tl.fromTo(R+'#bestscore',{filter:'brightness(1.0)'},{filter:'brightness(1.4)',duration:0.8,yoyo:true,repeat:1,ease:'sine.inOut'},22.0);
+
+      // SCENE D (24.29) — payoff, hold to 26.28
+      fadeOut('#s7c',23.83); fadeIn('#s7d',23.83);
+      // payoff box punches in with a brief scale (one-directional, lands at 1.0)
+      tl.from(R+'#paybox',{opacity:0,y:24,scale:0.85,duration:0.46,ease:'back.out(1.6)'},24.29);
+      tl.from(R+'#paylogo',{opacity:0,y:16,duration:0.5,ease:'power2.out'},24.9);
+      // a final glow breath to fill to 26.28 (continuous motion, no exit, no scale)
+      tl.fromTo(R+'#paybox',{boxShadow:'0 16px 50px rgba(232,88,16,0.45)'},{boxShadow:'0 16px 64px rgba(232,88,16,0.70)',duration:0.6,yoyo:true,repeat:1,ease:'sine.inOut'},25.0);
+
+      window.__timelines["seg7"] = tl;
+    </script>
+  </div>
+</body>
+</html>

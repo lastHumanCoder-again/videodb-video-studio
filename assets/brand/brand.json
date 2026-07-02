@@ -1,0 +1,21 @@
+{
+  "name": "VideoDB",
+  "logo": "videodb-logo.png",
+  "colors": {
+    "accent": "#E85810",
+    "canvas": "#0B0B0C",
+    "card": "#141416",
+    "text": "#F4F2EE",
+    "muted": "#8C8C94",
+    "hairline": "#2A2A2E",
+    "bad": "#E5484D",
+    "good": "#3DD68C"
+  },
+  "fonts": {
+    "display": "Archivo Black",
+    "body": "Inter"
+  },
+  "voice": {
+    "tagline": "To see is to know."
+  }
+}

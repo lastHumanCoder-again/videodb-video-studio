@@ -1,0 +1,477 @@
+[
+  {
+    "text": "people",
+    "start": 0.14,
+    "end": 0.36
+  },
+  {
+    "text": "are",
+    "start": 0.36,
+    "end": 0.54
+  },
+  {
+    "text": "making",
+    "start": 0.54,
+    "end": 0.9
+  },
+  {
+    "text": "hundreds",
+    "start": 0.9,
+    "end": 1.36
+  },
+  {
+    "text": "of",
+    "start": 1.4,
+    "end": 1.5
+  },
+  {
+    "text": "dollars",
+    "start": 1.5,
+    "end": 1.89
+  },
+  {
+    "text": "a",
+    "start": 1.95,
+    "end": 1.98
+  },
+  {
+    "text": "month",
+    "start": 1.98,
+    "end": 2.26
+  },
+  {
+    "text": "posting",
+    "start": 2.36,
+    "end": 2.8
+  },
+  {
+    "text": "soccer",
+    "start": 2.8,
+    "end": 3.2
+  },
+  {
+    "text": "clips",
+    "start": 3.28,
+    "end": 3.6
+  },
+  {
+    "text": "and",
+    "start": 3.6,
+    "end": 4.71
+  },
+  {
+    "text": "i",
+    "start": 4.71,
+    "end": 4.81
+  },
+  {
+    "text": "just",
+    "start": 4.81,
+    "end": 5.2
+  },
+  {
+    "text": "found",
+    "start": 5.2,
+    "end": 5.52
+  },
+  {
+    "text": "out",
+    "start": 5.52,
+    "end": 5.75
+  },
+  {
+    "text": "how",
+    "start": 5.98,
+    "end": 6.08
+  },
+  {
+    "text": "they're",
+    "start": 6.22,
+    "end": 6.55
+  },
+  {
+    "text": "creating",
+    "start": 6.55,
+    "end": 6.99
+  },
+  {
+    "text": "them",
+    "start": 7.12,
+    "end": 7.37
+  },
+  {
+    "text": "so",
+    "start": 7.37,
+    "end": 7.51
+  },
+  {
+    "text": "fast",
+    "start": 7.51,
+    "end": 7.78
+  },
+  {
+    "text": "i",
+    "start": 7.78,
+    "end": 7.85
+  },
+  {
+    "text": "thought",
+    "start": 7.85,
+    "end": 8.32
+  },
+  {
+    "text": "they",
+    "start": 8.32,
+    "end": 8.6
+  },
+  {
+    "text": "were",
+    "start": 8.6,
+    "end": 8.87
+  },
+  {
+    "text": "watching",
+    "start": 8.87,
+    "end": 9.39
+  },
+  {
+    "text": "full",
+    "start": 9.42,
+    "end": 9.69
+  },
+  {
+    "text": "matches",
+    "start": 9.69,
+    "end": 9.79
+  },
+  {
+    "text": "and",
+    "start": 10.17,
+    "end": 10.37
+  },
+  {
+    "text": "clipping",
+    "start": 10.66,
+    "end": 11.04
+  },
+  {
+    "text": "everything",
+    "start": 11.04,
+    "end": 11.44
+  },
+  {
+    "text": "manually",
+    "start": 11.58,
+    "end": 12.37
+  },
+  {
+    "text": "they're",
+    "start": 12.43,
+    "end": 13.25
+  },
+  {
+    "text": "not",
+    "start": 13.25,
+    "end": 13.61
+  },
+  {
+    "text": "they",
+    "start": 13.61,
+    "end": 14.08
+  },
+  {
+    "text": "use",
+    "start": 14.12,
+    "end": 14.45
+  },
+  {
+    "text": "tools",
+    "start": 14.45,
+    "end": 15.06
+  },
+  {
+    "text": "like",
+    "start": 15.06,
+    "end": 15.15
+  },
+  {
+    "text": "video",
+    "start": 16.02,
+    "end": 16.15
+  },
+  {
+    "text": "db",
+    "start": 16.23,
+    "end": 16.39
+  },
+  {
+    "text": "you",
+    "start": 16.39,
+    "end": 16.65
+  },
+  {
+    "text": "paste",
+    "start": 16.78,
+    "end": 17.19
+  },
+  {
+    "text": "in",
+    "start": 17.43,
+    "end": 17.6
+  },
+  {
+    "text": "a",
+    "start": 17.6,
+    "end": 17.72
+  },
+  {
+    "text": "match",
+    "start": 17.72,
+    "end": 18.33
+  },
+  {
+    "text": "link",
+    "start": 18.33,
+    "end": 18.81
+  },
+  {
+    "text": "and",
+    "start": 18.81,
+    "end": 19.17
+  },
+  {
+    "text": "it",
+    "start": 19.17,
+    "end": 19.47
+  },
+  {
+    "text": "automatically",
+    "start": 20.2,
+    "end": 20.24
+  },
+  {
+    "text": "finds",
+    "start": 20.38,
+    "end": 20.72
+  },
+  {
+    "text": "all",
+    "start": 20.72,
+    "end": 20.91
+  },
+  {
+    "text": "the",
+    "start": 21,
+    "end": 21.25
+  },
+  {
+    "text": "key",
+    "start": 21.28,
+    "end": 21.56
+  },
+  {
+    "text": "moments",
+    "start": 21.56,
+    "end": 22.23
+  },
+  {
+    "text": "from",
+    "start": 22.23,
+    "end": 22.61
+  },
+  {
+    "text": "the",
+    "start": 22.61,
+    "end": 22.88
+  },
+  {
+    "text": "game",
+    "start": 22.92,
+    "end": 23.27
+  },
+  {
+    "text": "goals",
+    "start": 23.27,
+    "end": 23.71
+  },
+  {
+    "text": "assists",
+    "start": 23.77,
+    "end": 23.95
+  },
+  {
+    "text": "cards",
+    "start": 24.82,
+    "end": 24.9
+  },
+  {
+    "text": "big",
+    "start": 24.9,
+    "end": 25.18
+  },
+  {
+    "text": "chances",
+    "start": 25.18,
+    "end": 25.85
+  },
+  {
+    "text": "everything",
+    "start": 25.85,
+    "end": 26.88
+  },
+  {
+    "text": "so",
+    "start": 26.88,
+    "end": 28
+  },
+  {
+    "text": "instead",
+    "start": 28,
+    "end": 28.27
+  },
+  {
+    "text": "of",
+    "start": 28.27,
+    "end": 28.54
+  },
+  {
+    "text": "spending",
+    "start": 28.54,
+    "end": 29.07
+  },
+  {
+    "text": "hours",
+    "start": 29.13,
+    "end": 29.47
+  },
+  {
+    "text": "watching",
+    "start": 29.47,
+    "end": 30.04
+  },
+  {
+    "text": "a",
+    "start": 30.04,
+    "end": 30.11
+  },
+  {
+    "text": "90-minute",
+    "start": 30.11,
+    "end": 31.04
+  },
+  {
+    "text": "match",
+    "start": 31.04,
+    "end": 31.4
+  },
+  {
+    "text": "you",
+    "start": 31.4,
+    "end": 31.6
+  },
+  {
+    "text": "can",
+    "start": 31.6,
+    "end": 31.82
+  },
+  {
+    "text": "find",
+    "start": 31.82,
+    "end": 32.11
+  },
+  {
+    "text": "the",
+    "start": 32.11,
+    "end": 32.28
+  },
+  {
+    "text": "best",
+    "start": 32.28,
+    "end": 32.61
+  },
+  {
+    "text": "moments",
+    "start": 32.98,
+    "end": 33.11
+  },
+  {
+    "text": "in",
+    "start": 33.19,
+    "end": 33.25
+  },
+  {
+    "text": "seconds",
+    "start": 33.25,
+    "end": 33.84
+  },
+  {
+    "text": "if",
+    "start": 33.98,
+    "end": 34
+  },
+  {
+    "text": "you",
+    "start": 34,
+    "end": 34.24
+  },
+  {
+    "text": "want",
+    "start": 34.24,
+    "end": 34.51
+  },
+  {
+    "text": "my",
+    "start": 34.57,
+    "end": 34.73
+  },
+  {
+    "text": "complete",
+    "start": 34.73,
+    "end": 35.38
+  },
+  {
+    "text": "workflow",
+    "start": 35.39,
+    "end": 36.04
+  },
+  {
+    "text": "for",
+    "start": 36.04,
+    "end": 36.21
+  },
+  {
+    "text": "creating",
+    "start": 36.29,
+    "end": 36.91
+  },
+  {
+    "text": "these",
+    "start": 36.96,
+    "end": 37.31
+  },
+  {
+    "text": "soccer",
+    "start": 37.37,
+    "end": 37.55
+  },
+  {
+    "text": "clips",
+    "start": 37.85,
+    "end": 38.3
+  },
+  {
+    "text": "comment",
+    "start": 38.42,
+    "end": 38.9
+  },
+  {
+    "text": "workflow",
+    "start": 38.91,
+    "end": 39.57
+  },
+  {
+    "text": "below",
+    "start": 39.57,
+    "end": 40
+  }
+]

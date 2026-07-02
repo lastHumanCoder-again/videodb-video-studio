@@ -1,0 +1,14 @@
+{
+  "slug": "tinyfish-collab",
+  "pipeline": "instagram-short",
+  "next_steps": [
+    "Study the worked example: npm install && npx hyperframes preview (9:16, karaoke captions, cold-open hook)",
+    "Write the script — hook in frame one, 15-60s total, sound-off first (85% watch muted)",
+    "Voiceover: edit voiceover/segments.json, run the skill's scripts/tts.py — or drop your own vo.mp3 into voiceover/",
+    "Transcribe: npx hyperframes transcribe voiceover/vo.mp3 (word-level — the karaoke captions are built from this)",
+    "Rebuild captions: python3 voiceover/build_captions.py (regenerates the caption track from the transcript)",
+    "Edit compositions/seg1.html — keep captions in the safe band, content in the center 220-1500px zone, motion every 1.5-2.5s",
+    "QA: npx hyperframes lint && validate && inspect; extract frames — check captions inside safe zone",
+    "Render: npx hyperframes render -o out.mp4 --quality draft, then high"
+  ]
+}

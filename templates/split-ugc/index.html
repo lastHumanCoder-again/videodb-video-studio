@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>split-ugc-videodb</title>
+<style>
+/* Fonts auto-embed from family names (Inter, Playfair Display). */
+* { margin:0; padding:0; box-sizing:border-box; }
+
+[data-composition-id="split-ugc-videodb"] {
+  position:relative; width:1080px; height:1920px; overflow:hidden;
+  background:#0E0D0B; font-family:"Inter","Helvetica Neue",Arial,sans-serif;
+  --seam:812px;
+}
+.bg { position:absolute; inset:0; background:#0E0D0B; z-index:0; }
+
+/* talking head — full-frame, docks into the split at DOCK ------------------ */
+.video-wrap { position:absolute; left:0; right:0; top:0; bottom:0; overflow:hidden; z-index:1; }
+.video-wrap video { width:100%; height:100%; object-fit:cover; object-position:50% 14%; transform-origin:50% 38%; }
+.seam-fade { position:absolute; left:0; right:0; top:760px; height:240px; z-index:2;
+  background:linear-gradient(180deg,#0E0D0B 0%, rgba(14,13,11,0.65) 38%, rgba(14,13,11,0) 100%); pointer-events:none; }
+
+/* top cards ---------------------------------------------------------------- */
+.topzone { position:absolute; left:0; right:0; top:0; height:var(--seam); z-index:5; }
+.card { position:absolute; inset:0; background:#F6F3EC; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+.card .grid { position:absolute; inset:0;
+  background-image:linear-gradient(to right, #DCD8CE 1px, transparent 1px), linear-gradient(to bottom, #DCD8CE 1px, transparent 1px);
+  background-size:96px 96px; opacity:0.9;
+  -webkit-mask-image:radial-gradient(120% 100% at 50% 45%, #000 60%, transparent 100%);
+          mask-image:radial-gradient(120% 100% at 50% 45%, #000 60%, transparent 100%); }
+.card .grid.dark-grid { background-image:linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px); }
+.card-body { position:relative; z-index:1; width:100%; padding:0 90px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; text-align:center; }
+.mask { overflow:hidden; display:block; padding:6px 0; }
+.mask > span { display:inline-block; }
+
+.card.image { background:#EDEEF0; }
+.card.image .img-wrap { position:absolute; inset:0; overflow:hidden; }
+.card.image .kb { width:100%; height:100%; object-fit:cover; transform-origin:50% 50%; }
+
+.card.logo { background:#0E0D0B; }
+.logo-wrap { position:relative; z-index:1; width:100%; display:flex; align-items:center; justify-content:center; }
+.logo-img { width:60%; max-width:640px; height:auto; filter:drop-shadow(0 8px 40px rgba(232,85,31,0.4)); }
+
+/* clip montage (top-level video clips filling the top zone) ----------------- */
+.mvid { position:absolute; left:0; top:0; width:1080px; height:812px; object-fit:cover; object-position:50% 45%;
+  transform-origin:50% 50%; z-index:5; background:#000; }
+.mtag { position:absolute; z-index:6; left:34px; top:722px; background:#E8551F; color:#fff;
+  font-weight:900; font-size:46px; letter-spacing:-0.01em; padding:12px 26px; border-radius:14px; box-shadow:0 6px 26px rgba(0,0,0,0.5); }
+
+/* text card type scale ----------------------------------------------------- */
+.bold { font-weight:900; font-size:168px; line-height:0.92; letter-spacing:-0.03em; color:#141414; }
+.serif { font-family:"Playfair Display", Georgia, serif; font-style:italic; font-weight:700; font-size:172px; line-height:0.96; letter-spacing:-0.01em; }
+.statement .bold { font-size:150px; }
+.statement .serif { font-size:158px; }
+.word .serif { font-size:208px; }
+.label { font-weight:800; font-size:72px; letter-spacing:-0.02em; color:#141414; opacity:0.78; }
+.big { font-weight:900; font-size:228px; line-height:0.9; letter-spacing:-0.04em; font-variant-numeric:tabular-nums; }
+.cta .bold { font-size:132px; }
+.cta .serif { font-size:176px; }
+.cta .sub { font-weight:700; font-size:58px; color:#141414; opacity:0.7; letter-spacing:-0.01em; }
+
+/* VideoDB paste scene ------------------------------------------------------ */
+.paste { background:#F6F3EC; }
+.paste-stage { position:relative; z-index:1; width:100%; height:100%; padding:54px 80px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:22px; }
+.yt-bar { display:flex; align-items:center; gap:20px; width:840px; max-width:100%; background:#fff; border:2px solid #e2ded3; border-radius:60px;
+  padding:22px 34px; box-shadow:0 8px 28px rgba(0,0,0,0.08); }
+.yt-ico { width:40px; height:40px; border-radius:50%; background:#D6452F; flex:0 0 auto; position:relative; }
+.yt-ico::after { content:""; position:absolute; left:15px; top:11px; border-left:16px solid #fff; border-top:9px solid transparent; border-bottom:9px solid transparent; }
+.yt-q { font-weight:700; font-size:34px; color:#222; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.yt-result { position:relative; width:520px; border-radius:22px; overflow:hidden; box-shadow:0 18px 50px rgba(0,0,0,0.22); }
+.yt-result img { display:block; width:100%; height:auto; }
+.yt-dur { position:absolute; right:14px; bottom:14px; background:rgba(0,0,0,0.85); color:#fff; font-weight:800; font-size:30px; padding:6px 14px; border-radius:10px; }
+.copied-chip { position:absolute; right:14px; top:14px; background:#1faa59; color:#fff; font-weight:900; font-size:30px; padding:10px 22px; border-radius:14px; box-shadow:0 8px 22px rgba(31,170,89,0.5); }
+.copied-chip::before { content:"✓  "; }
+.pst-arrow { width:0; height:0; border-left:26px solid transparent; border-right:26px solid transparent; border-top:34px solid #E8551F; }
+.vdb-panel { width:760px; max-width:100%; background:#15161a; border:2px solid rgba(232,85,31,0.35); border-radius:30px; padding:30px 34px;
+  display:flex; flex-direction:column; align-items:center; gap:24px; box-shadow:0 22px 60px rgba(0,0,0,0.4); }
+.vdb-logo { height:54px; width:auto; }
+.vdb-input { width:100%; display:flex; align-items:center; gap:4px; background:#0e0f12; border:2px solid #2a2c33; border-radius:16px; padding:22px 26px; }
+.vdb-url { font-weight:600; font-size:34px; color:#cfd2d8; font-family:"Inter",monospace; }
+.caret { width:3px; height:38px; background:#E8551F; margin-left:2px; }
+.vdb-btn { background:#E8551F; color:#fff; font-weight:900; font-size:38px; letter-spacing:0.01em; padding:18px 56px; border-radius:16px; box-shadow:0 10px 30px rgba(232,85,31,0.45); }
+
+/* VideoDB results scene ---------------------------------------------------- */
+.results { background:#0E0D0B; }
+.res-stage { position:relative; z-index:1; width:100%; height:100%; padding:60px 70px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:34px; }
+.res-head { display:flex; align-items:center; gap:26px; }
+.res-logo { height:50px; width:auto; }
+.res-found { font-weight:900; font-size:46px; color:#fff; letter-spacing:-0.01em; }
+.res-found::before { content:"✓ "; color:#1faa59; }
+.res-row { display:flex; gap:26px; align-items:stretch; justify-content:center; width:100%; }
+.res-card { position:relative; width:300px; height:430px; border-radius:22px; overflow:hidden; background:#000; border:3px solid rgba(232,85,31,0.55); box-shadow:0 16px 44px rgba(0,0,0,0.55); }
+.res-poster { width:100%; height:100%; object-fit:cover; object-position:50% 45%; }
+.res-play { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:88px; height:88px; border-radius:50%;
+  background:rgba(0,0,0,0.45); border:3px solid rgba(255,255,255,0.9); }
+.res-play::after { content:""; position:absolute; left:36px; top:28px; border-left:30px solid #fff; border-top:17px solid transparent; border-bottom:17px solid transparent; }
+.res-tag { position:absolute; left:16px; bottom:16px; background:#E8551F; color:#fff; font-weight:900; font-size:30px; padding:8px 16px; border-radius:11px; }
+
+/* seam captions ------------------------------------------------------------ */
+.capzone { position:absolute; left:0; right:0; top:828px; height:200px; z-index:8; display:flex; align-items:flex-start; justify-content:center; pointer-events:none; }
+.caption { position:absolute; left:50%; top:0; transform-origin:center top; width:960px; margin-left:-480px; text-align:center; }
+.caption span { display:inline-block; color:#fff; font-weight:900; font-size:96px; line-height:1.0; letter-spacing:-0.02em;
+  text-shadow:0 4px 22px rgba(0,0,0,0.9), 0 1px 3px rgba(0,0,0,0.95); }
+</style>
+</head>
+<body>
+<div data-composition-id="split-ugc-videodb" data-start="0" data-width="1080" data-height="1920">
+  <div class="bg"></div>
+
+  <div class="video-wrap">
+    <video id="vid" class="clip" data-start="0" data-duration="40.2" data-track-index="0" src="Video1.mp4" muted playsinline></video>
+  </div>
+  <div class="seam-fade"></div>
+  <audio id="voice" class="clip" src="Video1.mp4" data-start="0" data-duration="40.2" data-track-index="1" data-volume="1"></audio>
+
+  <div class="topzone">
+    <div id="card-0" class="clip card image" data-start="3.6" data-duration="1.4" data-track-index="2">
+      <div class="img-wrap"><img class="kb" src="soccer-shorts-clip.jpg" style="object-position:50% 42%" /></div>
+    </div>
+    <div id="card-1" class="clip card image" data-start="5.0" data-duration="1.0" data-track-index="5">
+      <div class="img-wrap"><img class="kb" src="soccer-channel-money.jpg" style="object-position:50% 46%" /></div>
+    </div>
+    <div id="card-2" class="clip card statement" data-start="6.0" data-duration="1.78" data-track-index="2">
+      <div class="grid"></div>
+      <div class="card-body"><div class="mask"><span class="bold">But</span></div><div class="mask"><span class="serif" style="color:#C75C3C">how?</span></div></div>
+    </div>
+    <div id="card-3" class="clip card image" data-start="7.78" data-duration="2.01" data-track-index="5">
+      <div class="img-wrap"><img class="kb" src="watching-match.jpg" style="object-position:50% 40%" /></div>
+    </div>
+    <div id="card-4" class="clip card image" data-start="9.79" data-duration="2.64" data-track-index="2">
+      <div class="img-wrap"><img class="kb" src="editing-manual.jpg" style="object-position:50% 30%" /></div>
+    </div>
+    <div id="card-5" class="clip card statement" data-start="12.43" data-duration="1.52" data-track-index="5">
+      <div class="grid"></div>
+      <div class="card-body"><div class="mask"><span class="bold">They're</span></div><div class="mask"><span class="serif" style="color:#D6452F">not.</span></div></div>
+    </div>
+    <div id="card-6" class="clip card logo" data-start="13.95" data-duration="2.7" data-track-index="2">
+      <div class="grid dark-grid"></div>
+      <div class="logo-wrap"><img class="logo-img" src="videodb-logo.png" /></div>
+    </div>
+    <div id="card-7" class="clip card paste" data-start="16.65" data-duration="3.55" data-track-index="5">
+      <div class="grid"></div>
+      <div class="paste-stage">
+        <div id="pst-bar" class="yt-bar"><span class="yt-ico"></span><span class="yt-q">Australia 2-0 Türkiye | FIFA World Cup 2026</span></div>
+        <div id="pst-thumb" class="yt-result">
+          <img src="match-thumb.jpg" />
+          <span class="yt-dur">1:56:26</span>
+          <div id="pst-copied" class="copied-chip">Link copied</div>
+        </div>
+        <div id="pst-arrow" class="pst-arrow"></div>
+        <div id="pst-panel" class="vdb-panel">
+          <img class="vdb-logo" src="videodb-logo.png" />
+          <div class="vdb-input"><span id="pst-url" class="vdb-url">youtu.be/aus-tur-2026</span><span class="caret"></span></div>
+          <div id="pst-btn" class="vdb-btn">Analyze</div>
+        </div>
+      </div>
+    </div>
+    <div id="card-8" class="clip card results" data-start="20.2" data-duration="3.07" data-track-index="2">
+      <div class="grid dark-grid"></div>
+      <div class="res-stage">
+        <div id="res-head" class="res-head"><img class="res-logo" src="videodb-logo.png" /><span class="res-found">3 key moments found</span></div>
+        <div class="res-row">
+          <div id="res-c1" class="res-card"><img class="res-poster" src="res-1.jpg" /><span class="res-play"></span><span class="res-tag">GOAL · 23'</span></div>
+          <div id="res-c2" class="res-card"><img class="res-poster" src="res-2.jpg" /><span class="res-play"></span><span class="res-tag">GOAL · 67'</span></div>
+          <div id="res-c3" class="res-card"><img class="res-poster" src="res-3.jpg" /><span class="res-play"></span><span class="res-tag">BIG CHANCE · 81'</span></div>
+        </div>
+      </div>
+    </div>
+    <div id="card-9" class="clip card word" data-start="23.27" data-duration="0.58" data-track-index="5">
+      <div class="grid"></div>
+      <div class="card-body"><div class="mask"><span class="serif word-acc" style="color:#C75C3C">Goals</span></div></div>
+    </div>
+    <div id="card-10" class="clip card word" data-start="23.85" data-duration="0.97" data-track-index="2">
+      <div class="grid"></div>
+      <div class="card-body"><div class="mask"><span class="serif word-acc" style="color:#C75C3C">Assists</span></div></div>
+    </div>
+    <div id="card-11" class="clip card word" data-start="24.82" data-duration="0.36" data-track-index="5">
+      <div class="grid"></div>
+      <div class="card-body"><div class="mask"><span class="serif word-acc" style="color:#C75C3C">Cards</span></div></div>
+    </div>
+    <div id="card-12" class="clip card word" data-start="25.18" data-duration="0.67" data-track-index="2">
+      <div class="grid"></div>
+      <div class="card-body"><div class="mask"><span class="serif word-acc" style="color:#C75C3C">Big chances</span></div></div>
+    </div>
+    <div id="card-13" class="clip card word" data-start="25.85" data-duration="2.15" data-track-index="5">
+      <div class="grid"></div>
+      <div class="card-body"><div class="mask"><span class="serif word-acc" style="color:#141414">Everything</span></div></div>
+    </div>
+    <div id="card-14" class="clip card price" data-start="28.0" data-duration="3.4" data-track-index="2">
+      <div class="grid"></div>
+      <div class="card-body"><div class="mask"><span class="label">The old way</span></div><div class="mask"><span class="big" style="color:#D6452F">90 MIN</span></div></div>
+    </div>
+    <div id="card-15" class="clip card price" data-start="31.4" data-duration="2.44" data-track-index="5">
+      <div class="grid"></div>
+      <div class="card-body"><div class="mask"><span class="label">With VideoDB</span></div><div class="mask"><span class="big" style="color:#C75C3C">SECONDS</span></div></div>
+    </div>
+    <video id="mv-16" class="clip mvid" src="clip2.mp4" data-start="33.84" data-duration="1.53" data-track-index="10" data-media-start="5.0" muted playsinline></video>
+    <div id="mtag-16" class="clip mtag" data-start="33.84" data-duration="1.53" data-track-index="13">GOAL · 23'</div>
+    <video id="mv-17" class="clip mvid" src="clip1.mp4" data-start="35.37" data-duration="1.53" data-track-index="11" data-media-start="5.3" muted playsinline></video>
+    <div id="mtag-17" class="clip mtag" data-start="35.37" data-duration="1.53" data-track-index="14">GOAL · 67'</div>
+    <video id="mv-18" class="clip mvid" src="clip3.mp4" data-start="36.9" data-duration="1.52" data-track-index="12" data-media-start="7.0" muted playsinline></video>
+    <div id="mtag-18" class="clip mtag" data-start="36.9" data-duration="1.52" data-track-index="15">BIG CHANCE · 81'</div>
+    <div id="card-19" class="clip card cta" data-start="38.42" data-duration="1.78" data-track-index="5">
+      <div class="grid"></div>
+      <div class="card-body"><div class="mask"><span class="bold">Comment</span></div><div class="mask"><span class="serif" style="color:#C75C3C">“workflow”</span></div><div class="mask"><span class="sub">for the full breakdown</span></div></div>
+    </div>
+  </div>
+
+  <div class="capzone">
+    <div id="cap-0" class="clip caption" data-start="0.14" data-duration="0.76" data-track-index="3"><span>People are</span></div>
+    <div id="cap-1" class="clip caption" data-start="0.9" data-duration="1.05" data-track-index="6"><span>hundreds of dollars</span></div>
+    <div id="cap-2" class="clip caption" data-start="1.95" data-duration="0.41" data-track-index="3"><span>a month</span></div>
+    <div id="cap-3" class="clip caption" data-start="2.36" data-duration="1.24" data-track-index="6"><span>posting soccer clips</span></div>
+    <div id="cap-4" class="clip caption" data-start="3.6" data-duration="2.38" data-track-index="3"><span>and I just found out</span></div>
+    <div id="cap-5" class="clip caption" data-start="5.98" data-duration="1.39" data-track-index="6"><span>how they’re creating them</span></div>
+    <div id="cap-6" class="clip caption" data-start="7.37" data-duration="0.48" data-track-index="3"><span>so fast</span></div>
+    <div id="cap-7" class="clip caption" data-start="7.85" data-duration="1.02" data-track-index="6"><span>I thought they were</span></div>
+    <div id="cap-8" class="clip caption" data-start="8.87" data-duration="1.3" data-track-index="3"><span>watching full matches</span></div>
+    <div id="cap-9" class="clip caption" data-start="10.17" data-duration="1.41" data-track-index="6"><span>and clipping everything</span></div>
+    <div id="cap-10" class="clip caption" data-start="11.58" data-duration="0.85" data-track-index="3"><span>manually</span></div>
+    <div id="cap-11" class="clip caption" data-start="12.43" data-duration="1.18" data-track-index="6"><span>They’re not</span></div>
+    <div id="cap-12" class="clip caption" data-start="13.61" data-duration="2.41" data-track-index="3"><span>They use tools like</span></div>
+    <div id="cap-13" class="clip caption" data-start="16.02" data-duration="0.63" data-track-index="6"><span>VideoDB</span></div>
+    <div id="cap-14" class="clip caption" data-start="16.65" data-duration="0.95" data-track-index="3"><span>You paste in</span></div>
+    <div id="cap-15" class="clip caption" data-start="17.6" data-duration="1.21" data-track-index="6"><span>a match link</span></div>
+    <div id="cap-16" class="clip caption" data-start="18.81" data-duration="1.39" data-track-index="3"><span>and it</span></div>
+    <div id="cap-17" class="clip caption" data-start="20.2" data-duration="0.8" data-track-index="6"><span>automatically finds</span></div>
+    <div id="cap-18" class="clip caption" data-start="21.0" data-duration="1.23" data-track-index="3"><span>all the key moments</span></div>
+    <div id="cap-19" class="clip caption" data-start="22.23" data-duration="1.04" data-track-index="6"><span>from the game</span></div>
+    <div id="cap-20" class="clip caption" data-start="23.27" data-duration="0.5" data-track-index="3"><span>Goals</span></div>
+    <div id="cap-21" class="clip caption" data-start="23.77" data-duration="1.05" data-track-index="6"><span>Assists</span></div>
+    <div id="cap-22" class="clip caption" data-start="24.82" data-duration="0.36" data-track-index="3"><span>Cards</span></div>
+    <div id="cap-23" class="clip caption" data-start="25.18" data-duration="0.67" data-track-index="6"><span>Big chances</span></div>
+    <div id="cap-24" class="clip caption" data-start="25.85" data-duration="2.15" data-track-index="3"><span>Everything</span></div>
+    <div id="cap-25" class="clip caption" data-start="28.0" data-duration="1.47" data-track-index="6"><span>instead of spending hours</span></div>
+    <div id="cap-26" class="clip caption" data-start="29.47" data-duration="1.93" data-track-index="3"><span>watching a 90-min match</span></div>
+    <div id="cap-27" class="clip caption" data-start="31.4" data-duration="0.88" data-track-index="6"><span>you can find</span></div>
+    <div id="cap-28" class="clip caption" data-start="32.28" data-duration="0.91" data-track-index="3"><span>the best moments</span></div>
+    <div id="cap-29" class="clip caption" data-start="33.19" data-duration="0.79" data-track-index="6"><span>in seconds</span></div>
+    <div id="cap-30" class="clip caption" data-start="33.98" data-duration="0.75" data-track-index="3"><span>if you want my</span></div>
+    <div id="cap-31" class="clip caption" data-start="34.73" data-duration="1.56" data-track-index="6"><span>complete workflow</span></div>
+    <div id="cap-32" class="clip caption" data-start="36.29" data-duration="1.08" data-track-index="3"><span>for creating these</span></div>
+    <div id="cap-33" class="clip caption" data-start="37.37" data-duration="1.05" data-track-index="6"><span>soccer clips</span></div>
+    <div id="cap-34" class="clip caption" data-start="38.42" data-duration="1.15" data-track-index="3"><span>comment “WORKFLOW”</span></div>
+    <div id="cap-35" class="clip caption" data-start="39.57" data-duration="0.63" data-track-index="6"><span>below</span></div>
+  </div>
+
+  <audio id="click-0" class="clip" src="click-sfx.mp3" data-start="3.6" data-duration="0.3" data-track-index="4" data-volume="0.5"></audio>
+  <audio id="click-1" class="clip" src="click-sfx.mp3" data-start="5.0" data-duration="0.3" data-track-index="4" data-volume="0.5"></audio>
+  <audio id="click-2" class="clip" src="click-sfx.mp3" data-start="6.0" data-duration="0.3" data-track-index="4" data-volume="0.5"></audio>
+  <audio id="click-3" class="clip" src="click-sfx.mp3" data-start="7.78" data-duration="0.3" data-track-index="4" data-volume="0.5"></audio>
+  <audio id="click-4" class="clip" src="click-sfx.mp3" data-start="9.79" data-duration="0.3" data-track-index="4" data-volume="0.5"></audio>
+  <audio id="click-5" class="clip" src="click-sfx.mp3" data-start="12.43" data-duration="0.3" data-track-index="4" data-volume="0.5"></audio>
+  <audio id="click-6" class="clip" src="click-sfx.mp3" data-start="13.95" data-duration="0.3" data-track-index="4" data-volume="0.5"></audio>
+  <audio id="click-7" class="clip" src="click-sfx.mp3" data-start="16.65" data-duration="0.3" data-track-index="4" data-volume="0.5"></audio>
+  <audio id="click-8" class="clip" src="click-sfx.mp3" data-start="20.2" data-duration="0.3" data-track-index="4" data-volume="0.5"></audio>
+  <audio id="click-9" class="clip" src="click-sfx.mp3" data-start="23.27" data-duration="0.3" data-track-index="4" data-volume="0.5"></audio>
+  <audio id="click-10" class="clip" src="click-sfx.mp3" data-start="23.85" data-duration="0.3" data-track-index="4" data-volume="0.5"></audio>
+  <audio id="click-11" class="clip" src="click-sfx.mp3" data-start="24.82" data-duration="0.3" data-track-index="4" data-volume="0.5"></audio>
+  <audio id="click-12" class="clip" src="click-sfx.mp3" data-start="25.18" data-duration="0.3" data-track-index="4" data-volume="0.5"></audio>
+  <audio id="click-13" class="clip" src="click-sfx.mp3" data-start="25.85" data-duration="0.3" data-track-index="4" data-volume="0.5"></audio>
+  <audio id="click-14" class="clip" src="click-sfx.mp3" data-start="28.0" data-duration="0.3" data-track-index="4" data-volume="0.5"></audio>
+  <audio id="click-15" class="clip" src="click-sfx.mp3" data-start="31.4" data-duration="0.3" data-track-index="4" data-volume="0.5"></audio>
+  <audio id="click-16" class="clip" src="click-sfx.mp3" data-start="33.84" data-duration="0.3" data-track-index="4" data-volume="0.5"></audio>
+  <audio id="click-17" class="clip" src="click-sfx.mp3" data-start="35.37" data-duration="0.3" data-track-index="4" data-volume="0.5"></audio>
+  <audio id="click-18" class="clip" src="click-sfx.mp3" data-start="36.9" data-duration="0.3" data-track-index="4" data-volume="0.5"></audio>
+  <audio id="click-19" class="clip" src="click-sfx.mp3" data-start="38.42" data-duration="0.3" data-track-index="4" data-volume="0.5"></audio>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused:true });
+
+    // full-screen hook -> dock into the split
+    gsap.set(".video-wrap", { top:0 });
+    gsap.set(".seam-fade", { opacity:0 });
+    tl.fromTo("#vid", {scale:1.0}, {scale:1.10, duration:3.55, ease:"none"}, 0);
+    tl.to(".video-wrap", {top:760, duration:0.55, ease:"power3.inOut"}, 3.55);
+    tl.to("#vid", {scale:1.0, duration:0.55, ease:"power3.inOut"}, 3.55);
+    tl.to(".seam-fade", {opacity:1, duration:0.4, ease:"power2.out"}, 3.4);
+
+    // top card entrances
+  tl.from("#card-0 .img-wrap", {opacity:0, scale:1.08, duration:0.42, ease:"power3.out"}, 3.6);
+  tl.fromTo("#card-0 .kb", {scale:1.0}, {scale:1.06, duration:1.4, ease:"none"}, 3.6);
+  tl.from("#card-1 .img-wrap", {opacity:0, scale:1.08, duration:0.42, ease:"power3.out"}, 5.0);
+  tl.fromTo("#card-1 .kb", {scale:1.0}, {scale:1.06, duration:1.0, ease:"none"}, 5.0);
+  tl.from("#card-2 .mask:nth-child(1) > span", {yPercent:115, opacity:0, duration:0.42, ease:"expo.out"}, 6.0);
+  tl.from("#card-2 .mask:nth-child(2) > span", {yPercent:115, opacity:0, duration:0.46, ease:"back.out(1.5)"}, 6.06);
+  tl.from("#card-2 .grid", {opacity:0, duration:0.5, ease:"power2.out"}, 6.0);
+  tl.from("#card-3 .img-wrap", {opacity:0, scale:1.08, duration:0.42, ease:"power3.out"}, 7.78);
+  tl.fromTo("#card-3 .kb", {scale:1.0}, {scale:1.06, duration:2.01, ease:"none"}, 7.78);
+  tl.from("#card-4 .img-wrap", {opacity:0, scale:1.08, duration:0.42, ease:"power3.out"}, 9.79);
+  tl.fromTo("#card-4 .kb", {scale:1.0}, {scale:1.06, duration:2.64, ease:"none"}, 9.79);
+  tl.from("#card-5 .mask:nth-child(1) > span", {yPercent:115, opacity:0, duration:0.42, ease:"power4.out"}, 12.43);
+  tl.from("#card-5 .mask:nth-child(2) > span", {yPercent:115, opacity:0, duration:0.46, ease:"back.out(1.7)"}, 12.49);
+  tl.from("#card-5 .grid", {opacity:0, duration:0.5, ease:"power2.out"}, 12.43);
+  tl.from("#card-6 .grid", {opacity:0, duration:0.5, ease:"power2.out"}, 13.95);
+  tl.from("#card-6 .logo-img", {opacity:0, scale:0.78, duration:0.5, ease:"back.out(1.7)"}, 13.95);
+  tl.from("#card-7 .grid", {opacity:0, duration:0.4}, 16.65);
+  tl.from("#pst-bar", {y:-40, opacity:0, duration:0.4, ease:"power3.out"}, 16.65);
+  tl.from("#pst-thumb", {scale:0.92, opacity:0, duration:0.45, ease:"back.out(1.6)"}, 16.85);
+  tl.from("#pst-copied", {scale:0.5, opacity:0, duration:0.34, ease:"back.out(2.4)"}, 17.35);
+  tl.from("#pst-panel", {y:70, opacity:0, duration:0.5, ease:"power3.out"}, 18.2);
+  tl.from("#pst-arrow", {opacity:0, scale:0.4, duration:0.3, ease:"back.out(2)"}, 18.35);
+  tl.from("#pst-url", {opacity:0, x:-26, duration:0.32, ease:"power2.out"}, 18.65);
+  tl.from("#pst-btn", {scale:0.8, opacity:0, duration:0.36, ease:"back.out(2)"}, 19.0);
+  tl.to("#pst-btn", {scale:1.07, duration:0.16, yoyo:true, repeat:1, ease:"power1.inOut"}, 19.5);
+  tl.from("#card-8 .grid", {opacity:0, duration:0.4}, 20.2);
+  tl.from("#res-head", {y:-26, opacity:0, duration:0.4, ease:"power3.out"}, 20.2);
+  tl.from("#res-c1", {scale:0.55, opacity:0, duration:0.46, ease:"back.out(1.8)"}, 20.45);
+  tl.from("#res-c2", {scale:0.55, opacity:0, duration:0.46, ease:"back.out(1.8)"}, 20.7);
+  tl.from("#res-c3", {scale:0.55, opacity:0, duration:0.46, ease:"back.out(1.8)"}, 20.95);
+  tl.from("#card-9 .mask:nth-child(1) > span", {yPercent:115, opacity:0, duration:0.42, ease:"power4.out"}, 23.27);
+  tl.from("#card-9 .word-acc", {scale:0.72, duration:0.34, ease:"back.out(2.2)"}, 23.27);
+  tl.from("#card-9 .grid", {opacity:0, duration:0.5, ease:"power2.out"}, 23.27);
+  tl.from("#card-10 .mask:nth-child(1) > span", {yPercent:115, opacity:0, duration:0.42, ease:"expo.out"}, 23.85);
+  tl.from("#card-10 .word-acc", {scale:0.72, duration:0.34, ease:"back.out(2.2)"}, 23.85);
+  tl.from("#card-10 .grid", {opacity:0, duration:0.5, ease:"power2.out"}, 23.85);
+  tl.from("#card-11 .mask:nth-child(1) > span", {yPercent:115, opacity:0, duration:0.42, ease:"back.out(1.7)"}, 24.82);
+  tl.from("#card-11 .word-acc", {scale:0.72, duration:0.34, ease:"back.out(2.2)"}, 24.82);
+  tl.from("#card-11 .grid", {opacity:0, duration:0.5, ease:"power2.out"}, 24.82);
+  tl.from("#card-12 .mask:nth-child(1) > span", {yPercent:115, opacity:0, duration:0.42, ease:"back.out(1.5)"}, 25.18);
+  tl.from("#card-12 .word-acc", {scale:0.72, duration:0.34, ease:"back.out(2.2)"}, 25.18);
+  tl.from("#card-12 .grid", {opacity:0, duration:0.5, ease:"power2.out"}, 25.18);
+  tl.from("#card-13 .mask:nth-child(1) > span", {yPercent:115, opacity:0, duration:0.42, ease:"power4.out"}, 25.85);
+  tl.from("#card-13 .word-acc", {scale:0.72, duration:0.34, ease:"back.out(2.2)"}, 25.85);
+  tl.from("#card-13 .grid", {opacity:0, duration:0.5, ease:"power2.out"}, 25.85);
+  tl.from("#card-14 .mask:nth-child(1) > span", {yPercent:115, opacity:0, duration:0.42, ease:"expo.out"}, 28.0);
+  tl.from("#card-14 .mask:nth-child(2) > span", {yPercent:115, opacity:0, duration:0.46, ease:"back.out(1.5)"}, 28.06);
+  tl.from("#card-14 .big", {scale:0.6, duration:0.5, ease:"back.out(1.8)"}, 28.06);
+  tl.from("#card-14 .grid", {opacity:0, duration:0.5, ease:"power2.out"}, 28.0);
+  tl.from("#card-15 .mask:nth-child(1) > span", {yPercent:115, opacity:0, duration:0.42, ease:"back.out(1.7)"}, 31.4);
+  tl.from("#card-15 .mask:nth-child(2) > span", {yPercent:115, opacity:0, duration:0.46, ease:"power4.out"}, 31.46);
+  tl.from("#card-15 .big", {scale:0.6, duration:0.5, ease:"back.out(1.8)"}, 31.46);
+  tl.from("#card-15 .grid", {opacity:0, duration:0.5, ease:"power2.out"}, 31.4);
+  tl.from("#mv-16", {opacity:0, duration:0.16, ease:"power2.out"}, 33.84);
+  tl.fromTo("#mv-16", {scale:1.12}, {scale:1.0, duration:1.53, ease:"power2.out"}, 33.84);
+  tl.from("#mtag-16", {x:-30, opacity:0, duration:0.4, ease:"back.out(1.7)"}, 33.94);
+  tl.from("#mv-17", {opacity:0, duration:0.16, ease:"power2.out"}, 35.37);
+  tl.fromTo("#mv-17", {scale:1.12}, {scale:1.0, duration:1.53, ease:"power2.out"}, 35.37);
+  tl.from("#mtag-17", {x:-30, opacity:0, duration:0.4, ease:"back.out(1.7)"}, 35.47);
+  tl.from("#mv-18", {opacity:0, duration:0.16, ease:"power2.out"}, 36.9);
+  tl.fromTo("#mv-18", {scale:1.12}, {scale:1.0, duration:1.52, ease:"power2.out"}, 36.9);
+  tl.from("#mtag-18", {x:-30, opacity:0, duration:0.4, ease:"back.out(1.7)"}, 37.0);
+  tl.from("#card-19 .mask:nth-child(1) > span", {yPercent:115, opacity:0, duration:0.42, ease:"back.out(1.7)"}, 38.42);
+  tl.from("#card-19 .mask:nth-child(2) > span", {yPercent:115, opacity:0, duration:0.46, ease:"power4.out"}, 38.48);
+  tl.from("#card-19 .mask:nth-child(3) > span", {yPercent:115, opacity:0, duration:0.4, ease:"power3.out"}, 38.57);
+  tl.from("#card-19 .grid", {opacity:0, duration:0.5, ease:"power2.out"}, 38.42);
+
+    // caption pops
+  tl.from("#cap-0", {scale:0.7, opacity:0, duration:0.18, ease:"back.out(2.6)"}, 0.14);
+  tl.from("#cap-1", {scale:0.7, opacity:0, duration:0.18, ease:"back.out(2.6)"}, 0.9);
+  tl.from("#cap-2", {scale:0.7, opacity:0, duration:0.18, ease:"back.out(2.6)"}, 1.95);
+  tl.from("#cap-3", {scale:0.7, opacity:0, duration:0.18, ease:"back.out(2.6)"}, 2.36);
+  tl.from("#cap-4", {scale:0.7, opacity:0, duration:0.18, ease:"back.out(2.6)"}, 3.6);
+  tl.from("#cap-5", {scale:0.7, opacity:0, duration:0.18, ease:"back.out(2.6)"}, 5.98);
+  tl.from("#cap-6", {scale:0.7, opacity:0, duration:0.18, ease:"back.out(2.6)"}, 7.37);
+  tl.from("#cap-7", {scale:0.7, opacity:0, duration:0.18, ease:"back.out(2.6)"}, 7.85);
+  tl.from("#cap-8", {scale:0.7, opacity:0, duration:0.18, ease:"back.out(2.6)"}, 8.87);
+  tl.from("#cap-9", {scale:0.7, opacity:0, duration:0.18, ease:"back.out(2.6)"}, 10.17);
+  tl.from("#cap-10", {scale:0.7, opacity:0, duration:0.18, ease:"back.out(2.6)"}, 11.58);
+  tl.from("#cap-11", {scale:0.7, opacity:0, duration:0.18, ease:"back.out(2.6)"}, 12.43);
+  tl.from("#cap-12", {scale:0.7, opacity:0, duration:0.18, ease:"back.out(2.6)"}, 13.61);
+  tl.from("#cap-13", {scale:0.7, opacity:0, duration:0.18, ease:"back.out(2.6)"}, 16.02);
+  tl.from("#cap-14", {scale:0.7, opacity:0, duration:0.18, ease:"back.out(2.6)"}, 16.65);
+  tl.from("#cap-15", {scale:0.7, opacity:0, duration:0.18, ease:"back.out(2.6)"}, 17.6);
+  tl.from("#cap-16", {scale:0.7, opacity:0, duration:0.18, ease:"back.out(2.6)"}, 18.81);
+  tl.from("#cap-17", {scale:0.7, opacity:0, duration:0.18, ease:"back.out(2.6)"}, 20.2);
+  tl.from("#cap-18", {scale:0.7, opacity:0, duration:0.18, ease:"back.out(2.6)"}, 21.0);
+  tl.from("#cap-19", {scale:0.7, opacity:0, duration:0.18, ease:"back.out(2.6)"}, 22.23);
+  tl.from("#cap-20", {scale:0.7, opacity:0, duration:0.18, ease:"back.out(2.6)"}, 23.27);
+  tl.from("#cap-21", {scale:0.7, opacity:0, duration:0.18, ease:"back.out(2.6)"}, 23.77);
+  tl.from("#cap-22", {scale:0.7, opacity:0, duration:0.18, ease:"back.out(2.6)"}, 24.82);
+  tl.from("#cap-23", {scale:0.7, opacity:0, duration:0.18, ease:"back.out(2.6)"}, 25.18);
+  tl.from("#cap-24", {scale:0.7, opacity:0, duration:0.18, ease:"back.out(2.6)"}, 25.85);
+  tl.from("#cap-25", {scale:0.7, opacity:0, duration:0.18, ease:"back.out(2.6)"}, 28.0);
+  tl.from("#cap-26", {scale:0.7, opacity:0, duration:0.18, ease:"back.out(2.6)"}, 29.47);
+  tl.from("#cap-27", {scale:0.7, opacity:0, duration:0.18, ease:"back.out(2.6)"}, 31.4);
+  tl.from("#cap-28", {scale:0.7, opacity:0, duration:0.18, ease:"back.out(2.6)"}, 32.28);
+  tl.from("#cap-29", {scale:0.7, opacity:0, duration:0.18, ease:"back.out(2.6)"}, 33.19);
+  tl.from("#cap-30", {scale:0.7, opacity:0, duration:0.18, ease:"back.out(2.6)"}, 33.98);
+  tl.from("#cap-31", {scale:0.7, opacity:0, duration:0.18, ease:"back.out(2.6)"}, 34.73);
+  tl.from("#cap-32", {scale:0.7, opacity:0, duration:0.18, ease:"back.out(2.6)"}, 36.29);
+  tl.from("#cap-33", {scale:0.7, opacity:0, duration:0.18, ease:"back.out(2.6)"}, 37.37);
+  tl.from("#cap-34", {scale:0.7, opacity:0, duration:0.18, ease:"back.out(2.6)"}, 38.42);
+  tl.from("#cap-35", {scale:0.7, opacity:0, duration:0.18, ease:"back.out(2.6)"}, 39.57);
+
+    window.__timelines["split-ugc-videodb"] = tl;
+  </script>
+</div>
+</body>
+</html>

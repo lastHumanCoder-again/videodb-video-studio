@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  [data-composition-id="seg4"]{ position:relative; width:1920px; height:1080px; overflow:hidden;
+    font-family:"Inter","Helvetica Neue",Arial,sans-serif;
+    /* BRAND:START */
+    background:#0B0B0C; /* brand:canvas */
+    color:#F4F2EE;      /* brand:text */
+    --orange:#E85810;   /* brand:accent */
+    --card:#141416;     /* brand:card */
+    --muted:#8C8C94;    /* brand:muted */
+    --line:#2A2A2E;     /* brand:hairline */
+    --red:#E5484D;      /* brand:bad */
+    --green:#3DD68C;    /* brand:good */
+    /* BRAND:END */
+  }
+  [data-composition-id="seg4"] .scene{ position:absolute; inset:0; width:1920px; height:1080px; overflow:hidden; opacity:0; }
+  [data-composition-id="seg4"] #s4a{ opacity:1; }
+  [data-composition-id="seg4"] .glow{ position:absolute; inset:0; background:radial-gradient(60% 50% at 50% 42%, rgba(232,88,16,0.10), transparent 70%); }
+
+  /* RECORD→COMPILE→REPLAY spine (COPY VERBATIM) */
+  [data-composition-id="seg4"] .spine{ display:inline-flex; align-items:center; gap:26px; }
+  [data-composition-id="seg4"] .snode{ font-family:"Archivo Black",sans-serif; text-transform:uppercase; letter-spacing:0.03em;
+    font-size:34px; padding:20px 30px; border-radius:14px; background:var(--card); border:1px solid var(--line); color:var(--muted); }
+  [data-composition-id="seg4"] .snode.on{ color:#fff; border-color:var(--orange);
+    box-shadow:0 0 0 2px rgba(232,88,16,0.4), 0 0 34px rgba(232,88,16,0.4); background:#1a1310; }
+  [data-composition-id="seg4"] .sarrow{ color:var(--muted); font-size:40px; }
+
+  /* Callout boxes (COPY VERBATIM) */
+  [data-composition-id="seg4"] .box{ display:inline-block; background:#F4F2EE; color:#0B0B0C; font-family:"Archivo Black",sans-serif;
+    text-transform:uppercase; letter-spacing:0.01em; line-height:0.98; padding:16px 26px; border-radius:12px; font-size:60px; box-shadow:0 14px 40px rgba(0,0,0,0.6); }
+  [data-composition-id="seg4"] .box.pay{ background:var(--orange); color:#fff; box-shadow:0 16px 50px rgba(232,88,16,0.5); }
+  [data-composition-id="seg4"] .box.red{ background:var(--red); color:#fff; }
+  [data-composition-id="seg4"] .box.sm{ font-size:38px; padding:12px 18px; }
+
+  /* Card (COPY VERBATIM) */
+  [data-composition-id="seg4"] .card{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:26px 30px; }
+
+  /* Code / log window (COPY VERBATIM) */
+  [data-composition-id="seg4"] .win{ background:#0e0e10; border:1px solid var(--line); border-radius:14px; overflow:hidden; box-shadow:0 24px 60px rgba(0,0,0,0.6); }
+  [data-composition-id="seg4"] .win .bar{ display:flex; align-items:center; gap:10px; padding:14px 18px; background:#141416; border-bottom:1px solid var(--line); }
+  [data-composition-id="seg4"] .win .bar .d{ width:13px; height:13px; border-radius:50%; background:#3a3a40; }
+  [data-composition-id="seg4"] .win .bar .t{ margin-left:12px; font-size:20px; color:var(--muted); font-weight:600; }
+  [data-composition-id="seg4"] .win .body{ padding:22px 26px; font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace; font-size:26px; line-height:1.7; }
+  [data-composition-id="seg4"] .logrow{ display:flex; gap:14px; align-items:center; color:#cfcfd6; }
+  [data-composition-id="seg4"] .logrow .k{ color:var(--orange); font-weight:700; } /* verb */
+  [data-composition-id="seg4"] .var{ background:rgba(232,88,16,0.18); border:1px solid var(--orange); color:#ffd3b0; border-radius:8px; padding:2px 10px; }
+
+  /* marker/arrow draw-on (COPY VERBATIM) */
+  [data-composition-id="seg4"] .mk path{ fill:none; stroke:var(--orange); stroke-width:7; stroke-linecap:round; }
+
+  /* --- seg4 layout --- */
+  [data-composition-id="seg4"] .spinebar{ position:absolute; top:44px; left:0; right:0; display:flex; justify-content:center; z-index:8; }
+  [data-composition-id="seg4"] .spinebar .spine{ transform:scale(0.62); transform-origin:center top; }
+  [data-composition-id="seg4"] .stage{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; gap:70px; padding:200px 120px 150px; }
+
+  /* left event-log window */
+  [data-composition-id="seg4"] .evwin{ width:520px; }
+  [data-composition-id="seg4"] .evwin .body{ font-size:24px; line-height:1.9; }
+
+  /* COMPILE arrow zone */
+  [data-composition-id="seg4"] .arrowzone{ position:relative; width:220px; height:200px; display:flex; align-items:center; justify-content:center; }
+  [data-composition-id="seg4"] .arrowzone .mk{ width:220px; height:120px; overflow:visible; }
+  [data-composition-id="seg4"] .arrowzone .alab{ position:absolute; top:8px; left:0; right:0; text-align:center;
+    font-family:"Archivo Black",sans-serif; text-transform:uppercase; letter-spacing:0.08em; color:var(--orange); font-size:24px; }
+
+  /* right: two artifact cards stacked */
+  [data-composition-id="seg4"] .artifacts{ display:flex; flex-direction:column; gap:34px; width:600px; }
+  [data-composition-id="seg4"] .card .ct{ display:flex; align-items:center; gap:14px; margin-bottom:18px; }
+  [data-composition-id="seg4"] .card .ct .fi{ width:34px; height:34px; border-radius:8px; background:#1a1310; border:1px solid var(--orange);
+    display:flex; align-items:center; justify-content:center; color:var(--orange); font-family:"Archivo Black",sans-serif; font-size:18px; }
+  [data-composition-id="seg4"] .card .ct .fn{ font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace; font-size:28px; font-weight:700; color:#F4F2EE; letter-spacing:0.01em; }
+  [data-composition-id="seg4"] .jline{ font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace; font-size:26px; line-height:1.75; color:#cfcfd6; padding-left:26px; font-variant-numeric:tabular-nums; }
+  [data-composition-id="seg4"] .jline .kk{ color:#8fb2ff; }
+  [data-composition-id="seg4"] .jline .vv{ color:var(--green); }
+  [data-composition-id="seg4"] .jbrace{ font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace; font-size:26px; color:var(--muted); line-height:1.75; }
+  [data-composition-id="seg4"] .mdline{ font-size:26px; line-height:1.85; color:#e4e2dd; font-weight:500; }
+  [data-composition-id="seg4"] .mdline .num{ color:var(--orange); font-weight:700; margin-right:12px; font-variant-numeric:tabular-nums; }
+
+  /* version tag */
+  [data-composition-id="seg4"] .vtag{ position:absolute; right:120px; bottom:210px; z-index:9;
+    font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace; font-size:24px; color:var(--muted);
+    background:var(--card); border:1px solid var(--line); border-radius:999px; padding:10px 22px; }
+  [data-composition-id="seg4"] .vtag b{ color:var(--orange); }
+
+  /* payoff */
+  [data-composition-id="seg4"] .payrow{ position:absolute; left:0; right:0; bottom:64px; display:flex; justify-content:center; z-index:12; }
+
+  [data-composition-id="seg4"] .bug{ position:absolute; right:46px; bottom:40px; height:34px; width:auto; opacity:0.55; z-index:50; }
+</style>
+</head>
+<body>
+  <div data-composition-id="seg4" data-start="0" data-duration="21.72" data-width="1920" data-height="1080">
+
+    <!-- seg4 is effectively ONE scene: s4a visible at t0; s4b + payoff are in-scene reveals -->
+    <div id="s4a" class="scene">
+      <div class="glow" id="s4a-glow"></div>
+
+      <!-- spine at top, COMPILE .on -->
+      <div class="spinebar">
+        <div class="spine">
+          <span class="snode" id="sp-rec">RECORD</span>
+          <span class="sarrow">→</span>
+          <span class="snode on" id="sp-comp">COMPILE</span>
+          <span class="sarrow">→</span>
+          <span class="snode" id="sp-rep">REPLAY</span>
+        </div>
+      </div>
+
+      <div class="stage">
+        <!-- LEFT: compact event log -->
+        <div class="win evwin" id="evwin">
+          <div class="bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">EVENT LOG</span></div>
+          <div class="body">
+            <div class="logrow"><span class="k">click</span><span>▸ Search</span></div>
+            <div class="logrow"><span class="k">type</span><span>▸ "invoice"</span></div>
+            <div class="logrow"><span class="k">press</span><span>▸ Enter</span></div>
+            <div class="logrow"><span class="k">click</span><span>▸ Submit</span></div>
+          </div>
+        </div>
+
+        <!-- COMPILE arrow draws on -->
+        <div class="arrowzone">
+          <div class="alab" id="arrlab">COMPILE</div>
+          <svg class="mk" id="arrsvg" viewBox="0 0 220 120" xmlns="http://www.w3.org/2000/svg">
+            <path id="arrpath" d="M10,60 L176,60 L150,42 M176,60 L150,78" />
+          </svg>
+        </div>
+
+        <!-- RIGHT: two artifact cards -->
+        <div class="artifacts">
+          <div class="card" id="cardjson">
+            <div class="ct"><span class="fi">{ }</span><span class="fn">SKILL.json</span></div>
+            <div class="jbrace">{</div>
+            <div class="jline" id="j1"><span class="kk">"action"</span>: <span class="vv">"click"</span>,</div>
+            <div class="jline" id="j2"><span class="kk">"target"</span>: <span class="vv">"Search"</span>,</div>
+            <div class="jline" id="j3"><span class="kk">"type"</span>: <span class="vv" id="jval">"invoice"</span>,</div>
+            <div class="jline" id="j4"><span class="kk">"then"</span>: <span class="vv">"submit"</span></div>
+            <div class="jbrace">}</div>
+          </div>
+
+          <div class="card" id="cardmd">
+            <div class="ct"><span class="fi">md</span><span class="fn">SKILL.md</span></div>
+            <div class="mdline" id="m1"><span class="num">1.</span>Open Search</div>
+            <div class="mdline" id="m2"><span class="num">2.</span>Type the query</div>
+            <div class="mdline" id="m3"><span class="num">3.</span>Press Enter</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- version tag -->
+      <div class="vtag" id="vtag">v2 <b>▸</b> v1 archived</div>
+
+      <!-- payoff -->
+      <div class="payrow"><span class="box pay" id="pay">ONE DEMO → A REUSABLE SKILL</span></div>
+    </div>
+
+    <img class="bug" src="assets/videodb-logo.png" />
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      var R = '[data-composition-id="seg4"] ';
+      var tl = gsap.timeline({ paused:true });
+      var XF = 0.5;
+      function fadeIn(s,t){ tl.fromTo(R+s,{opacity:0,filter:'blur(16px)'},{opacity:1,filter:'blur(0px)',duration:XF,ease:'sine.inOut'},t); }
+      function fadeOut(s,t){ tl.to(R+s,{opacity:0,filter:'blur(16px)',duration:XF,ease:'sine.inOut'},t); }
+      function countUp(sel,from,to,dur,at,fmt){ var o={n:from};
+        tl.to(o,{n:to,duration:dur,ease:'power2.out',onUpdate:function(){ var el=document.querySelector(R+sel); if(el) el.textContent=(fmt?fmt(Math.round(o.n)):Math.round(o.n)); }},at); }
+      function typewrite(sel,str,dur,at){ var o={n:0};
+        tl.to(o,{n:str.length,duration:dur,ease:'none',onUpdate:function(){ var el=document.querySelector(R+sel); if(el) el.textContent=str.slice(0,Math.round(o.n)); }},at); }
+      function stamp(sel,at){ tl.from(R+sel,{opacity:0,scale:0.72,duration:0.36,ease:'back.out(1.6)'},at); }
+      // drawArrow: measure path length, set the dash, then tween strokeDashoffset -> 0 (stroke "draws on")
+      function drawArrow(sel,dur,at){
+        var el = document.querySelector(R+sel);
+        if(el){ var L = el.getTotalLength(); el.style.strokeDasharray = L; el.style.strokeDashoffset = L;
+          tl.to(el,{strokeDashoffset:0,duration:dur,ease:'power2.inOut'},at); }
+      }
+
+      tl.from(R+'.bug',{opacity:0,duration:0.6},0.8);
+
+      // --- s4a (0.0) : spine + event log in ---
+      tl.from(R+'.spinebar',{opacity:0,y:-20,duration:0.55,ease:'power3.out'},0.2);
+      // COMPILE node pulses to signal the active step (finite)
+      tl.to(R+'#sp-comp',{boxShadow:'0 0 0 2px rgba(232,88,16,0.6), 0 0 48px rgba(232,88,16,0.7)',duration:1.1,yoyo:true,repeat:6,ease:'sine.inOut'},0.6);
+      tl.from(R+'#evwin',{opacity:0,x:-40,duration:0.6,ease:'power3.out'},0.5);
+      // log rows settle in one at a time
+      tl.from(R+'#evwin .logrow',{opacity:0,y:14,duration:0.35,ease:'power2.out',stagger:0.28},0.9);
+
+      // COMPILE arrow DRAWS ON (~2.6s), label fades with it
+      tl.from(R+'#arrlab',{opacity:0,y:-8,duration:0.4,ease:'power2.out'},2.5);
+      drawArrow('#arrpath',0.9,2.7);
+      // a subtle glow pulse on the drawn arrow so it isn't a dead hold
+      tl.fromTo(R+'#arrsvg',{opacity:0},{opacity:1,duration:0.3,ease:'sine.out'},2.7);
+
+      // --- artifact cards appear (stagger) ---
+      tl.from(R+'#cardjson',{opacity:0,x:44,scale:0.94,duration:0.5,ease:'power3.out'},3.7);
+      // json lines populate one at a time (already in DOM; reveal via from)
+      tl.from(R+'#cardjson .jbrace:first-of-type',{opacity:0,duration:0.25,ease:'sine.out'},4.0);
+      tl.from(R+'#j1',{opacity:0,x:16,duration:0.4,ease:'power2.out'},4.3);
+      tl.from(R+'#j2',{opacity:0,x:16,duration:0.4,ease:'power2.out'},4.85);
+      tl.from(R+'#j3',{opacity:0,x:16,duration:0.4,ease:'power2.out'},5.4);
+      tl.from(R+'#j4',{opacity:0,x:16,duration:0.4,ease:'power2.out'},5.95);
+      tl.from(R+'#cardjson .jbrace:last-of-type',{opacity:0,duration:0.25,ease:'sine.out'},6.4);
+
+      // SKILL.md card in, steps reveal
+      tl.from(R+'#cardmd',{opacity:0,x:44,scale:0.94,duration:0.5,ease:'power3.out'},7.4);
+      tl.from(R+'#m1',{opacity:0,x:16,duration:0.4,ease:'power2.out'},7.9);
+      tl.from(R+'#m2',{opacity:0,x:16,duration:0.4,ease:'power2.out'},8.5);
+      tl.from(R+'#m3',{opacity:0,x:16,duration:0.4,ease:'power2.out'},9.1);
+
+      // keep motion alive mid-scene: a slow settle push on the artifacts column
+      tl.fromTo(R+'.artifacts',{scale:0.99},{scale:1.02,duration:5.0,ease:'sine.inOut'},9.5);
+
+      // version tag fades in ~13s
+      tl.from(R+'#vtag',{opacity:0,y:16,duration:0.5,ease:'power3.out'},13.0);
+
+      // --- s4b (16.54) : in-scene variable morph (do NOT crossfade; s4a stays visible) ---
+      // 1) brief bg highlight flash on the "invoice" value
+      tl.to(R+'#jval',{backgroundColor:'rgba(232,88,16,0.55)',color:'#fff',borderRadius:'6px',duration:0.35,yoyo:true,repeat:1,ease:'sine.inOut'},16.54);
+      // 2) morph the SAME element into an orange .var chip {{ query }} (color/scale tween in place)
+      tl.to(R+'#jval',{scale:1.16,duration:0.28,ease:'back.out(2)'},17.3);
+      // seek-safe text/class swap via onUpdate (absolute state per frame — like typewrite/countUp)
+      var o4={p:0};
+      tl.to(o4,{p:1,duration:0.3,ease:'none',onUpdate:function(){ var el=document.querySelector(R+'#jval'); if(!el) return;
+        if(o4.p<0.5){ el.className='vv'; el.textContent='"invoice"'; }
+        else { el.className='var'; el.textContent='{{ query }}'; } }},17.3);
+      tl.to(R+'#jval',{scale:1.0,duration:0.4,ease:'power2.out'},17.6);
+      // pulse the new var chip so it reads as the change
+      tl.fromTo(R+'#jval',{boxShadow:'0 0 0 rgba(232,88,16,0)'},{boxShadow:'0 0 26px rgba(232,88,16,0.7)',duration:0.7,yoyo:true,repeat:2,ease:'sine.inOut'},17.9);
+
+      // --- payoff (19.36) : orange box stamps in at bottom ---
+      tl.from(R+'#pay',{opacity:0,scale:0.72,y:20,duration:0.42,ease:'back.out(1.6)'},19.36);
+      tl.to(R+'#pay',{boxShadow:'0 16px 70px rgba(232,88,16,0.85)',duration:0.8,yoyo:true,repeat:2,ease:'sine.inOut'},19.9);
+
+      window.__timelines["seg4"] = tl;
+    </script>
+  </div>
+</body>
+</html>

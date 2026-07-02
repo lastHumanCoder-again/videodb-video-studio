@@ -1,0 +1,13 @@
+{
+  "slug": "split-ugc-videodb",
+  "pipeline": "split-ugc",
+  "next_steps": [
+    "Watch the worked example: npm install && npx hyperframes preview (talking head docks at ~3.6s, cards run on top)",
+    "Replace voiceover source: drop your talking-head video as Video1.mp4, transcribe it (npx hyperframes transcribe)",
+    "Edit build.py: CARDS list (s/e/kind per card — image, statement, word, price, clip, logo, cta) and CAPTIONS list, timed to the transcript",
+    "Product-specific scenes live under the BESPOKE SCENES markers in build.py — replace the paste/results UI with your product's",
+    "Swap in your images/clips referenced by the CARDS",
+    "Regenerate: python3 build.py (never edit index.html by hand)",
+    "QA + render: npx hyperframes lint && npx hyperframes render -o out.mp4 --quality draft"
+  ]
+}

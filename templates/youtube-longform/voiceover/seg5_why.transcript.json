@@ -1,0 +1,502 @@
+[
+  {
+    "text": "So",
+    "start": 0.22,
+    "end": 0.26
+  },
+  {
+    "text": "what",
+    "start": 0.26,
+    "end": 0.67
+  },
+  {
+    "text": "went",
+    "start": 0.84,
+    "end": 1.32
+  },
+  {
+    "text": "wrong?",
+    "start": 1.32,
+    "end": 2.42
+  },
+  {
+    "text": "The",
+    "start": 2.42,
+    "end": 2.64
+  },
+  {
+    "text": "models",
+    "start": 2.64,
+    "end": 2.97
+  },
+  {
+    "text": "weren't",
+    "start": 2.97,
+    "end": 3.4
+  },
+  {
+    "text": "blind.",
+    "start": 3.4,
+    "end": 3.82
+  },
+  {
+    "text": "They",
+    "start": 4.14,
+    "end": 4.21
+  },
+  {
+    "text": "knew",
+    "start": 4.21,
+    "end": 4.5
+  },
+  {
+    "text": "it",
+    "start": 4.5,
+    "end": 4.6
+  },
+  {
+    "text": "was",
+    "start": 4.78,
+    "end": 4.86
+  },
+  {
+    "text": "a",
+    "start": 4.86,
+    "end": 4.93
+  },
+  {
+    "text": "chess",
+    "start": 4.93,
+    "end": 5.28
+  },
+  {
+    "text": "position.",
+    "start": 5.28,
+    "end": 6.14
+  },
+  {
+    "text": "They",
+    "start": 6.36,
+    "end": 6.52
+  },
+  {
+    "text": "failed",
+    "start": 6.52,
+    "end": 7.09
+  },
+  {
+    "text": "at",
+    "start": 7.09,
+    "end": 7.28
+  },
+  {
+    "text": "the",
+    "start": 7.28,
+    "end": 7.54
+  },
+  {
+    "text": "exact",
+    "start": 7.54,
+    "end": 7.63
+  },
+  {
+    "text": "location.",
+    "start": 8.55,
+    "end": 9.12
+  },
+  {
+    "text": "A",
+    "start": 9.12,
+    "end": 9.34
+  },
+  {
+    "text": "piece",
+    "start": 9.34,
+    "end": 9.61
+  },
+  {
+    "text": "shifted",
+    "start": 9.61,
+    "end": 10.12
+  },
+  {
+    "text": "one",
+    "start": 10.24,
+    "end": 10.45
+  },
+  {
+    "text": "square",
+    "start": 10.45,
+    "end": 10.6
+  },
+  {
+    "text": "over.",
+    "start": 10.6,
+    "end": 11.56
+  },
+  {
+    "text": "An",
+    "start": 11.56,
+    "end": 11.78
+  },
+  {
+    "text": "empty",
+    "start": 11.78,
+    "end": 12.16
+  },
+  {
+    "text": "gap",
+    "start": 12.16,
+    "end": 12.23
+  },
+  {
+    "text": "miscounted.",
+    "start": 12.41,
+    "end": 13.56
+  },
+  {
+    "text": "The",
+    "start": 13.78,
+    "end": 13.88
+  },
+  {
+    "text": "right",
+    "start": 13.88,
+    "end": 14.23
+  },
+  {
+    "text": "piece",
+    "start": 14.41,
+    "end": 14.94
+  },
+  {
+    "text": "in",
+    "start": 14.94,
+    "end": 15.04
+  },
+  {
+    "text": "the",
+    "start": 15.25,
+    "end": 15.7
+  },
+  {
+    "text": "wrong",
+    "start": 15.97,
+    "end": 16.43
+  },
+  {
+    "text": "place.",
+    "start": 16.49,
+    "end": 17.68
+  },
+  {
+    "text": "And",
+    "start": 17.68,
+    "end": 17.9
+  },
+  {
+    "text": "at",
+    "start": 17.9,
+    "end": 18
+  },
+  {
+    "text": "max",
+    "start": 18,
+    "end": 18.15
+  },
+  {
+    "text": "thinking,",
+    "start": 18.18,
+    "end": 18.83
+  },
+  {
+    "text": "the",
+    "start": 18.83,
+    "end": 19.03
+  },
+  {
+    "text": "model",
+    "start": 19.03,
+    "end": 19.16
+  },
+  {
+    "text": "spent",
+    "start": 19.36,
+    "end": 19.68
+  },
+  {
+    "text": "so",
+    "start": 19.68,
+    "end": 19.82
+  },
+  {
+    "text": "many",
+    "start": 19.82,
+    "end": 20.1
+  },
+  {
+    "text": "words",
+    "start": 20.1,
+    "end": 20.41
+  },
+  {
+    "text": "explaining",
+    "start": 20.41,
+    "end": 21.07
+  },
+  {
+    "text": "itself",
+    "start": 21.07,
+    "end": 21.27
+  },
+  {
+    "text": "that",
+    "start": 21.59,
+    "end": 21.73
+  },
+  {
+    "text": "it",
+    "start": 21.73,
+    "end": 21.82
+  },
+  {
+    "text": "ran",
+    "start": 21.83,
+    "end": 21.99
+  },
+  {
+    "text": "out",
+    "start": 21.99,
+    "end": 22.14
+  },
+  {
+    "text": "of",
+    "start": 22.14,
+    "end": 22.28
+  },
+  {
+    "text": "room",
+    "start": 22.5,
+    "end": 22.6
+  },
+  {
+    "text": "before",
+    "start": 22.6,
+    "end": 22.95
+  },
+  {
+    "text": "it",
+    "start": 23.11,
+    "end": 23.25
+  },
+  {
+    "text": "finished.",
+    "start": 23.25,
+    "end": 24.15
+  },
+  {
+    "text": "So",
+    "start": 24.38,
+    "end": 24.4
+  },
+  {
+    "text": "the",
+    "start": 24.4,
+    "end": 24.77
+  },
+  {
+    "text": "answer",
+    "start": 24.77,
+    "end": 25.51
+  },
+  {
+    "text": "got",
+    "start": 25.51,
+    "end": 25.64
+  },
+  {
+    "text": "cut",
+    "start": 25.83,
+    "end": 26.25
+  },
+  {
+    "text": "off.",
+    "start": 26.56,
+    "end": 26.99
+  },
+  {
+    "text": "It",
+    "start": 26.99,
+    "end": 27.22
+  },
+  {
+    "text": "wasn't",
+    "start": 27.22,
+    "end": 27.57
+  },
+  {
+    "text": "the",
+    "start": 27.57,
+    "end": 27.68
+  },
+  {
+    "text": "brain",
+    "start": 27.84,
+    "end": 28.15
+  },
+  {
+    "text": "that",
+    "start": 28.15,
+    "end": 28.4
+  },
+  {
+    "text": "failed.",
+    "start": 28.4,
+    "end": 29.16
+  },
+  {
+    "text": "It",
+    "start": 29.38,
+    "end": 29.39
+  },
+  {
+    "text": "was",
+    "start": 29.39,
+    "end": 29.73
+  },
+  {
+    "text": "the",
+    "start": 29.73,
+    "end": 30.07
+  },
+  {
+    "text": "setup",
+    "start": 30.07,
+    "end": 30.54
+  },
+  {
+    "text": "around",
+    "start": 30.54,
+    "end": 30.74
+  },
+  {
+    "text": "it.",
+    "start": 31.55,
+    "end": 31.92
+  },
+  {
+    "text": "And",
+    "start": 32.14,
+    "end": 32.16
+  },
+  {
+    "text": "anthropic's",
+    "start": 32.16,
+    "end": 32.92
+  },
+  {
+    "text": "own",
+    "start": 33.04,
+    "end": 33.25
+  },
+  {
+    "text": "documentation",
+    "start": 33.25,
+    "end": 33.4
+  },
+  {
+    "text": "says",
+    "start": 34.34,
+    "end": 34.6
+  },
+  {
+    "text": "it",
+    "start": 34.6,
+    "end": 34.75
+  },
+  {
+    "text": "plainly,",
+    "start": 34.86,
+    "end": 35.43
+  },
+  {
+    "text": "Claude's",
+    "start": 35.43,
+    "end": 35.96
+  },
+  {
+    "text": "spatial",
+    "start": 35.96,
+    "end": 36.41
+  },
+  {
+    "text": "reasoning",
+    "start": 36.41,
+    "end": 37.01
+  },
+  {
+    "text": "is",
+    "start": 37.01,
+    "end": 37.16
+  },
+  {
+    "text": "limited.",
+    "start": 37.16,
+    "end": 38.18
+  },
+  {
+    "text": "Reading",
+    "start": 38.46,
+    "end": 38.77
+  },
+  {
+    "text": "a",
+    "start": 38.77,
+    "end": 38.84
+  },
+  {
+    "text": "clock",
+    "start": 38.84,
+    "end": 39.22
+  },
+  {
+    "text": "face",
+    "start": 39.22,
+    "end": 39.52
+  },
+  {
+    "text": "or",
+    "start": 39.52,
+    "end": 39.62
+  },
+  {
+    "text": "placing",
+    "start": 39.62,
+    "end": 39.73
+  },
+  {
+    "text": "chess",
+    "start": 39.73,
+    "end": 40.66
+  },
+  {
+    "text": "pieces",
+    "start": 40.66,
+    "end": 41.04
+  },
+  {
+    "text": "is",
+    "start": 41.04,
+    "end": 41.18
+  },
+  {
+    "text": "still",
+    "start": 41.19,
+    "end": 41.57
+  },
+  {
+    "text": "hard.",
+    "start": 41.57,
+    "end": 42.16
+  }
+]

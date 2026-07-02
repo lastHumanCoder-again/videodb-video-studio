@@ -1,0 +1,40 @@
+{
+  "seg1_hook": {
+    "_dur": 18.85,
+    "s_fumble": 0.0,
+    "s_rec": 14.9,
+    "s_show": 16.71
+  },
+  "seg2_reveal": {
+    "_dur": 16.75,
+    "s_name": 0.0,
+    "s_spine": 11.41
+  },
+  "seg3_record": {
+    "_dur": 18.62,
+    "s_rec": 0.0,
+    "s_split": 4.59,
+    "s_os": 16.68
+  },
+  "seg4_compile": {
+    "_dur": 22,
+    "s_compile": 0.0,
+    "s_var": 16.54,
+    "s_pay": 19.36
+  },
+  "seg5_replay": {
+    "_dur": 24.43,
+    "s_replay": 0.0,
+    "s_change": 7.84,
+    "s_crash": 13.65,
+    "s_heal": 19.8,
+    "s_pay": 23.35
+  },
+  "seg6_close": {
+    "_dur": 24.76,
+    "s_cases": 0.0,
+    "s_pay": 15.85,
+    "s_cta": 19.13,
+    "s_know": 23.13
+  }
+}

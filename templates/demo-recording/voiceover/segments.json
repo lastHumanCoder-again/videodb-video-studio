@@ -1,0 +1,16 @@
+{
+  "model": "eleven_v3",
+  "settings": {
+    "stability": 0.5,
+    "similarity_boost": 0.75,
+    "use_speaker_boost": true
+  },
+  "segments": {
+    "seg1_hook": "[confident] Show a person a task once — they've got it for life. [matter-of-fact] Show an A.I. agent the same task, and it starts from scratch every single time — [serious] fumbling through your apps, breaking the second a button moves. [curious] So we built the obvious fix: [intriguing] let it watch you do it... once.",
+    "seg2_reveal": "[confident] This is Record and Replay. [warm] Open source, from VideoDB. [emphatic] You record a desktop workflow one time — [confident] and any A.I. agent can replay it, anywhere. [knowing] Three steps. Record. Compile. Replay.",
+    "seg3_record": "[matter-of-fact] You hit record, and just do the task. [measured] Two things get captured at once: [knowing] a native accessibility log — every click and keystroke, exact to the field — [confident] and the screen itself, recorded as video, into VideoDB. [emphatic] Precision, and picture. [warm] Windows, Mac, or Linux.",
+    "seg4_compile": "[matter-of-fact] Then a language model compiles it. [measured] Your one demo becomes a reusable skill — a machine-readable file an agent can run, and a plain-English one a human can follow. [intriguing] It even spots the parts that change — a name, a date, an amount — [emphatic] and turns them into variables. [satisfied] Record it once, reuse it a thousand ways.",
+    "seg5_replay": "[confident] Now any agent replays it — real, native clicks, no pixel guessing. [measured] But here's the moment that matters. [knowing] Real apps change. A button moves. A panel gets redesigned. [serious] A brittle script crashes right here. [intriguing] This doesn't. [emphatic] Because it remembers what the screen looked like — so it finds the button that matches, and keeps going. [satisfied] It heals itself.",
+    "seg6_close": "[curious] So — automate the boring desktop chore. [confident] Turn a workflow into documentation that actually runs. [matter-of-fact] Drive that legacy app with no A.P.I. [knowing] Ship automation that survives a redesign. [emphatic] One recording — all of it. [warm] It's open source, and it's live on GitHub today. [satisfied] Go teach an agent something. [confident] Because to see... is to know."
+  }
+}

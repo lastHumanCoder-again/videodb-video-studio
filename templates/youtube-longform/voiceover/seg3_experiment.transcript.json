@@ -1,0 +1,402 @@
+[
+  {
+    "text": "So",
+    "start": 0.18,
+    "end": 0.2
+  },
+  {
+    "text": "the",
+    "start": 0.2,
+    "end": 0.5
+  },
+  {
+    "text": "team",
+    "start": 0.5,
+    "end": 0.9
+  },
+  {
+    "text": "at",
+    "start": 0.9,
+    "end": 1.1
+  },
+  {
+    "text": "VideoDB",
+    "start": 1.1,
+    "end": 1.81
+  },
+  {
+    "text": "Labs",
+    "start": 1.81,
+    "end": 2.21
+  },
+  {
+    "text": "ran",
+    "start": 2.21,
+    "end": 2.5
+  },
+  {
+    "text": "the",
+    "start": 2.5,
+    "end": 2.76
+  },
+  {
+    "text": "test.",
+    "start": 3.28,
+    "end": 3.3
+  },
+  {
+    "text": "72",
+    "start": 3.48,
+    "end": 3.9
+  },
+  {
+    "text": "real",
+    "start": 3.9,
+    "end": 4.3
+  },
+  {
+    "text": "positions",
+    "start": 4.3,
+    "end": 5.18
+  },
+  {
+    "text": "from",
+    "start": 5.19,
+    "end": 5.6
+  },
+  {
+    "text": "a",
+    "start": 5.6,
+    "end": 5.7
+  },
+  {
+    "text": "single",
+    "start": 5.7,
+    "end": 6.06
+  },
+  {
+    "text": "game,",
+    "start": 6.71,
+    "end": 6.74
+  },
+  {
+    "text": "each",
+    "start": 6.92,
+    "end": 7.09
+  },
+  {
+    "text": "one",
+    "start": 7.15,
+    "end": 7.39
+  },
+  {
+    "text": "shown",
+    "start": 7.39,
+    "end": 7.86
+  },
+  {
+    "text": "to",
+    "start": 7.86,
+    "end": 8.04
+  },
+  {
+    "text": "the",
+    "start": 8.04,
+    "end": 8.32
+  },
+  {
+    "text": "model",
+    "start": 8.32,
+    "end": 8.78
+  },
+  {
+    "text": "as",
+    "start": 8.79,
+    "end": 8.97
+  },
+  {
+    "text": "an",
+    "start": 8.97,
+    "end": 9.07
+  },
+  {
+    "text": "image.",
+    "start": 9.13,
+    "end": 9.96
+  },
+  {
+    "text": "The",
+    "start": 10.14,
+    "end": 10.31
+  },
+  {
+    "text": "job?",
+    "start": 10.37,
+    "end": 11.08
+  },
+  {
+    "text": "Output",
+    "start": 11.26,
+    "end": 11.61
+  },
+  {
+    "text": "the",
+    "start": 11.61,
+    "end": 11.82
+  },
+  {
+    "text": "exact",
+    "start": 11.93,
+    "end": 12.28
+  },
+  {
+    "text": "layout,",
+    "start": 12.34,
+    "end": 13.03
+  },
+  {
+    "text": "every",
+    "start": 13.03,
+    "end": 13.41
+  },
+  {
+    "text": "piece,",
+    "start": 13.41,
+    "end": 13.87
+  },
+  {
+    "text": "every",
+    "start": 14.49,
+    "end": 14.54
+  },
+  {
+    "text": "square,",
+    "start": 14.57,
+    "end": 15.24
+  },
+  {
+    "text": "as",
+    "start": 15.42,
+    "end": 15.48
+  },
+  {
+    "text": "one",
+    "start": 15.48,
+    "end": 15.84
+  },
+  {
+    "text": "precise",
+    "start": 15.84,
+    "end": 16.66
+  },
+  {
+    "text": "line",
+    "start": 16.69,
+    "end": 17.16
+  },
+  {
+    "text": "of",
+    "start": 17.16,
+    "end": 17.41
+  },
+  {
+    "text": "text.",
+    "start": 17.41,
+    "end": 18.03
+  },
+  {
+    "text": "Scoring",
+    "start": 18.46,
+    "end": 19.01
+  },
+  {
+    "text": "was",
+    "start": 19.01,
+    "end": 19.32
+  },
+  {
+    "text": "brutal,",
+    "start": 19.32,
+    "end": 20.15
+  },
+  {
+    "text": "exact",
+    "start": 20.15,
+    "end": 20.61
+  },
+  {
+    "text": "match",
+    "start": 20.67,
+    "end": 21.04
+  },
+  {
+    "text": "only.",
+    "start": 21.61,
+    "end": 21.96
+  },
+  {
+    "text": "One",
+    "start": 22.14,
+    "end": 22.17
+  },
+  {
+    "text": "piece",
+    "start": 22.17,
+    "end": 22.52
+  },
+  {
+    "text": "on",
+    "start": 22.52,
+    "end": 22.66
+  },
+  {
+    "text": "the",
+    "start": 22.66,
+    "end": 22.87
+  },
+  {
+    "text": "wrong",
+    "start": 22.87,
+    "end": 23.16
+  },
+  {
+    "text": "square,",
+    "start": 23.21,
+    "end": 23.8
+  },
+  {
+    "text": "one",
+    "start": 23.8,
+    "end": 24.16
+  },
+  {
+    "text": "miscounted",
+    "start": 24.16,
+    "end": 24.75
+  },
+  {
+    "text": "gap,",
+    "start": 25.39,
+    "end": 25.6
+  },
+  {
+    "text": "and",
+    "start": 25.78,
+    "end": 25.88
+  },
+  {
+    "text": "the",
+    "start": 25.88,
+    "end": 26.16
+  },
+  {
+    "text": "entire",
+    "start": 26.16,
+    "end": 26.73
+  },
+  {
+    "text": "board",
+    "start": 26.73,
+    "end": 27.2
+  },
+  {
+    "text": "counts",
+    "start": 27.2,
+    "end": 27.77
+  },
+  {
+    "text": "as",
+    "start": 27.77,
+    "end": 27.93
+  },
+  {
+    "text": "wrong.",
+    "start": 27.99,
+    "end": 28.45
+  },
+  {
+    "text": "Two",
+    "start": 28.94,
+    "end": 29.07
+  },
+  {
+    "text": "models",
+    "start": 29.07,
+    "end": 29.67
+  },
+  {
+    "text": "in",
+    "start": 29.69,
+    "end": 29.9
+  },
+  {
+    "text": "the",
+    "start": 29.9,
+    "end": 30.18
+  },
+  {
+    "text": "ring,",
+    "start": 30.23,
+    "end": 30.81
+  },
+  {
+    "text": "GPT",
+    "start": 30.82,
+    "end": 31.09
+  },
+  {
+    "text": "5.4",
+    "start": 31.15,
+    "end": 32.05
+  },
+  {
+    "text": "and",
+    "start": 32.22,
+    "end": 32.36
+  },
+  {
+    "text": "Claude",
+    "start": 32.36,
+    "end": 33.06
+  },
+  {
+    "text": "Opus",
+    "start": 33.06,
+    "end": 33.39
+  },
+  {
+    "text": "4.7,",
+    "start": 33.39,
+    "end": 34.76
+  },
+  {
+    "text": "each",
+    "start": 34.94,
+    "end": 35.1
+  },
+  {
+    "text": "run",
+    "start": 35.17,
+    "end": 35.37
+  },
+  {
+    "text": "at",
+    "start": 35.37,
+    "end": 35.5
+  },
+  {
+    "text": "different",
+    "start": 35.61,
+    "end": 36.32
+  },
+  {
+    "text": "thinking",
+    "start": 36.32,
+    "end": 37.02
+  },
+  {
+    "text": "settings.",
+    "start": 37.02,
+    "end": 38
+  }
+]

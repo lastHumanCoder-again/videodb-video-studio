@@ -1,0 +1,182 @@
+<!doctype html><html lang="en"><head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=1920, height=1080" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  [data-composition-id="seg1"]{ position:relative; width:1920px; height:1080px; overflow:hidden;
+    font-family:"Inter","Helvetica Neue",Arial,sans-serif;
+    /* BRAND:START */
+    background:#0B0B0C; /* brand:canvas */
+    color:#F4F2EE;      /* brand:text */
+    --orange:#E85810;   /* brand:accent */
+    --card:#141416;     /* brand:card */
+    --muted:#8C8C94;    /* brand:muted */
+    --line:#2A2A2E;     /* brand:hairline */
+    --red:#E5484D;      /* brand:bad */
+    --green:#3DD68C;    /* brand:good */
+    /* BRAND:END */
+  }
+  [data-composition-id="seg1"] .scene{ position:absolute; inset:0; width:1920px; height:1080px; overflow:hidden; opacity:0; }
+  [data-composition-id="seg1"] #s1a{ opacity:1; }   /* the t=0 scene is visible */
+  [data-composition-id="seg1"] .glow{ position:absolute; inset:0; background:radial-gradient(60% 50% at 50% 42%, rgba(232,88,16,0.10), transparent 70%); }
+  [data-composition-id="seg1"] .wrap{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:90px; }
+
+  /* ● REC dot + label (COPIED VERBATIM) */
+  [data-composition-id="seg1"] .rec{ display:inline-flex; align-items:center; gap:16px; font-family:"Archivo Black",sans-serif;
+    color:var(--orange); font-size:40px; letter-spacing:0.14em; text-shadow:0 2px 14px rgba(0,0,0,0.8); }
+  [data-composition-id="seg1"] .rec .dot{ width:26px; height:26px; border-radius:50%; background:var(--orange); box-shadow:0 0 22px var(--orange); }
+
+  /* Callout boxes (COPIED VERBATIM) */
+  [data-composition-id="seg1"] .box{ display:inline-block; background:#F4F2EE; color:#0B0B0C; font-family:"Archivo Black",sans-serif;
+    text-transform:uppercase; letter-spacing:0.01em; line-height:0.98; padding:16px 26px; border-radius:12px; font-size:60px; box-shadow:0 14px 40px rgba(0,0,0,0.6); }
+  [data-composition-id="seg1"] .box.pay{ background:var(--orange); color:#fff; box-shadow:0 16px 50px rgba(232,88,16,0.5); }
+  [data-composition-id="seg1"] .box.red{ background:var(--red); color:#fff; }
+  [data-composition-id="seg1"] .box.sm{ font-size:38px; padding:12px 18px; }
+
+  /* Code / app window (COPIED VERBATIM) */
+  [data-composition-id="seg1"] .win{ background:#0e0e10; border:1px solid var(--line); border-radius:14px; overflow:hidden; box-shadow:0 24px 60px rgba(0,0,0,0.6); }
+  [data-composition-id="seg1"] .win .bar{ display:flex; align-items:center; gap:10px; padding:14px 18px; background:#141416; border-bottom:1px solid var(--line); }
+  [data-composition-id="seg1"] .win .bar .d{ width:13px; height:13px; border-radius:50%; background:#3a3a40; }
+  [data-composition-id="seg1"] .win .bar .t{ margin-left:12px; font-size:20px; color:var(--muted); font-weight:600; }
+  [data-composition-id="seg1"] .win .body{ padding:22px 26px; font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace; font-size:26px; line-height:1.7; }
+
+  /* seg1-local: form layout inside app window */
+  [data-composition-id="seg1"] .form{ display:flex; flex-direction:column; gap:26px; padding:40px 46px; font-family:"Inter",sans-serif; }
+  [data-composition-id="seg1"] .field{ display:flex; flex-direction:column; gap:10px; position:relative; }
+  [data-composition-id="seg1"] .field .lbl{ font-size:22px; color:var(--muted); font-weight:600; letter-spacing:0.02em; }
+  [data-composition-id="seg1"] .field .inp{ height:64px; border-radius:10px; background:#141416; border:2px solid var(--line);
+    display:flex; align-items:center; padding:0 20px; font-size:24px; color:#e7e6e2; }
+  [data-composition-id="seg1"] .submit{ align-self:flex-start; font-family:"Archivo Black",sans-serif; text-transform:uppercase; font-size:26px;
+    padding:16px 34px; border-radius:10px; background:var(--orange); color:#fff; letter-spacing:0.02em; }
+  [data-composition-id="seg1"] .attempt{ position:absolute; right:0; top:-6px; font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    font-size:22px; color:var(--red); font-variant-numeric:tabular-nums; font-weight:700; }
+  /* clicking cursor */
+  [data-composition-id="seg1"] .cursor{ position:absolute; left:0; top:0; z-index:20; filter:drop-shadow(0 3px 6px rgba(0,0,0,0.8)); }
+  /* red ✗ pulse marker */
+  [data-composition-id="seg1"] .xpulse{ position:absolute; z-index:15; width:66px; height:66px; border-radius:50%;
+    background:var(--red); color:#fff; font-family:"Archivo Black",sans-serif; font-size:38px;
+    display:flex; align-items:center; justify-content:center; box-shadow:0 8px 26px rgba(229,72,77,0.6); }
+  /* THE FIX tag */
+  [data-composition-id="seg1"] .tag{ font-family:"Archivo Black",sans-serif; text-transform:uppercase; letter-spacing:0.14em;
+    font-size:28px; color:var(--muted); margin-bottom:30px; }
+
+  [data-composition-id="seg1"] .bug{ position:absolute; right:46px; bottom:40px; height:34px; width:auto; opacity:0.55; z-index:50; }
+</style></head><body>
+  <div data-composition-id="seg1" data-start="0" data-duration="19.16" data-width="1920" data-height="1080">
+
+    <!-- s1a: agent fumbles a form, fails -->
+    <div id="s1a" class="scene">
+      <div class="glow"></div>
+      <div class="wrap">
+        <div class="win" style="width:820px;position:relative;">
+          <div class="bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">customer-portal — sign in</span></div>
+          <div class="form">
+            <div class="field">
+              <span class="lbl">EMAIL</span>
+              <div class="inp" id="fEmail">jordan@example.com</div>
+              <span class="attempt" id="attempt">attempt 1</span>
+            </div>
+            <div class="field">
+              <span class="lbl">PASSWORD</span>
+              <div class="inp" id="fPass">••••••••••</div>
+            </div>
+            <span class="submit" id="submitBtn">Submit</span>
+          </div>
+          <!-- cursor that jitters/misses -->
+          <svg class="cursor" id="cursor" width="34" height="34" viewBox="0 0 24 24" fill="#F4F2EE" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 2 L4 21 L9 16 L12.5 23 L15 22 L11.5 15 L18 15 Z" stroke="#0B0B0C" stroke-width="1"/>
+          </svg>
+          <div class="xpulse" id="xpulse" style="right:56px;bottom:46px;">✗</div>
+        </div>
+      </div>
+      <!-- AGENT FAILED stamp -->
+      <div style="position:absolute; left:0; right:0; bottom:150px; display:flex; justify-content:center; z-index:16;">
+        <span class="box red" id="failStamp">AGENT FAILED</span>
+      </div>
+    </div>
+
+    <!-- s1b: the ● REC dot ignites, hero center -->
+    <div id="s1b" class="scene">
+      <div class="glow"></div>
+      <div class="wrap">
+        <div class="rec" id="recHero" style="transform:scale(2.2); transform-origin:center;">
+          <span class="dot"></span>REC
+        </div>
+      </div>
+    </div>
+
+    <!-- s1c: the fix pivot box -->
+    <div id="s1c" class="scene">
+      <div class="glow"></div>
+      <div class="wrap">
+        <div class="tag" id="fixTag">THE FIX</div>
+        <span class="box pay" id="payBox">JUST SHOW IT. ONCE.</span>
+      </div>
+    </div>
+
+    <img class="bug" src="assets/videodb-logo.png" />
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      var R = '[data-composition-id="seg1"] ';
+      var tl = gsap.timeline({ paused:true });
+      var XF = 0.5;
+      function fadeIn(s,t){ tl.fromTo(R+s,{opacity:0,filter:'blur(16px)'},{opacity:1,filter:'blur(0px)',duration:XF,ease:'sine.inOut'},t); }
+      function fadeOut(s,t){ tl.to(R+s,{opacity:0,filter:'blur(16px)',duration:XF,ease:'sine.inOut'},t); }
+      function countUp(sel,from,to,dur,at,fmt){ var o={n:from};
+        tl.to(o,{n:to,duration:dur,ease:'power2.out',onUpdate:function(){ var el=document.querySelector(R+sel); if(el) el.textContent=(fmt?fmt(Math.round(o.n)):Math.round(o.n)); }},at); }
+      function typewrite(sel,str,dur,at){ var o={n:0};
+        tl.to(o,{n:str.length,duration:dur,ease:'none',onUpdate:function(){ var el=document.querySelector(R+sel); if(el) el.textContent=str.slice(0,Math.round(o.n)); }},at); }
+      function stamp(sel,at){ tl.from(R+sel,{opacity:0,scale:0.72,duration:0.36,ease:'back.out(1.6)'},at); }
+
+      tl.from(R+'.bug',{opacity:0,duration:0.6},0.8);
+
+      /* ============ s1a (0.0) — agent fumbles the form and fails ============ */
+      // set cursor start position (deterministic)
+      tl.set(R+'#cursor',{x:640,y:120},0);
+      tl.set(R+'#xpulse',{opacity:0,scale:0.4},0);
+      tl.set(R+'#failStamp',{opacity:0},0);
+
+      // window + form entrance
+      tl.from(R+'#s1a .win',{opacity:0,y:26,scale:0.96,duration:0.6,ease:'power3.out'},0.25);
+      tl.from(R+'#s1a .field',{opacity:0,y:14,duration:0.4,stagger:0.12,ease:'power2.out'},0.5);
+      tl.from(R+'#s1a .submit',{opacity:0,y:12,duration:0.4,ease:'power2.out'},0.9);
+
+      // cursor moves toward the EMAIL field but MISSES (overshoots below-left), retry loop
+      tl.to(R+'#cursor',{x:250,y:250,duration:0.9,ease:'power2.inOut'},1.0);   // aims for field, lands off
+      tl.to(R+'#cursor',{x:300,y:300,duration:0.45,ease:'sine.inOut',yoyo:true,repeat:1},1.9); // jitter/miss
+
+      // attempt counter ticks 1 -> 2 -> 3
+      typewrite('#attempt','attempt 2',0.01,2.6);
+      // red ✗ pulse ignites near the missed spot ~2.5s
+      tl.to(R+'#xpulse',{opacity:1,scale:1.0,duration:0.4,ease:'back.out(1.7)'},2.5);
+      tl.to(R+'#xpulse',{scale:1.16,duration:0.6,yoyo:true,repeat:11,ease:'sine.inOut'},2.9);
+
+      // AGENT FAILED stamp ~2.7s
+      tl.to(R+'#failStamp',{opacity:1,duration:0.01},2.7);
+      stamp('#failStamp',2.7);
+      tl.to(R+'#failStamp',{boxShadow:'0 0 50px 8px rgba(229,72,77,0.7)',duration:0.7,yoyo:true,repeat:8,ease:'sine.inOut'},3.2);
+
+      // continuous cursor retry jitter through ~14s (finite repeat) — keeps the scene alive
+      tl.to(R+'#cursor',{x:360,y:210,duration:1.1,ease:'sine.inOut',yoyo:true,repeat:8},3.6);
+      // attempt counter climbs to 3 mid-scene
+      typewrite('#attempt','attempt 3',0.01,7.4);
+      // submit button flashes red-ish rejection glow, finite repeat, across the hold
+      tl.to(R+'#submitBtn',{filter:'brightness(0.7)',duration:0.8,yoyo:true,repeat:8,ease:'sine.inOut'},4.0);
+
+      /* ============ s1b (14.90) — ● REC ignites center ============ */
+      fadeOut('#s1a',14.90); fadeIn('#s1b',14.90);
+      // scale-in from small to hero scale
+      tl.fromTo(R+'#recHero',{scale:0.6,opacity:0},{scale:2.2,opacity:1,duration:0.6,ease:'back.out(1.5)'},15.15);
+      // glow pulse on the dot (finite repeat)
+      tl.to(R+'#recHero .dot',{boxShadow:'0 0 46px 10px rgba(232,88,16,0.9)',duration:0.7,yoyo:true,repeat:2,ease:'sine.inOut'},15.4);
+
+      /* ============ s1c (16.71) — THE FIX pivot box ============ */
+      fadeOut('#s1b',16.71); fadeIn('#s1c',16.71);
+      tl.from(R+'#fixTag',{opacity:0,y:12,duration:0.4,ease:'power2.out'},16.96);
+      stamp('#payBox',17.2);
+      tl.to(R+'#payBox',{boxShadow:'0 16px 70px rgba(232,88,16,0.85)',duration:0.7,yoyo:true,repeat:2,ease:'sine.inOut'},17.7);
+
+      window.__timelines["seg1"] = tl;
+    </script>
+  </div></body></html>

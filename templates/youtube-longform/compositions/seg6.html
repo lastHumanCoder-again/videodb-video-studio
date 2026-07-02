@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  [data-composition-id="seg6"]{ position:relative; width:1920px; height:1080px; overflow:hidden;
+    background:#0B0B0C; color:#F4F2EE; font-family:"Inter","Helvetica Neue",Arial,sans-serif;
+    /* BRAND:START */
+    --orange:#E85810; /* brand:accent */
+    --canvas:#0B0B0C; /* brand:canvas */
+    --card:#141416;   /* brand:card */
+    --txt:#F4F2EE;    /* brand:text */
+    --muted:#8C8C94;  /* brand:muted */
+    --line:#2A2A2E;   /* brand:hairline */
+    --red:#E5484D;    /* brand:bad */
+    --green:#3DD68C;  /* brand:good */
+    /* BRAND:END */ }
+  [data-composition-id="seg6"] .scene{ position:absolute; inset:0; width:1920px; height:1080px; overflow:hidden; opacity:0;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  [data-composition-id="seg6"] #s6a{ opacity:1; }
+  [data-composition-id="seg6"] .glow{ position:absolute; inset:0;
+    background:radial-gradient(58% 50% at 50% 46%, rgba(232,88,16,0.10), transparent 70%); }
+
+  /* ---- callout box (shared) ---- */
+  [data-composition-id="seg6"] .box{ display:inline-block; background:#F4F2EE; color:#0B0B0C;
+    font-family:"Archivo Black",sans-serif; text-transform:uppercase; letter-spacing:0.01em; line-height:0.98;
+    padding:14px 24px; border-radius:12px; font-size:56px; box-shadow:0 14px 40px rgba(0,0,0,0.5); }
+  [data-composition-id="seg6"] .box.pay{ background:var(--orange); color:#fff; box-shadow:0 16px 50px rgba(232,88,16,0.45); }
+  [data-composition-id="seg6"] .box.sm{ font-size:38px; padding:12px 18px; border-radius:10px; }
+  [data-composition-id="seg6"] .tie{ margin-top:28px; color:var(--muted); font-size:30px; font-weight:500; letter-spacing:0.02em; }
+
+  /* ---- mark badges (✗ / ✓) — from seg4 ---- */
+  [data-composition-id="seg6"] .mark{ display:inline-flex; align-items:center; justify-content:center; width:90px; height:90px;
+    border-radius:50%; font-family:"Archivo Black",sans-serif; font-size:56px; vertical-align:middle; }
+  [data-composition-id="seg6"] .mark.x{ background:var(--red); color:#fff; box-shadow:0 10px 30px rgba(229,72,77,0.5); }
+  [data-composition-id="seg6"] .mark.c{ background:var(--green); color:#0B0B0C; box-shadow:0 10px 30px rgba(61,214,140,0.5); }
+  [data-composition-id="seg6"] .strike{ position:absolute; left:-30px; right:-30px; top:50%; height:9px;
+    background:var(--red); border-radius:6px; transform-origin:left center; transform:scaleX(0) rotate(-4deg);
+    box-shadow:0 6px 20px rgba(229,72,77,0.4); }
+
+  /* ---- SCENE A — the #1 general badge → struck out → payoff ---- */
+  [data-composition-id="seg6"] #s6a .badgewrap{ position:relative; margin-bottom:64px; }
+  [data-composition-id="seg6"] .badge{ position:relative; display:flex; flex-direction:column; align-items:center; gap:18px;
+    background:var(--card); border:1px solid var(--line); border-radius:20px; padding:42px 70px;
+    box-shadow:0 30px 80px rgba(0,0,0,0.55); }
+  [data-composition-id="seg6"] .badge .trophy{ font-size:84px; line-height:1; filter:saturate(0.85); }
+  [data-composition-id="seg6"] .badge .rank{ font-family:"Archivo Black",sans-serif; text-transform:uppercase;
+    font-size:40px; letter-spacing:0.02em; color:var(--txt); }
+  [data-composition-id="seg6"] .badge .rank .n{ color:var(--muted); }
+  [data-composition-id="seg6"] .badge .sub{ color:var(--muted); font-size:26px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; }
+  [data-composition-id="seg6"] #s6a .markX{ position:absolute; right:-46px; top:-46px; }
+  [data-composition-id="seg6"] #s6a .paywrap{ position:relative; }
+  [data-composition-id="seg6"] #s6a .payoff{ font-size:60px; line-height:1.04; text-align:center; }
+  [data-composition-id="seg6"] #s6a .payoff .ne{ color:#fff; opacity:0.92; }
+
+  /* ---- SCENE B — not smarter, right for the job ---- */
+  [data-composition-id="seg6"] #s6b .btitle{ font-family:"Archivo Black",sans-serif; text-transform:uppercase;
+    font-size:64px; letter-spacing:0.01em; margin-bottom:56px; text-align:center; line-height:1.02; }
+  [data-composition-id="seg6"] #s6b .btitle .o{ color:var(--orange); }
+  [data-composition-id="seg6"] .pair{ display:flex; align-items:center; gap:40px; }
+  [data-composition-id="seg6"] .mini{ width:420px; min-height:200px; background:var(--card); border:1px solid var(--line);
+    border-radius:18px; padding:34px 36px; box-shadow:0 24px 64px rgba(0,0,0,0.5);
+    display:flex; flex-direction:column; justify-content:center; gap:14px; }
+  [data-composition-id="seg6"] .mini .tag{ font-family:"Archivo Black",sans-serif; text-transform:uppercase;
+    font-size:24px; letter-spacing:0.04em; color:var(--muted); }
+  [data-composition-id="seg6"] .mini .name{ font-family:"Archivo Black",sans-serif; text-transform:uppercase;
+    font-size:42px; line-height:1.0; }
+  [data-composition-id="seg6"] .mini .meta{ color:var(--muted); font-size:24px; font-weight:500; }
+  [data-composition-id="seg6"] .mini.dim{ opacity:0.78; }
+  [data-composition-id="seg6"] .mini.win{ border-color:var(--orange); box-shadow:0 0 0 2px rgba(232,88,16,0.32), 0 24px 64px rgba(232,88,16,0.28); }
+  [data-composition-id="seg6"] .mini.win .name{ color:var(--orange); }
+  [data-composition-id="seg6"] .barrow{ width:120px; height:auto; }
+  [data-composition-id="seg6"] .barrow svg{ display:block; }
+  [data-composition-id="seg6"] #s6b .bnote{ margin-top:50px; color:var(--muted); font-size:30px; font-weight:500; letter-spacing:0.01em; }
+
+  /* ---- SCENE C — leaderboard ✗ → test it on your own task ---- */
+  [data-composition-id="seg6"] #s6c .board{ position:relative; width:760px; background:var(--card); border:1px solid var(--line);
+    border-radius:18px; padding:30px 34px; box-shadow:0 30px 80px rgba(0,0,0,0.55); }
+  [data-composition-id="seg6"] #s6c .board .hd{ font-family:"Archivo Black",sans-serif; text-transform:uppercase;
+    font-size:30px; letter-spacing:0.03em; color:var(--muted); margin-bottom:22px; }
+  [data-composition-id="seg6"] #s6c .lbrow{ display:flex; align-items:center; gap:22px; padding:16px 0; border-bottom:1px solid var(--line);
+    font-size:32px; }
+  [data-composition-id="seg6"] #s6c .lbrow:last-child{ border-bottom:0; }
+  [data-composition-id="seg6"] #s6c .lbrow .pos{ font-family:"Archivo Black",sans-serif; color:var(--muted); width:48px; font-variant-numeric:tabular-nums; }
+  [data-composition-id="seg6"] #s6c .lbrow .nm{ flex:1; font-weight:600; color:var(--txt); }
+  [data-composition-id="seg6"] #s6c .lbrow .sc{ font-weight:700; color:var(--muted); font-variant-numeric:tabular-nums; }
+  [data-composition-id="seg6"] #s6c .boardX{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:6; }
+  [data-composition-id="seg6"] #s6c .boardXline{ position:absolute; left:6%; right:6%; top:50%; height:11px;
+    background:var(--red); border-radius:7px; transform-origin:center; transform:translateY(-50%) scaleX(0) rotate(-7deg);
+    box-shadow:0 6px 22px rgba(229,72,77,0.45); z-index:5; }
+  [data-composition-id="seg6"] #s6c .cap{ margin-top:46px; color:var(--muted); font-size:30px; font-weight:500; }
+  [data-composition-id="seg6"] #s6c .paywrap{ margin-top:44px; }
+  [data-composition-id="seg6"] #s6c .payoff{ font-size:62px; line-height:1.02; text-align:center; }
+
+  /* persistent corner logo bug */
+  [data-composition-id="seg6"] .bug{ position:absolute; right:46px; bottom:40px; height:34px; width:auto; opacity:0.5; z-index:50; }
+</style>
+</head>
+<body>
+  <div data-composition-id="seg6" data-start="0" data-duration="24.44" data-width="1920" data-height="1080">
+
+    <!-- SCENE A — "#1 GENERAL MODEL" badge crossed out, flips to payoff (0.00) -->
+    <div id="s6a" class="scene clip">
+      <div class="glow"></div>
+      <div class="badgewrap" id="badgewrap">
+        <div class="badge" id="badge">
+          <div class="trophy">&#127942;</div>
+          <div class="rank"><span class="n">#1</span>&nbsp; GENERAL MODEL</div>
+          <div class="sub">top of the charts</div>
+          <div class="strike" id="badgeStrike"></div>
+        </div>
+        <span class="mark x markX" id="markX">&#10007;</span>
+      </div>
+      <div class="paywrap" id="payAwrap" style="opacity:0">
+        <span class="box pay payoff" id="payA">BEST GENERAL MODEL <span class="ne">&ne;</span><br>BEST FOR YOUR TASK.</span>
+        <div class="tie" id="tieA">(the same lesson, every time)</div>
+      </div>
+    </div>
+
+    <!-- SCENE B — not smarter, right for the job (9.54) -->
+    <div id="s6b" class="scene clip">
+      <div class="glow"></div>
+      <div class="btitle" id="b-title">NOT SMARTER &mdash; <span class="o">RIGHT FOR THE JOB.</span></div>
+      <div class="pair">
+        <div class="mini dim" id="miniGen">
+          <div class="tag">GENERAL BENCHMARK</div>
+          <div class="name">EVERYTHING</div>
+          <div class="meta">broad average score</div>
+        </div>
+        <div class="barrow" id="barrow">
+          <svg viewBox="0 0 120 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <path id="arrowPath" d="M4 20 L100 20" fill="none" stroke="#E85810" stroke-width="5" stroke-linecap="round"/>
+            <path id="arrowHead" d="M92 9 L114 20 L92 31" fill="none" stroke="#E85810" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="mini win" id="miniTask">
+          <div class="tag">YOUR TASK</div>
+          <div class="name">ONE&nbsp;THING</div>
+          <div class="meta">measured where it counts</div>
+        </div>
+      </div>
+      <div class="bnote" id="b-note">reading a grid, with enough room to answer.</div>
+    </div>
+
+    <!-- SCENE C — leaderboard ✗ → test it on your own task (18.45 → 20.06), final scene -->
+    <div id="s6c" class="scene clip">
+      <div class="glow"></div>
+      <div class="board" id="lboard">
+        <div class="hd">GENERAL LEADERBOARD</div>
+        <div class="lbrow"><span class="pos">1</span><span class="nm">model-omega</span><span class="sc">91.4</span></div>
+        <div class="lbrow"><span class="pos">2</span><span class="nm">model-sigma</span><span class="sc">90.8</span></div>
+        <div class="lbrow"><span class="pos">3</span><span class="nm">model-delta</span><span class="sc">89.1</span></div>
+        <div class="lbrow"><span class="pos">4</span><span class="nm">model-theta</span><span class="sc">87.6</span></div>
+        <div class="boardXline" id="boardXline"></div>
+        <span class="mark x boardX" id="boardX">&#10007;</span>
+      </div>
+      <div class="cap" id="c-cap">you'd never know from a leaderboard</div>
+      <div class="paywrap" id="payCwrap" style="opacity:0">
+        <span class="box pay payoff" id="payC">TEST IT ON YOUR OWN TASK.</span>
+      </div>
+    </div>
+
+    <img class="bug" src="assets/videodb-logo.png" />
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      var R = '[data-composition-id="seg6"] ';
+      var tl = gsap.timeline({ paused:true });
+      var XF = 0.55;
+      function fadeIn(s,t){ tl.fromTo(R+s,{opacity:0,filter:'blur(18px)'},{opacity:1,filter:'blur(0px)',duration:XF,ease:'sine.inOut'},t); }
+      function fadeOut(s,t){ tl.to(R+s,{opacity:0,filter:'blur(18px)',duration:XF,ease:'sine.inOut'},t); }
+      function drawPath(sel,dur,at,ease){ var p=document.querySelector(R+sel); if(!p) return;
+        var L=p.getTotalLength(); p.style.strokeDasharray=L; p.style.strokeDashoffset=L;
+        tl.to(p,{strokeDashoffset:0,duration:dur,ease:ease||'power2.inOut'},at); }
+
+      // bug fade-in
+      tl.from(R+'.bug',{opacity:0,duration:0.6,ease:'power2.out'},0.8);
+
+      // ===== SCENE A (0.00) — "the lesson worth keeping" =====
+      // the #1 general badge lands proud... (brief scale-in on the trophy/badge card)
+      tl.from(R+'#badge',{opacity:0,y:24,scale:0.88,duration:0.55,ease:'back.out(1.5)'},0.25);
+      tl.from(R+'#badge .trophy',{opacity:0,y:14,duration:0.45,ease:'back.out(1.8)'},0.55);
+      tl.from(R+'#badge .rank',{opacity:0,y:14,duration:0.4,ease:'power3.out'},0.75);
+      tl.from(R+'#badge .sub',{opacity:0,y:10,duration:0.4,ease:'power2.out'},0.95);
+      // continuous life: badge glow-pulses while it holds its claim (no scale)
+      tl.fromTo(R+'#badge',{boxShadow:'0 30px 80px rgba(0,0,0,0.55)'},{boxShadow:'0 30px 90px rgba(232,88,16,0.32)',duration:1.1,yoyo:true,repeat:1,ease:'sine.inOut'},1.6);
+      // ...then gets called out: red ✗ pops + marker-style strike sweeps across
+      tl.from(R+'#markX',{opacity:0,scale:0,rotation:-50,duration:0.45,ease:'back.out(2.2)'},3.4);
+      tl.to(R+'#badgeStrike',{scaleX:1,duration:0.5,ease:'power2.inOut'},3.7);
+      // the badge dims as it's overruled
+      tl.to(R+'#badge',{opacity:0.42,filter:'saturate(0.6)',duration:0.6,ease:'power2.inOut'},4.2);
+
+      // FLIP to the orange payoff (≈5.4)
+      fadeOut('#badgewrap',5.0);
+      tl.set(R+'#payAwrap',{opacity:1},5.4);
+      // decisive scale punch so the payoff lands hard (scale 0.8→1, opacity/y layered)
+      tl.fromTo(R+'#payA',{opacity:0,y:24,scale:0.8},{opacity:1,y:0,scale:1,duration:0.5,ease:'back.out(1.5)'},5.4);
+      tl.from(R+'#tieA',{opacity:0,y:14,duration:0.5,ease:'power2.out'},5.9);
+      // the ≠ ticks for emphasis (color flash), then the whole payoff glow-pulses (no scale)
+      tl.to(R+'#payA .ne',{color:'#0B0B0C',duration:0.5,yoyo:true,repeat:1,ease:'sine.inOut'},6.5);
+      tl.fromTo(R+'#payA',{boxShadow:'0 16px 50px rgba(232,88,16,0.45)'},{boxShadow:'0 18px 64px rgba(232,88,16,0.7)',duration:1.0,yoyo:true,repeat:1,ease:'sine.inOut'},7.4);
+
+      // ===== SCENE B (9.54) — not smarter, right for the job =====
+      fadeOut('#s6a',9.54); fadeIn('#s6b',9.54);
+      tl.from(R+'#b-title',{opacity:0,y:-22,duration:0.5,ease:'power3.out'},9.79);
+      // general benchmark slides in, dim (brief scale-in layered on the slide)
+      tl.from(R+'#miniGen',{opacity:0,x:-50,scale:0.85,duration:0.5,ease:'back.out(1.4)'},10.1);
+      // YOUR task slides in, lit orange (brief scale-in layered on the slide)
+      tl.from(R+'#miniTask',{opacity:0,x:50,scale:0.85,duration:0.5,ease:'back.out(1.4)'},11.2);
+      // orange arrow draws from general → YOUR task
+      tl.from(R+'#barrow',{opacity:0,duration:0.3,ease:'power1.out'},11.4);
+      drawPath('#arrowPath',0.45,11.6,'power2.inOut');
+      drawPath('#arrowHead',0.3,11.95,'power2.out');
+      // the winning card glow-pulses once it's the target (no scale)
+      tl.fromTo(R+'#miniTask',{boxShadow:'0 0 0 2px rgba(232,88,16,0.32), 0 24px 64px rgba(232,88,16,0.28)'},{boxShadow:'0 0 0 3px rgba(232,88,16,0.6), 0 24px 72px rgba(232,88,16,0.5)',duration:0.9,yoyo:true,repeat:1,ease:'sine.inOut'},13.2);
+      // the grounding note lands
+      tl.from(R+'#b-note',{opacity:0,y:16,duration:0.5,ease:'power2.out'},14.6);
+      // continuous life: arrow glides a touch toward YOUR task
+      tl.to(R+'#barrow',{x:10,duration:1.2,yoyo:true,repeat:1,ease:'sine.inOut'},15.6);
+
+      // ===== SCENE C (18.45) — leaderboard ✗ → test it on your own task (final, hold to 24.44) =====
+      fadeOut('#s6b',18.45); fadeIn('#s6c',18.45);
+      tl.from(R+'#lboard',{opacity:0,y:24,duration:0.55,ease:'back.out(1.4)'},18.7);
+      tl.from(R+'#lboard .lbrow',{opacity:0,x:-18,duration:0.32,ease:'power2.out',stagger:0.08},19.0);
+      // "you'd never know from a leaderboard" — red ✗ over the whole board
+      tl.from(R+'#c-cap',{opacity:0,y:16,duration:0.45,ease:'power2.out'},19.4);
+      tl.to(R+'#boardXline',{scaleX:1,duration:0.5,ease:'power2.inOut'},19.55);
+      tl.from(R+'#boardX',{opacity:0,scale:0,rotation:-50,duration:0.45,ease:'back.out(2.2)'},19.8);
+
+      // (20.06) resolve: leaderboard recedes, orange payoff takes over
+      tl.to(R+'#lboard',{opacity:0.3,y:-26,duration:0.6,ease:'power2.inOut'},20.06);
+      tl.to(R+'#boardX',{opacity:0,duration:0.4,ease:'power2.inOut'},20.06);
+      tl.to(R+'#boardXline',{opacity:0,duration:0.4,ease:'power2.inOut'},20.06);
+      tl.to(R+'#c-cap',{opacity:0,y:-16,duration:0.4,ease:'power2.inOut'},20.06);
+      tl.set(R+'#payCwrap',{opacity:1},20.46);
+      // decisive scale punch so the final payoff lands hard (scale 0.8→1, opacity/y layered)
+      tl.fromTo(R+'#payC',{opacity:0,y:26,scale:0.8},{opacity:1,y:0,scale:1,duration:0.5,ease:'back.out(1.5)'},20.46);
+      // the final payoff glow-pulses through the hold (no scale)
+      tl.fromTo(R+'#payC',{boxShadow:'0 16px 50px rgba(232,88,16,0.45)'},{boxShadow:'0 18px 66px rgba(232,88,16,0.72)',duration:1.0,yoyo:true,repeat:1,ease:'sine.inOut'},21.4);
+      tl.fromTo(R+'#payC',{boxShadow:'0 16px 50px rgba(232,88,16,0.45)'},{boxShadow:'0 18px 60px rgba(232,88,16,0.62)',duration:1.1,yoyo:true,repeat:1,ease:'sine.inOut'},23.2);
+
+      window.__timelines["seg6"] = tl;
+    </script>
+  </div>
+</body>
+</html>

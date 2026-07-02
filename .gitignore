@@ -1,0 +1,14 @@
+# secrets & local state — never commit
+workspace/.env
+workspace/config.json
+
+# build output
+**/renders/
+**/out/
+**/node_modules/
+**/__pycache__/
+*.pyc
+.DS_Store
+
+# local previews / scratch
+**/snapshots/

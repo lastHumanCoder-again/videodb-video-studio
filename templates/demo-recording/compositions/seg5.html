@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  [data-composition-id="seg5"]{ position:relative; width:1920px; height:1080px; overflow:hidden;
+    font-family:"Inter","Helvetica Neue",Arial,sans-serif;
+    /* BRAND:START */
+    background:#0B0B0C; /* brand:canvas */
+    color:#F4F2EE;      /* brand:text */
+    --orange:#E85810;   /* brand:accent */
+    --card:#141416;     /* brand:card */
+    --muted:#8C8C94;    /* brand:muted */
+    --line:#2A2A2E;     /* brand:hairline */
+    --red:#E5484D;      /* brand:bad */
+    --green:#3DD68C;    /* brand:good */
+    /* BRAND:END */
+  }
+  [data-composition-id="seg5"] .scene{ position:absolute; inset:0; width:1920px; height:1080px; overflow:hidden; opacity:0; }
+  [data-composition-id="seg5"] #s5a{ opacity:1; }
+  [data-composition-id="seg5"] .glow{ position:absolute; inset:0; background:radial-gradient(60% 50% at 50% 42%, rgba(232,88,16,0.10), transparent 70%); }
+  [data-composition-id="seg5"] .wrap{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:90px; }
+
+  /* ===== SHARED COMPONENTS — copied verbatim from BUILD_KIT §3 ===== */
+
+  /* ● REC dot + label */
+  [data-composition-id="seg5"] .rec{ display:inline-flex; align-items:center; gap:16px; font-family:"Archivo Black",sans-serif;
+    color:var(--orange); font-size:40px; letter-spacing:0.14em; text-shadow:0 2px 14px rgba(0,0,0,0.8); }
+  [data-composition-id="seg5"] .rec .dot{ width:26px; height:26px; border-radius:50%; background:var(--orange); box-shadow:0 0 22px var(--orange); }
+
+  /* RECORD→COMPILE→REPLAY spine */
+  [data-composition-id="seg5"] .spine{ display:inline-flex; align-items:center; gap:26px; }
+  [data-composition-id="seg5"] .snode{ font-family:"Archivo Black",sans-serif; text-transform:uppercase; letter-spacing:0.03em;
+    font-size:34px; padding:20px 30px; border-radius:14px; background:var(--card); border:1px solid var(--line); color:var(--muted); }
+  [data-composition-id="seg5"] .snode.on{ color:#fff; border-color:var(--orange);
+    box-shadow:0 0 0 2px rgba(232,88,16,0.4), 0 0 34px rgba(232,88,16,0.4); background:#1a1310; }
+  [data-composition-id="seg5"] .sarrow{ color:var(--muted); font-size:40px; }
+
+  /* Callout boxes */
+  [data-composition-id="seg5"] .box{ display:inline-block; background:#F4F2EE; color:#0B0B0C; font-family:"Archivo Black",sans-serif;
+    text-transform:uppercase; letter-spacing:0.01em; line-height:0.98; padding:16px 26px; border-radius:12px; font-size:60px; box-shadow:0 14px 40px rgba(0,0,0,0.6); }
+  [data-composition-id="seg5"] .box.pay{ background:var(--orange); color:#fff; box-shadow:0 16px 50px rgba(232,88,16,0.5); }
+  [data-composition-id="seg5"] .box.red{ background:var(--red); color:#fff; }
+  [data-composition-id="seg5"] .box.sm{ font-size:38px; padding:12px 18px; }
+
+  /* Code / log window */
+  [data-composition-id="seg5"] .win{ background:#0e0e10; border:1px solid var(--line); border-radius:14px; overflow:hidden; box-shadow:0 24px 60px rgba(0,0,0,0.6); }
+  [data-composition-id="seg5"] .win .bar{ display:flex; align-items:center; gap:10px; padding:14px 18px; background:#141416; border-bottom:1px solid var(--line); }
+  [data-composition-id="seg5"] .win .bar .d{ width:13px; height:13px; border-radius:50%; background:#3a3a40; }
+  [data-composition-id="seg5"] .win .bar .t{ margin-left:12px; font-size:20px; color:var(--muted); font-weight:600; }
+  [data-composition-id="seg5"] .win .body{ padding:22px 26px; font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace; font-size:26px; line-height:1.7; }
+  [data-composition-id="seg5"] .logrow{ display:flex; gap:14px; align-items:center; color:#cfcfd6; }
+  [data-composition-id="seg5"] .logrow .k{ color:var(--orange); font-weight:700; }
+  [data-composition-id="seg5"] .var{ background:rgba(232,88,16,0.18); border:1px solid var(--orange); color:#ffd3b0; border-radius:8px; padding:2px 10px; }
+
+  /* self-heal UI button (seg5) */
+  [data-composition-id="seg5"] .appwin{ width:760px; }
+  [data-composition-id="seg5"] .btn{ display:inline-block; font-family:"Archivo Black",sans-serif; text-transform:uppercase; font-size:26px;
+    padding:16px 30px; border-radius:10px; background:var(--orange); color:#fff; }
+  [data-composition-id="seg5"] .ring{ position:absolute; border:3px solid var(--green); border-radius:12px; box-shadow:0 0 26px rgba(61,214,140,0.6); }
+
+  /* ===== seg5-local helpers ===== */
+
+  /* spine placement (scaled, top-center) at top of every scene */
+  [data-composition-id="seg5"] .spinetop{ position:absolute; top:70px; left:50%; transform:translateX(-50%) scale(0.62); transform-origin:top center; z-index:8; }
+
+  /* app window internals */
+  [data-composition-id="seg5"] .appstage{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
+  [data-composition-id="seg5"] .appbody{ position:relative; padding:34px 40px 120px; }
+  [data-composition-id="seg5"] .apptitle{ font-family:"Archivo Black",sans-serif; text-transform:uppercase; letter-spacing:0.02em;
+    font-size:34px; margin-bottom:26px; }
+  [data-composition-id="seg5"] .field{ display:flex; flex-direction:column; gap:10px; margin-bottom:22px; }
+  [data-composition-id="seg5"] .field .lbl{ font-size:22px; color:var(--muted); font-weight:600; letter-spacing:0.02em; }
+  [data-composition-id="seg5"] .field .inp{ background:#141416; border:1px solid var(--line); border-radius:10px; padding:16px 20px;
+    font-size:26px; font-weight:500; min-height:60px; display:flex; align-items:center; color:#F4F2EE;
+    font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace; }
+  [data-composition-id="seg5"] .field .inp .cur{ display:inline-block; width:3px; height:30px; background:var(--orange); margin-left:2px; }
+  [data-composition-id="seg5"] .steps{ display:flex; flex-direction:column; gap:16px; margin-bottom:24px; }
+  [data-composition-id="seg5"] .step{ display:flex; align-items:center; gap:16px; font-size:24px; font-weight:500; color:#cfcfd6; }
+  [data-composition-id="seg5"] .step .ck{ width:36px; height:36px; border-radius:50%; border:2px solid var(--line);
+    display:flex; align-items:center; justify-content:center; font-family:"Archivo Black",sans-serif; font-size:22px; color:var(--green); }
+  [data-composition-id="seg5"] .step.done .ck{ border-color:var(--green); background:rgba(61,214,140,0.14); }
+
+  /* the Submit button — absolutely positioned so we can tween it */
+  [data-composition-id="seg5"] .submit{ position:absolute; right:40px; bottom:36px; z-index:6; }
+  /* moved position = top-RIGHT (clear of the left-aligned title + form) */
+  [data-composition-id="seg5"] .submit.tl{ left:auto; bottom:auto; right:40px; top:34px; }
+  /* self-heal match badge — clean zone between spine and app window (no occlusion) */
+  [data-composition-id="seg5"] .matchbadge{ position:absolute; left:50%; top:154px; transform:translateX(-50%);
+    display:flex; align-items:center; gap:18px; z-index:20; }
+
+  /* UI UPDATED tag */
+  [data-composition-id="seg5"] .uitag{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:9;
+    font-family:"Archivo Black",sans-serif; text-transform:uppercase; letter-spacing:0.06em; font-size:38px;
+    color:#fff; background:rgba(20,20,22,0.9); border:2px solid var(--orange); border-radius:12px; padding:16px 30px;
+    box-shadow:0 0 40px rgba(232,88,16,0.5); }
+
+  /* brittle-script scene */
+  [data-composition-id="seg5"] .brittlestage{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; gap:70px; }
+  [data-composition-id="seg5"] .coordline{ display:flex; align-items:center; gap:14px; }
+  [data-composition-id="seg5"] .coord{ color:var(--red); font-weight:700; }
+  [data-composition-id="seg5"] .emptyspot{ position:relative; width:400px; height:300px; border:2px dashed var(--line); border-radius:14px;
+    display:flex; align-items:center; justify-content:center; color:var(--muted); font-size:22px; }
+  [data-composition-id="seg5"] .crosshair{ position:absolute; width:70px; height:70px; }
+  [data-composition-id="seg5"] .crosshair::before,[data-composition-id="seg5"] .crosshair::after{ content:""; position:absolute; background:var(--red); }
+  [data-composition-id="seg5"] .crosshair::before{ left:50%; top:0; bottom:0; width:2px; transform:translateX(-50%); }
+  [data-composition-id="seg5"] .crosshair::after{ top:50%; left:0; right:0; height:2px; transform:translateY(-50%); }
+  [data-composition-id="seg5"] .xbig{ display:inline-flex; align-items:center; justify-content:center; width:96px; height:96px;
+    border-radius:50%; background:var(--red); color:#fff; font-family:"Archivo Black",sans-serif; font-size:58px;
+    box-shadow:0 12px 36px rgba(229,72,77,0.55); }
+
+  /* self-heal scene */
+  [data-composition-id="seg5"] .matchtag{ position:absolute; z-index:10; font-family:"Archivo Black",sans-serif; text-transform:uppercase;
+    letter-spacing:0.04em; font-size:26px; color:var(--green); background:rgba(20,20,22,0.92); border:2px solid var(--green);
+    border-radius:10px; padding:12px 20px; box-shadow:0 0 30px rgba(61,214,140,0.5); }
+  [data-composition-id="seg5"] .checkpop{ position:absolute; z-index:11; display:inline-flex; align-items:center; justify-content:center;
+    width:72px; height:72px; border-radius:50%; background:var(--green); color:#0B0B0C; font-family:"Archivo Black",sans-serif;
+    font-size:44px; box-shadow:0 0 34px rgba(61,214,140,0.7); }
+  [data-composition-id="seg5"] .paywrap{ position:absolute; left:0; right:0; bottom:120px; display:flex; justify-content:center; z-index:20; }
+
+  [data-composition-id="seg5"] .bug{ position:absolute; right:46px; bottom:40px; height:34px; width:auto; opacity:0.55; z-index:50; }
+</style>
+</head>
+<body>
+  <div data-composition-id="seg5" data-start="0" data-duration="24.92" data-width="1920" data-height="1080">
+
+    <!-- ============ s5a: REPLAY RUNNING ============ -->
+    <div id="s5a" class="scene">
+      <div class="glow"></div>
+      <div class="spinetop">
+        <div class="spine">
+          <span class="snode">Record</span>
+          <span class="sarrow">→</span>
+          <span class="snode">Compile</span>
+          <span class="sarrow">→</span>
+          <span class="snode on">Replay</span>
+        </div>
+      </div>
+      <div class="appstage">
+        <div class="appwin win">
+          <div class="bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">CUSTOMER PORTAL</span></div>
+          <div class="appbody">
+            <div class="apptitle">Customer Portal</div>
+            <div class="steps">
+              <div class="step" id="s5a-st1"><span class="ck">✓</span>Open search panel</div>
+              <div class="step" id="s5a-st2"><span class="ck">✓</span>Focus query field</div>
+              <div class="step" id="s5a-st3"><span class="ck">✓</span>Enter search term</div>
+            </div>
+            <div class="field">
+              <div class="lbl">Query</div>
+              <div class="inp"><span id="s5a-q"></span><span class="cur" id="s5a-cur"></span></div>
+            </div>
+            <div class="submit"><span class="btn">Submit</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ s5b: UI CHANGES (button slides) ============ -->
+    <div id="s5b" class="scene">
+      <div class="glow"></div>
+      <div class="spinetop">
+        <div class="spine">
+          <span class="snode">Record</span>
+          <span class="sarrow">→</span>
+          <span class="snode">Compile</span>
+          <span class="sarrow">→</span>
+          <span class="snode on">Replay</span>
+        </div>
+      </div>
+      <div class="appstage">
+        <div class="appwin win" style="position:relative;">
+          <div class="bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">CUSTOMER PORTAL · v2</span></div>
+          <div class="appbody">
+            <div class="apptitle">Customer Portal</div>
+            <div class="steps">
+              <div class="step done"><span class="ck">✓</span>Open search panel</div>
+              <div class="step done"><span class="ck">✓</span>Focus query field</div>
+              <div class="step done"><span class="ck">✓</span>Enter search term</div>
+            </div>
+            <div class="field">
+              <div class="lbl">Query</div>
+              <div class="inp">invoice</div>
+            </div>
+            <div class="submit" id="s5b-submit"><span class="btn">Submit</span></div>
+          </div>
+          <div class="uitag" id="s5b-tag">UI UPDATED</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ s5c: BRITTLE SCRIPT CRASHES ============ -->
+    <div id="s5c" class="scene">
+      <div class="glow"></div>
+      <div class="spinetop">
+        <div class="spine">
+          <span class="snode">Record</span>
+          <span class="sarrow">→</span>
+          <span class="snode">Compile</span>
+          <span class="sarrow">→</span>
+          <span class="snode on">Replay</span>
+        </div>
+      </div>
+      <div class="brittlestage">
+        <div class="win" style="width:620px;">
+          <div class="bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">BRITTLE SCRIPT</span></div>
+          <div class="body">
+            <div class="logrow"><span class="k">run</span> replay.step[4]</div>
+            <div class="logrow"><span class="coord" id="s5c-coord">click(x:642, y:770)</span></div>
+            <div class="logrow" style="margin-top:14px;"><span style="color:var(--red);">→ target coordinate is empty</span></div>
+          </div>
+        </div>
+        <div class="emptyspot">
+          <div class="crosshair" id="s5c-cross"></div>
+          <span style="position:absolute; bottom:16px;">nothing here</span>
+        </div>
+      </div>
+      <div style="position:absolute; left:50%; bottom:150px; transform:translateX(-50%); display:flex; align-items:center; gap:28px; z-index:15;">
+        <div class="xbig" id="s5c-x">✗</div>
+        <span class="box red" id="s5c-box">✗ NOT FOUND</span>
+      </div>
+    </div>
+
+    <!-- ============ s5d: SELF-HEAL ✓ + PAYOFF (money frame) ============ -->
+    <div id="s5d" class="scene">
+      <div class="glow"></div>
+      <div class="spinetop">
+        <div class="spine">
+          <span class="snode">Record</span>
+          <span class="sarrow">→</span>
+          <span class="snode">Compile</span>
+          <span class="sarrow">→</span>
+          <span class="snode on">Replay</span>
+        </div>
+      </div>
+      <div class="appstage">
+        <div class="appwin win" style="position:relative;">
+          <div class="bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">CUSTOMER PORTAL · v2</span></div>
+          <div class="appbody">
+            <div class="apptitle">Customer Portal</div>
+            <div class="steps">
+              <div class="step done"><span class="ck">✓</span>Open search panel</div>
+              <div class="step done"><span class="ck">✓</span>Focus query field</div>
+              <div class="step done"><span class="ck">✓</span>Enter search term</div>
+            </div>
+            <div class="field">
+              <div class="lbl">Query</div>
+              <div class="inp">invoice</div>
+            </div>
+            <!-- button in its NEW spot (top-left) -->
+            <div class="submit tl" id="s5d-submit"><span class="btn">Submit</span></div>
+          </div>
+          <div class="ring" id="s5d-ring" style="left:556px; top:72px; width:176px; height:66px;"></div>
+        </div>
+      </div>
+      <div class="matchbadge">
+        <div class="checkpop" id="s5d-check" style="position:static;">✓</div>
+        <div class="matchtag" id="s5d-match" style="position:static;">MATCHED BY APPEARANCE</div>
+      </div>
+      <div class="paywrap"><span class="box pay" id="s5d-pay">THE UI CHANGED.<br>IT DIDN'T CARE.</span></div>
+    </div>
+
+    <img class="bug" src="assets/videodb-logo.png" />
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      var R = '[data-composition-id="seg5"] ';
+      var tl = gsap.timeline({ paused:true });
+      var XF = 0.5;
+      function fadeIn(s,t){ tl.fromTo(R+s,{opacity:0,filter:'blur(16px)'},{opacity:1,filter:'blur(0px)',duration:XF,ease:'sine.inOut'},t); }
+      function fadeOut(s,t){ tl.to(R+s,{opacity:0,filter:'blur(16px)',duration:XF,ease:'sine.inOut'},t); }
+      function stamp(sel,at){ tl.from(R+sel,{opacity:0,scale:0.72,duration:0.36,ease:'back.out(1.6)'},at); }
+      function typewrite(sel,str,dur,at){ var o={n:0};
+        tl.to(o,{n:str.length,duration:dur,ease:'none',onUpdate:function(){ var el=document.querySelector(R+sel); if(el) el.textContent=str.slice(0,Math.round(o.n)); }},at); }
+
+      tl.from(R+'.bug',{opacity:0,duration:0.6},0.8);
+
+      /* ===== s5a (0.0) — REPLAY RUNNING ===== */
+      tl.from(R+'#s5a .appwin',{opacity:0,y:26,duration:0.6,ease:'power3.out'},0.25);
+      tl.from(R+'#s5a .spinetop',{opacity:0,y:-16,duration:0.5,ease:'power3.out'},0.25);
+      // steps check off ✓ one at a time (staggered)
+      tl.set(R+'#s5a-st1',{attr:{class:'step done'}},1.1);
+      tl.from(R+'#s5a-st1 .ck',{scale:0.4,duration:0.32,ease:'back.out(2)'},1.1);
+      tl.set(R+'#s5a-st2',{attr:{class:'step done'}},1.85);
+      tl.from(R+'#s5a-st2 .ck',{scale:0.4,duration:0.32,ease:'back.out(2)'},1.85);
+      tl.set(R+'#s5a-st3',{attr:{class:'step done'}},2.6);
+      tl.from(R+'#s5a-st3 .ck',{scale:0.4,duration:0.32,ease:'back.out(2)'},2.6);
+      // query field fills LIVE via typewrite
+      typewrite('#s5a-q','invoice',1.3,3.4);
+      // blinking cursor (finite repeat)
+      tl.to(R+'#s5a-cur',{opacity:0,duration:0.42,yoyo:true,repeat:12,ease:'power1.inOut'},3.4);
+      // submit button settles in with a soft pulse (continuous motion, finite repeat)
+      tl.from(R+'#s5a .submit',{opacity:0,y:14,duration:0.5,ease:'power3.out'},2.0);
+      tl.to(R+'#s5a .submit .btn',{boxShadow:'0 0 28px rgba(232,88,16,0.6)',duration:0.8,yoyo:true,repeat:4,ease:'sine.inOut'},5.0);
+
+      /* ===== s5b (7.84) — UI CHANGES: submit SLIDES bottom-right → top-left ===== */
+      fadeOut('#s5a',7.84); fadeIn('#s5b',7.84);
+      tl.from(R+'#s5b .appwin',{opacity:0,duration:0.4,ease:'power2.out'},8.09);
+      // the button visibly slides up (smooth transform; bottom-right → top-right, clear of title/form)
+      tl.fromTo(R+'#s5b-submit',{y:0},{y:-300,duration:0.8,ease:'power2.inOut'},8.9);
+      tl.fromTo(R+'#s5b-submit',{scale:1},{scale:1.06,duration:0.4,yoyo:true,repeat:1,ease:'sine.inOut'},8.9);
+      // "UI UPDATED" tag flashes
+      tl.fromTo(R+'#s5b-tag',{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.34,ease:'back.out(1.6)'},9.9);
+      tl.to(R+'#s5b-tag',{opacity:0,duration:0.5,ease:'sine.in'},11.6);
+      // ambient glow pulse on the moved button (finite repeat)
+      tl.to(R+'#s5b-submit .btn',{boxShadow:'0 0 30px rgba(232,88,16,0.65)',duration:0.7,yoyo:true,repeat:4,ease:'sine.inOut'},11.0);
+
+      /* ===== s5c (13.65) — BRITTLE SCRIPT CRASHES ===== */
+      fadeOut('#s5b',13.65); fadeIn('#s5c',13.65);
+      tl.from(R+'#s5c .win',{opacity:0,x:-30,duration:0.5,ease:'power3.out'},13.9);
+      tl.from(R+'#s5c .emptyspot',{opacity:0,x:30,duration:0.5,ease:'power3.out'},14.1);
+      // crosshair jitters searching the empty coordinate (finite repeat)
+      tl.fromTo(R+'#s5c-cross',{x:-40,y:-24,opacity:0},{x:-40,y:-24,opacity:1,duration:0.3},14.4);
+      tl.to(R+'#s5c-cross',{x:44,y:30,duration:0.6,yoyo:true,repeat:3,ease:'sine.inOut'},14.7);
+      // coord line flashes red (finite repeat)
+      tl.to(R+'#s5c-coord',{opacity:0.4,duration:0.4,yoyo:true,repeat:5,ease:'power1.inOut'},14.5);
+      // red box snaps in
+      stamp('#s5c-box',16.4);
+      tl.from(R+'#s5c-x',{opacity:0,scale:0.4,rotation:-40,duration:0.44,ease:'back.out(2)'},16.4);
+      // red ✗ pulses — FINITE repeat
+      tl.to(R+'#s5c-x',{boxShadow:'0 0 52px 8px rgba(229,72,77,0.75)',scale:1.08,duration:0.5,yoyo:true,repeat:4,ease:'sine.inOut'},16.9);
+
+      /* ===== s5d (19.80) — SELF-HEAL ✓ + PAYOFF (money frame) ===== */
+      fadeOut('#s5c',19.80); fadeIn('#s5d',19.80);
+      tl.from(R+'#s5d .appwin',{opacity:0,duration:0.4,ease:'power2.out'},20.05);
+      // green scanning ring sweeps across then LANDS on the moved Submit button (top-left)
+      tl.set(R+'#s5d-ring',{opacity:0},20.05);
+      tl.fromTo(R+'#s5d-ring',
+        {opacity:1,left:'480px',top:'360px',width:'176px',height:'66px'},
+        {left:'480px',top:'360px',duration:0.01},20.4);
+      // sweep: move across the window, finite motion, landing on the button spot (top-right)
+      tl.to(R+'#s5d-ring',{left:'440px',top:'250px',duration:0.5,ease:'sine.inOut'},20.5);
+      tl.to(R+'#s5d-ring',{left:'520px',top:'150px',duration:0.5,ease:'sine.inOut'},21.0);
+      // LANDS on the top-RIGHT submit button
+      tl.to(R+'#s5d-ring',{left:'556px',top:'72px',width:'176px',height:'66px',duration:0.6,ease:'power2.out'},21.5);
+      // lock-on pulse (finite repeat)
+      tl.to(R+'#s5d-ring',{boxShadow:'0 0 40px rgba(61,214,140,0.9)',duration:0.5,yoyo:true,repeat:3,ease:'sine.inOut'},22.1);
+      // green ✓ pops
+      tl.from(R+'#s5d-check',{opacity:0,scale:0.3,duration:0.4,ease:'back.out(2)'},22.2);
+      // "MATCHED BY APPEARANCE" tag
+      tl.from(R+'#s5d-match',{opacity:0,y:10,duration:0.4,ease:'power3.out'},22.5);
+      // subtle push-in on the app to add cinematic life through the payoff
+      tl.fromTo(R+'#s5d .appwin',{scale:1.0},{scale:1.03,duration:4.6,ease:'sine.inOut'},20.1);
+
+      // ===== 23.35 — orange payoff STAMPS HARD (scale overshoot + glow pulse) — MONEY FRAME =====
+      tl.from(R+'#s5d-pay',{opacity:0,scale:0.6,duration:0.44,ease:'back.out(2)'},23.35);
+      tl.to(R+'#s5d-pay',{boxShadow:'0 16px 80px rgba(232,88,16,0.95)',duration:0.6,yoyo:true,repeat:2,ease:'sine.inOut'},23.85);
+
+      window.__timelines["seg5"] = tl;
+    </script>
+  </div>
+</body>
+</html>

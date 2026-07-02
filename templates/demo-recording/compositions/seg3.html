@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  [data-composition-id="seg3"]{ position:relative; width:1920px; height:1080px; overflow:hidden;
+    font-family:"Inter","Helvetica Neue",Arial,sans-serif;
+    /* BRAND:START */
+    background:#0B0B0C; /* brand:canvas */
+    color:#F4F2EE;      /* brand:text */
+    --orange:#E85810;   /* brand:accent */
+    --card:#141416;     /* brand:card */
+    --muted:#8C8C94;    /* brand:muted */
+    --line:#2A2A2E;     /* brand:hairline */
+    --red:#E5484D;      /* brand:bad */
+    --green:#3DD68C;    /* brand:good */
+    /* BRAND:END */
+  }
+  [data-composition-id="seg3"] .scene{ position:absolute; inset:0; width:1920px; height:1080px; overflow:hidden; opacity:0; }
+  [data-composition-id="seg3"] #s3a{ opacity:1; }
+  [data-composition-id="seg3"] .glow{ position:absolute; inset:0; background:radial-gradient(60% 50% at 50% 42%, rgba(232,88,16,0.10), transparent 70%); }
+  [data-composition-id="seg3"] .wrap{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:90px; }
+
+  /* ● REC dot + label */
+  [data-composition-id="seg3"] .rec{ display:inline-flex; align-items:center; gap:16px; font-family:"Archivo Black",sans-serif;
+    color:var(--orange); font-size:40px; letter-spacing:0.14em; text-shadow:0 2px 14px rgba(0,0,0,0.8); }
+  [data-composition-id="seg3"] .rec .dot{ width:26px; height:26px; border-radius:50%; background:var(--orange); box-shadow:0 0 22px var(--orange); }
+
+  /* RECORD→COMPILE→REPLAY spine */
+  [data-composition-id="seg3"] .spine{ display:inline-flex; align-items:center; gap:26px; }
+  [data-composition-id="seg3"] .snode{ font-family:"Archivo Black",sans-serif; text-transform:uppercase; letter-spacing:0.03em;
+    font-size:34px; padding:20px 30px; border-radius:14px; background:var(--card); border:1px solid var(--line); color:var(--muted); }
+  [data-composition-id="seg3"] .snode.on{ color:#fff; border-color:var(--orange);
+    box-shadow:0 0 0 2px rgba(232,88,16,0.4), 0 0 34px rgba(232,88,16,0.4); background:#1a1310; }
+  [data-composition-id="seg3"] .sarrow{ color:var(--muted); font-size:40px; }
+
+  /* Callout boxes */
+  [data-composition-id="seg3"] .box{ display:inline-block; background:#F4F2EE; color:#0B0B0C; font-family:"Archivo Black",sans-serif;
+    text-transform:uppercase; letter-spacing:0.01em; line-height:0.98; padding:16px 26px; border-radius:12px; font-size:60px; box-shadow:0 14px 40px rgba(0,0,0,0.6); }
+  [data-composition-id="seg3"] .box.pay{ background:var(--orange); color:#fff; box-shadow:0 16px 50px rgba(232,88,16,0.5); }
+  [data-composition-id="seg3"] .box.red{ background:var(--red); color:#fff; }
+  [data-composition-id="seg3"] .box.sm{ font-size:38px; padding:12px 18px; }
+
+  /* Card / chip */
+  [data-composition-id="seg3"] .card{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:26px 30px; }
+  [data-composition-id="seg3"] .chip{ display:inline-flex; align-items:center; gap:12px; background:var(--card); border:1px solid var(--line);
+    border-radius:999px; padding:12px 24px; font-size:28px; font-weight:600; color:var(--txt,#F4F2EE); }
+  [data-composition-id="seg3"] .chip .cd{ width:12px; height:12px; border-radius:50%; background:var(--orange); }
+
+  /* Code / log window (accessibility log, SKILL files) */
+  [data-composition-id="seg3"] .win{ background:#0e0e10; border:1px solid var(--line); border-radius:14px; overflow:hidden; box-shadow:0 24px 60px rgba(0,0,0,0.6); }
+  [data-composition-id="seg3"] .win .bar{ display:flex; align-items:center; gap:10px; padding:14px 18px; background:#141416; border-bottom:1px solid var(--line); }
+  [data-composition-id="seg3"] .win .bar .d{ width:13px; height:13px; border-radius:50%; background:#3a3a40; }
+  [data-composition-id="seg3"] .win .bar .t{ margin-left:12px; font-size:20px; color:var(--muted); font-weight:600; }
+  [data-composition-id="seg3"] .win .body{ padding:22px 26px; font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace; font-size:26px; line-height:1.7; }
+  [data-composition-id="seg3"] .logrow{ display:flex; gap:14px; align-items:center; color:#cfcfd6; }
+  [data-composition-id="seg3"] .logrow .k{ color:var(--orange); font-weight:700; } /* verb */
+  [data-composition-id="seg3"] .var{ background:rgba(232,88,16,0.18); border:1px solid var(--orange); color:#ffd3b0; border-radius:8px; padding:2px 10px; }
+
+  /* --- seg3-specific layout --- */
+  [data-composition-id="seg3"] .spinewrap{ position:absolute; top:60px; left:0; right:0; display:flex; justify-content:center;
+    transform:scale(0.62); transform-origin:top center; z-index:6; }
+  [data-composition-id="seg3"] .stage{ position:absolute; left:0; right:0; top:200px; bottom:80px; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; padding:0 90px; }
+
+  /* s3a big rec + cursor */
+  [data-composition-id="seg3"] .bigrec{ display:inline-flex; align-items:center; gap:30px; font-family:"Archivo Black",sans-serif;
+    color:var(--orange); font-size:96px; letter-spacing:0.14em; text-shadow:0 2px 20px rgba(0,0,0,0.8); }
+  [data-composition-id="seg3"] .bigrec .dot{ width:64px; height:64px; border-radius:50%; background:var(--orange); box-shadow:0 0 46px var(--orange); }
+  [data-composition-id="seg3"] .capchip{ margin-top:52px; }
+  [data-composition-id="seg3"] .cursor{ position:absolute; width:34px; height:34px; z-index:8; }
+  [data-composition-id="seg3"] .cursor svg{ display:block; filter:drop-shadow(0 2px 6px rgba(0,0,0,0.8)); }
+  [data-composition-id="seg3"] .clickring{ position:absolute; width:60px; height:60px; border-radius:50%;
+    border:3px solid var(--orange); opacity:0; z-index:7; }
+
+  /* s3b two panels */
+  [data-composition-id="seg3"] .panels{ display:flex; gap:56px; align-items:flex-start; justify-content:center; }
+  [data-composition-id="seg3"] #s3b .win{ width:640px; }
+  [data-composition-id="seg3"] #s3b .logrow{ opacity:0; }
+  [data-composition-id="seg3"] .frame{ position:relative; margin:22px 26px; height:300px; background:#050506; border:1px solid var(--line);
+    border-radius:10px; overflow:hidden; }
+  [data-composition-id="seg3"] .frame .fui{ position:absolute; left:20px; top:20px; right:20px; }
+  [data-composition-id="seg3"] .frame .ftop{ display:flex; gap:10px; margin-bottom:18px; }
+  [data-composition-id="seg3"] .frame .ftop span{ width:70px; height:10px; border-radius:5px; background:#26262c; }
+  [data-composition-id="seg3"] .frame .ftop span:first-child{ width:120px; background:#33333a; }
+  [data-composition-id="seg3"] .frame .fline{ height:12px; border-radius:6px; background:#1c1c22; margin-bottom:14px; }
+  [data-composition-id="seg3"] .frame .fline.w1{ width:82%; }
+  [data-composition-id="seg3"] .frame .fline.w2{ width:64%; }
+  [data-composition-id="seg3"] .frame .fline.w3{ width:74%; }
+  [data-composition-id="seg3"] .frame .fbtn{ width:150px; height:38px; border-radius:8px; background:var(--orange); opacity:0.85; }
+  [data-composition-id="seg3"] .frame .fcorner{ position:absolute; right:16px; top:14px; display:inline-flex; align-items:center; gap:8px;
+    font-family:"Archivo Black",sans-serif; font-size:18px; letter-spacing:0.12em; color:var(--orange); }
+  [data-composition-id="seg3"] .frame .fcorner .cd{ width:14px; height:14px; border-radius:50%; background:var(--orange); box-shadow:0 0 14px var(--orange); }
+  [data-composition-id="seg3"] .scan{ position:absolute; left:0; right:0; top:0; height:26px; z-index:4;
+    background:linear-gradient(180deg, rgba(232,88,16,0), rgba(232,88,16,0.55) 50%, rgba(232,88,16,0)); box-shadow:0 0 22px rgba(232,88,16,0.6); }
+  [data-composition-id="seg3"] .paywrap{ margin-top:46px; display:flex; justify-content:center; }
+  [data-composition-id="seg3"] .oschips{ position:absolute; left:0; right:0; bottom:64px; display:flex; gap:26px;
+    justify-content:center; z-index:6; }
+  [data-composition-id="seg3"] .oschips .chip{ opacity:0; }  /* hidden until cue (seek-safe reveal) */
+
+  [data-composition-id="seg3"] .bug{ position:absolute; right:46px; bottom:40px; height:34px; width:auto; opacity:0.55; z-index:50; }
+</style>
+</head>
+<body>
+  <div data-composition-id="seg3" data-start="0" data-duration="19.08" data-width="1920" data-height="1080">
+
+    <!-- s3a: REC arms + cursor clicks -->
+    <div id="s3a" class="scene">
+      <div class="glow"></div>
+      <div class="spinewrap">
+        <div class="spine">
+          <div class="snode on">RECORD</div><div class="sarrow">→</div>
+          <div class="snode">COMPILE</div><div class="sarrow">→</div>
+          <div class="snode">REPLAY</div>
+        </div>
+      </div>
+      <div class="stage">
+        <div class="bigrec"><span class="dot" id="a-dot"></span>REC</div>
+        <div class="capchip"><span class="chip"><span class="cd"></span>do the task</span></div>
+        <div class="clickring" id="a-ring" style="left:1010px; top:640px;"></div>
+        <div class="cursor" id="a-cursor" style="left:1010px; top:640px;">
+          <svg viewBox="0 0 24 24" width="34" height="34"><path d="M4 2 L4 20 L9 15 L12.5 22 L15 21 L11.5 14 L18 14 Z" fill="#F4F2EE" stroke="#0B0B0C" stroke-width="1"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- s3b: dual capture split + OS chips -->
+    <div id="s3b" class="scene">
+      <div class="glow"></div>
+      <div class="spinewrap">
+        <div class="spine">
+          <div class="snode on">RECORD</div><div class="sarrow">→</div>
+          <div class="snode">COMPILE</div><div class="sarrow">→</div>
+          <div class="snode">REPLAY</div>
+        </div>
+      </div>
+      <div class="stage">
+        <div class="panels">
+          <!-- LEFT: accessibility log -->
+          <div class="win">
+            <div class="bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">ACCESSIBILITY LOG</span></div>
+            <div class="body">
+              <div class="logrow" id="lr1"><span class="k">click</span> <span>▸ Search</span></div>
+              <div class="logrow" id="lr2"><span class="k">type</span> <span>▸ "invoice"</span></div>
+              <div class="logrow" id="lr3"><span class="k">press</span> <span>▸ Enter</span></div>
+            </div>
+          </div>
+          <!-- RIGHT: screen → videodb -->
+          <div class="win">
+            <div class="bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">SCREEN → VIDEODB</span></div>
+            <div class="frame" data-layout-allow-overflow>
+              <div class="fcorner"><span class="cd" id="b-reccd"></span>REC</div>
+              <div class="fui">
+                <div class="ftop"><span></span><span></span><span></span></div>
+                <div class="fline w1"></div>
+                <div class="fline w2"></div>
+                <div class="fline w3"></div>
+                <div class="fbtn"></div>
+              </div>
+              <div class="scan" id="b-scan"></div>
+            </div>
+          </div>
+        </div>
+        <div class="paywrap"><span class="box pay" id="b-pay">PRECISION + PICTURE</span></div>
+      </div>
+      <div class="oschips" data-layout-allow-occlusion>
+        <span class="chip" id="os1"><span class="cd"></span>Windows</span>
+        <span class="chip" id="os2"><span class="cd"></span>macOS</span>
+        <span class="chip" id="os3"><span class="cd"></span>Linux</span>
+      </div>
+    </div>
+
+    <img class="bug" src="assets/videodb-logo.png" />
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      var R = '[data-composition-id="seg3"] ';
+      var tl = gsap.timeline({ paused:true });
+      var XF = 0.5;
+      function fadeIn(s,t){ tl.fromTo(R+s,{opacity:0,filter:'blur(16px)'},{opacity:1,filter:'blur(0px)',duration:XF,ease:'sine.inOut'},t); }
+      function fadeOut(s,t){ tl.to(R+s,{opacity:0,filter:'blur(16px)',duration:XF,ease:'sine.inOut'},t); }
+      function countUp(sel,from,to,dur,at,fmt){ var o={n:from};
+        tl.to(o,{n:to,duration:dur,ease:'power2.out',onUpdate:function(){ var el=document.querySelector(R+sel); if(el) el.textContent=(fmt?fmt(Math.round(o.n)):Math.round(o.n)); }},at); }
+      function typewrite(sel,str,dur,at){ var o={n:0};
+        tl.to(o,{n:str.length,duration:dur,ease:'none',onUpdate:function(){ var el=document.querySelector(R+sel); if(el) el.textContent=str.slice(0,Math.round(o.n)); }},at); }
+      function stamp(sel,at){ tl.from(R+sel,{opacity:0,scale:0.72,duration:0.36,ease:'back.out(1.6)'},at); }
+
+      tl.from(R+'.bug',{opacity:0,duration:0.6},0.8);
+
+      // ---- s3a (0.0): REC arms + pulses, caption, cursor click ----
+      tl.from(R+'#s3a .spinewrap',{opacity:0,y:-16,duration:0.6,ease:'power3.out'},0.2);
+      tl.from(R+'#s3a .bigrec',{opacity:0,scale:0.7,duration:0.55,ease:'back.out(1.6)'},0.5);
+      tl.from(R+'#s3a .capchip',{opacity:0,y:20,duration:0.5,ease:'power3.out'},1.1);
+      // REC dot pulses (finite)
+      tl.to(R+'#a-dot',{opacity:0.3,duration:0.6,yoyo:true,repeat:5,ease:'sine.inOut'},0.9);
+      // cursor click motion — move to target, click ring, retract (looped finite x2)
+      tl.fromTo(R+'#a-cursor',{x:60,y:44},{x:0,y:0,duration:0.7,ease:'power2.inOut'},1.4);
+      tl.to(R+'#a-ring',{opacity:0.9,scale:1.5,duration:0.45,ease:'power2.out'},2.1);
+      tl.to(R+'#a-ring',{opacity:0,duration:0.3,ease:'power1.out'},2.55);
+      tl.set(R+'#a-ring',{scale:1},2.9);
+      tl.fromTo(R+'#a-cursor',{x:0,y:0},{x:60,y:44,duration:0.6,ease:'power2.inOut'},3.0);
+      tl.fromTo(R+'#a-cursor',{x:60,y:44},{x:0,y:0,duration:0.7,ease:'power2.inOut'},3.6);
+      tl.to(R+'#a-ring',{opacity:0.9,scale:1.5,duration:0.45,ease:'power2.out'},4.05);
+
+      // ---- s3b (4.59): crossfade in ----
+      fadeOut('#s3a',4.59); fadeIn('#s3b',4.59);
+      tl.from(R+'#s3b .panels .win',{opacity:0,y:26,duration:0.6,stagger:0.18,ease:'power3.out'},4.9);
+
+      // log rows populate one at a time (typewrite each, staggered)
+      tl.to(R+'#lr1',{opacity:1,duration:0.2},5.6);
+      typewrite('#lr1 span:last-child','▸ Search',0.5,5.6);
+      tl.to(R+'#lr2',{opacity:1,duration:0.2},7.0);
+      typewrite('#lr2 span:last-child','▸ "invoice"',0.6,7.0);
+      tl.to(R+'#lr3',{opacity:1,duration:0.2},8.6);
+      typewrite('#lr3 span:last-child','▸ Enter',0.5,8.6);
+
+      // right panel: REC corner dot pulses (finite) + scanline sweep top->bottom (finite repeat)
+      tl.to(R+'#b-reccd',{opacity:0.3,duration:0.55,yoyo:true,repeat:9,ease:'sine.inOut'},5.2);
+      tl.fromTo(R+'#b-scan',{top:'-26px'},{top:'300px',duration:1.6,ease:'sine.inOut',repeat:5},5.4);
+
+      // ~11s: PRECISION + PICTURE payoff stamps in
+      stamp('#b-pay',11.0);
+      tl.to(R+'#b-pay',{boxShadow:'0 16px 70px rgba(232,88,16,0.85)',duration:0.7,yoyo:true,repeat:2,ease:'sine.inOut'},11.4);
+
+      // OS chips (16.68): stagger in along the bottom (fromTo so they stay hidden until cue)
+      tl.fromTo(R+'#os1',{opacity:0,y:24},{opacity:1,y:0,duration:0.45,ease:'back.out(1.5)'},16.68);
+      tl.fromTo(R+'#os2',{opacity:0,y:24},{opacity:1,y:0,duration:0.45,ease:'back.out(1.5)'},16.98);
+      tl.fromTo(R+'#os3',{opacity:0,y:24},{opacity:1,y:0,duration:0.45,ease:'back.out(1.5)'},17.28);
+
+      window.__timelines["seg3"] = tl;
+    </script>
+  </div>
+</body>
+</html>

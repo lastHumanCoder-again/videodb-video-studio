@@ -1,0 +1,16 @@
+{
+  "slug": "chess-vision",
+  "pipeline": "youtube-longform",
+  "next_steps": [
+    "Study the worked example: npm install && npx hyperframes preview (8 segments, 3-5 min video essay)",
+    "Write SCRIPT.md — one segment per idea, on-screen text separate from VO (see references/VIDEO_PLAYBOOK.md §2)",
+    "Confirm DESIGN.md with the user before any HTML (design gate)",
+    "Voiceover: edit voiceover/segments.json, then run the skill's scripts/tts.py — or generate VO yourself and drop MP3s into voiceover/",
+    "Transcribe every MP3: npx hyperframes transcribe voiceover/<seg>.mp3 (word-level, never skip)",
+    "Cues: edit voiceover/cues_spec.json (phrase per scene), run scripts/extract_cues.py — anchor all scene transitions to real times",
+    "Build compositions/segN.html mirroring the example's structure; assemble root with 0.6s gaps + alternating tracks",
+    "AI images for photographic beats: scripts/gen_image.py out.png 16:9 \"prompt\"",
+    "QA: npx hyperframes lint && validate && inspect --samples 60; extract frames and eyeball",
+    "Render: draft first, HQ when frames look right"
+  ]
+}
