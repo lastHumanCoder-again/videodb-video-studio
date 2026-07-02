@@ -53,9 +53,22 @@ def reslug(root, old, new):
     return changed, leftovers
 
 
+def hex_to_rgb(h):
+    h = h.lstrip("#")
+    if len(h) == 3:
+        h = "".join(c * 2 for c in h)
+    return tuple(int(h[i:i + 2], 16) for i in (0, 2, 4))
+
+
 def apply_brand(root, colors):
-    """Inside BRAND:START/END blocks, rewrite hex values on brand:<token> annotated lines."""
+    """Two passes. (1) Inside BRAND:START/END blocks, rewrite hex values on
+    brand:<token> annotated lines — collecting each token's ORIGINAL value.
+    (2) Globally replace those original values everywhere (hex, and rgba/rgb
+    triples), so accent literals in inline JS / gradients / box-shadow glows
+    follow the token too. Colors NOT annotated in any BRAND block are never
+    touched (that's how a template keeps a deliberate secondary literal)."""
     rewritten = 0
+    originals = {}  # original hex (lowercase) -> token
     for p in iter_text_files(root):
         try:
             lines = p.read_text().splitlines(keepends=True)
@@ -77,6 +90,11 @@ def apply_brand(root, colors):
             token = m.group(1)
             if token not in colors:
                 continue
+            old = HEX_RE.search(line)
+            if not old:
+                continue
+            if originals.setdefault(old.group(0).lower(), token) != token:
+                originals[old.group(0).lower()] = None  # ambiguous: two tokens share a value
             new_line, n = HEX_RE.subn(colors[token], line, count=1)
             if n:
                 lines[i] = new_line
@@ -84,6 +102,28 @@ def apply_brand(root, colors):
                 dirty = True
         if dirty:
             p.write_text("".join(lines))
+
+    # Pass 2: chase the original values through the whole project.
+    subs = []
+    for old_hex, token in originals.items():
+        if token is None or colors[token].lower() == old_hex:
+            continue
+        subs.append((re.compile(re.escape(old_hex), re.IGNORECASE), colors[token]))
+        r, g, b = hex_to_rgb(old_hex)
+        nr, ng, nb = hex_to_rgb(colors[token])
+        subs.append((re.compile(rf"(rgba?\()\s*{r}\s*,\s*{g}\s*,\s*{b}\b"), rf"\g<1>{nr},{ng},{nb}"))
+    if subs:
+        for p in iter_text_files(root):
+            try:
+                text = p.read_text()
+            except UnicodeDecodeError:
+                continue
+            new_text = text
+            for pat, repl in subs:
+                new_text = pat.sub(repl, new_text)
+            if new_text != text:
+                p.write_text(new_text)
+                rewritten += 1
     return rewritten
 
 
