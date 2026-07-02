@@ -1,6 +1,6 @@
 ---
 name: videodb-video-studio
-description: "Umbrella video-production studio packaging 6 HyperFrames pipelines, VideoDB-branded by default: (1) YouTube long-form explainer / video essay 3-5min 1920x1080, (2) Instagram short / reel 15-60s 1080x1920 with karaoke captions, (3) split-screen UGC talking-head 9:16 with animated cards, (4) HTML slide deck to PDF/PNG with hand-drawn art, (5) product demo / launch video with Playwright screen capture, (6) highlights reel repurposing. Router skill: state your intent and it loads the matching playbook and scaffolds a full worked example. BYO-key optional (ElevenLabs TTS, Kie.ai images) — everything scaffolds and renders with zero keys. Triggers: make a short, instagram reel, vertical video, youtube explainer, long-form video, video essay, split screen, ugc video, talking head video, slide deck, carousel, launch video, demo recording, product demo video, highlights reel, karaoke captions, VideoDB video, rebrand a video template."
+description: "Umbrella video-production studio packaging 6 HyperFrames pipelines, VideoDB-branded by default: (1) YouTube long-form explainer / video essay 3-5min 1920x1080, (2) Instagram short / reel 15-60s 1080x1920 with karaoke captions, (3) split-screen UGC talking-head 9:16 with animated cards, (4) HTML slide deck to PDF/PNG with hand-drawn art, (5) product demo / launch video with Playwright screen capture, (6) highlights reel repurposing, (7) replicate — watch any reference video and compile its style into a REPLICATION spec, then rebuild it with new content. Router skill: state your intent and it loads the matching playbook and scaffolds a full worked example. BYO-key optional (ElevenLabs TTS, Kie.ai images, VideoDB vision layer) — everything scaffolds and renders with zero keys. Triggers: make a short, instagram reel, vertical video, youtube explainer, long-form video, video essay, split screen, ugc video, talking head video, slide deck, carousel, launch video, demo recording, product demo video, highlights reel, karaoke captions, VideoDB video, rebrand a video template, make one like this video, copy this video's style, replicate this video."
 ---
 
 # VideoDB Video Studio
@@ -30,6 +30,7 @@ Set once per session: `SKILL_DIR="$HOME/.claude/skills/videodb-video-studio"` (a
 | Voiceover (BYO key) | `python3 "$SKILL_DIR/scripts/tts.py"` (run in project root; reads `voiceover/segments.json`) |
 | Cue extraction | `python3 "$SKILL_DIR/scripts/extract_cues.py"` (run in project root) |
 | AI image (BYO key) | `python3 "$SKILL_DIR/scripts/gen_image.py" out.png 16:9 "prompt"` |
+| Analyze reference video | `python3 "$SKILL_DIR/scripts/analyze_reference.py" <video or URL> [--out DIR]` |
 
 ## STEP 0 — Setup gate
 
@@ -45,6 +46,9 @@ Before the first scaffold, check `"$SKILL_DIR/workspace/config.json"`. Missing �
 | deck, slides, pdf, carousel, presentation | `deck` | 16:9 slides | n/a |
 | launch video, demo video, screen recording, product demo | `demo-recording` | 1920×1080 · 24 | ~2 min |
 | highlights, repurpose, clips reel | `highlights` | 1080×1920 · 30 | ~25 s |
+| make one like this video, copy this style/format, replicate this | `replicate` | inherits from reference | matches reference |
+
+`replicate` is a meta-pipeline: it analyzes a reference video (`scripts/analyze_reference.py` — ffmpeg always; VideoDB vision layer with a BYO `VIDEO_DB_API_KEY`, uses account credits so confirm first), compiles a REPLICATION.md style spec, then routes into one of the six pipelines above. Style and structure only — never the reference's assets or script.
 
 Then read **only** `references/pipelines/<pipeline>.md` plus `references/VIDEO_PLAYBOOK.md` (the master methodology). Do not load the other five pipeline docs. Ambiguous intent → ask ONE question (e.g. "vertical for IG or horizontal for YouTube?").
 

@@ -17,6 +17,7 @@ Scripts resolve keys in this order (first hit wins):
 | `ELEVENLABS_API_KEY` | `scripts/tts.py` — voiceover from `voiceover/segments.json` | Prints each segment's text as a paste-ready block; generate the VO in any tool, save as `voiceover/<segment>.mp3` |
 | `ELEVENLABS_VOICE_ID` | default voice when `segments.json` has no `voice_id` | — |
 | `KIE_API_KEY` | `scripts/gen_image.py` — AI images (Kie.ai nano-banana-pro) | Prints the prompt + aspect ratio as a paste-ready block; save the image to the target path |
+| `VIDEO_DB_API_KEY` | `scripts/analyze_reference.py` — the vision layer for the `replicate` pipeline (upload reference, per-scene visual descriptions + transcript; needs `pip install videodb`) | ffmpeg layer still runs on local files (format, pacing, frames, palette); only URL sources and scene descriptions need the key |
 
 Everything else — scaffolding, transcription (`npx hyperframes transcribe`, local Whisper), cue extraction, building, lint/validate/inspect, rendering — is fully local and keyless.
 

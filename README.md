@@ -10,8 +10,11 @@ Six production-tested video pipelines, one install. Built on [HyperFrames](https
 | `deck` | HTML slides → PDF + PNGs, hand-drawn art | 16:9 slides | — |
 | `demo-recording` | Product launch video + Playwright screen-capture stack | 1920×1080 · 24fps | ~2 min |
 | `highlights` | Auto-clips highlights reel | 1080×1920 · 30fps | ~25 s |
+| `replicate` | Show it a video → it compiles the style → rebuilds it with your content | inherits | matches ref |
 
 Every template is a **full worked example** — a real, finished video that renders as-is with **zero API keys**.
+
+**Replicate any video.** `scripts/analyze_reference.py <video or URL>` analyzes a reference two ways — ffmpeg locally (format, pacing, frames, palette) and optionally the **VideoDB vision layer** (`VIDEO_DB_API_KEY` + `pip install videodb`: upload → transcript → a design-oriented visual description of every scene). The agent compiles that into a `REPLICATION.md` style spec and rebuilds the video with your content through the matching pipeline. Same idea as [open-record-replay](https://github.com/video-db/open-record-replay), but for video style: watch once, compile, replay anywhere. Style and structure only — never the reference's assets or script.
 
 ## Demos
 
